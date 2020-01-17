@@ -1,6 +1,6 @@
 #define __unsigned_chars__ 1	/* Predefined */
 #define __DATE__ "Jan 17 2020"	/* Predefined */
-#define __TIME__ "12:05:47"	/* Predefined */
+#define __TIME__ "12:46:36"	/* Predefined */
 #define __STDC__ 1	/* Predefined */
 #define __STDC_VERSION__ 199409L	/* Predefined */
 #define __TI_C99_COMPLEX_ENABLED__ 1	/* Predefined */
@@ -34,4 +34,5 @@
 #define __TI_STRICT_FP_MODE__ 1	/* Predefined */
 #define _OPTIMIZE_FOR_SPACE 1
 #define __MSP430FR6989__ 1
+#define _MPU_ENABLE 1
 #define _INLINE 1

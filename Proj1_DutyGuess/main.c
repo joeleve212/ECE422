@@ -8,6 +8,11 @@
 
 #include <msp430.h> 
 #include <stdlib.h>
+#include <string.h>
+#include <driverlib.h> // Required for the LCD
+#include "myGpio.h" // Required for the LCD
+#include "myClocks.h" // Required for the LCD
+#include "myLcd.h" // Required for the LCD
 #define STOP_WATCHDOG 0x5A80 // Stop the watchdog timer
 #define ACLK 0x0100 // Timer ACLK source
 #define UP 0x0010 // Timer UP mode
@@ -18,9 +23,45 @@
 int cycTotal;
 float actDutyPerc, guessDutyPerc;
 
+void ScrollWords(char words[250]){
+	unsigned int length; // Contains length of message to be displayed
+	unsigned int slot; // Slot to be displayed on LCD (1, 2, 3, 4, 5, or 6)
+	unsigned int amount_shifted; // Number of times message shifted so far
+	unsigned int offset; // Used with amount_shifted to get correct character to display
+	unsigned long delay; // Used to implement delay between scrolling iterations
+	unsigned char next_char; // Next character from message to be displayed
+	length = strlen(words); // Get the length of the message stored in words
+	amount_shifted=0; // We have not shifted the message yet
+	offset=0; // There is no offset yet
+	while( amount_shifted < length+7 ) // Loop as long as you haven't shifted all
+	{ // of the characters off the LCD screen
+		offset=amount_shifted; // Starting point in message for next LCD update
+		for(slot = 1;slot<=6;slot++){ // Loop 6 times to display 6 characters at a time
+			next_char = words[offset-6]; // Get the current character for LCD slot
+			if(next_char && (offset>=6) && (offset<=length+6) ){ // If character is not null AND
+				// LCD is not filled (offset>=6) AND
+				// You have not reached end of message
+				// (offset<=length+6)
+				myLCD_showChar(next_char,slot); // Show the next character on the LCD
+				// screen in correct slot
+			}
+			else{ // Else, slot on LCD should be blank
+				myLCD_showChar(' ',slot); // So, add a blank space to slot
+			}
+			offset++; // Update as you move across the message
+		}// end for
+		for(delay=0 ; delay<1234 ; delay=delay+1); // Delay between shifts
+		amount_shifted = amount_shifted + 1; // Update times words shifted across LCD
+	}// end while
+}// end ScrollWords
+
 int main(void) {
 	WDTCTL = WDTPW + WDTHOLD; 				// Stop watchdog timer
 	PM5CTL0 = ENABLE_PINS; 				// Enable inputs and outputs
+//	initGPIO(); // Initialize General Purpose Inputs and Outputs for the LCD
+//	initClocks(); // Initialize clocks for the LCD
+//	myLCD_init(); // Initialize Liquid Crystal Display
+//	myLCD_showSymbol(LCD_UPDATE,LCD_BRACKETS,0);
 
 	P1DIR = P1DIR | BIT0; 					// P1.0 (Red LED) will be an output
 	P1OUT = P1OUT & ~BIT0; 					// Turn OFF P1.0 (Red LED)
@@ -65,13 +106,13 @@ int main(void) {
 	P1SEL1 = P1SEL1 & ~0x01;				// Setup pin P1.0 to output from the TA0 clock
 
 	guessDutyPerc = (float)((rand() % (percSpread +1))+minPerc)/100.0; //randomize the green light duty cycle
-	TA1CCR0 = cycTotal;						// Sets value of Timer_1 to same frequency as timer 0             ///////////////TODO: look at TB0 vs TA1
+	TA1CCR0 = cycTotal;						// Sets value of Timer_1 to same frequency as timer 0
 	TA1CCR1 = TA1CCR0 * guessDutyPerc;				// sets CCR1 to check for randomized duty
 	TA1CTL = ACLK + UP + TACLR; 			// Start TA1 from zero with ACLK in UP MODE
 	TA1CCTL1 = RESET_SET;					// Setup TA1 to output in Reset/Set mode
 
-	P3SEL0 &= ~BIT3;					// Setup pin P3.3 to output from the TA1 clock                 ////////////////////////TODO: CHECK INTO P9SEL0 VS P1SEL0
-	P3SEL1 |= BIT3;				// Setup pin P3.3 to output from the TA1 clock
+	P5SEL0 &= ~BIT0;					// Setup pin P3.3 to output from the TA1 clock
+	P5SEL1 |= BIT0;				// Setup pin P3.3 to output from the TA1 clock
 
 	TA0CTL = TA0CTL | 0x0010;				// Start the clock
 	TA1CTL = TA1CTL | 0x0010;				// Start the clock
@@ -79,6 +120,7 @@ int main(void) {
 
 	
 	_BIS_SR(LPM0_bits | GIE); // Enter Low Power Mode 0 and activate interrupts
+	//ScrollWords("YAY ");
 	while(1);
 }
 
