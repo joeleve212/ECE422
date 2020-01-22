@@ -45,6 +45,7 @@ main.obj: D:/Junior\ Year/ECE422/Proj1_DutyGuess/driverlib/MSP430FR5xx_6xx/wdt_a
 main.obj: ../myGpio.h
 main.obj: ../myClocks.h
 main.obj: ../myLcd.h
+main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/time.h
 
 ../main.c: 
 C:/ti/ccsv6/ccs_base/msp430/include/msp430.h: 
@@ -91,3 +92,4 @@ D:/Junior\ Year/ECE422/Proj1_DutyGuess/driverlib/MSP430FR5xx_6xx/wdt_a.h:
 ../myGpio.h: 
 ../myClocks.h: 
 ../myLcd.h: 
+C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/time.h: 

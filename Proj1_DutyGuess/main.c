@@ -13,6 +13,7 @@
 #include "myGpio.h" // Required for the LCD
 #include "myClocks.h" // Required for the LCD
 #include "myLcd.h" // Required for the LCD
+#include <time.h>
 #define STOP_WATCHDOG 0x5A80 // Stop the watchdog timer
 #define ACLK 0x0100 // Timer ACLK source
 #define UP 0x0010 // Timer UP mode
@@ -85,6 +86,7 @@ void itoa(long unsigned int value, char* result, int base){
 }
 
 int main(void) {
+	srand(time(0));
 	WDTCTL = WDTPW + WDTHOLD; 				// Stop watchdog timer
 	PM5CTL0 = ENABLE_PINS; 				// Enable inputs and outputs
 	initGPIO(); // Initialize General Purpose Inputs and Outputs for the LCD
@@ -93,9 +95,6 @@ int main(void) {
 
 	P1DIR = P1DIR | BIT0; 					// P1.0 (Red LED) will be an output
 	P1OUT = P1OUT & ~BIT0; 					// Turn OFF P1.0 (Red LED)
-
-	P1DIR |= BIT7; 					// P1.7 (green LED) will be an output
-	P1OUT &= ~BIT7; 					// Turn OFF P1.7 (green LED)
 
 	P1DIR = P1DIR & ~BIT1; 				// P1.1 (Button S1) will be an input
 	P1REN = P1REN | BIT1;					// P1.1 will have a pull-up
@@ -127,7 +126,7 @@ int main(void) {
 	P1SEL0 = P1SEL0 | 0x01;					// Setup pin P1.0 to output from the TA0 clock
 	P1SEL1 = P1SEL1 & ~0x01;				// Setup pin P1.0 to output from the TA0 clock
 
-	actDutyPerc = (float)((rand() % (percSpread +1))+minPerc)/100.0; //randomize the green light duty cycle
+	actDutyPerc = (float)((rand() % (percSpread +1))+minPerc)/100.0; //randomize the external light duty cycle
 	TA0CCR2 = TA0CCR0 * actDutyPerc;				// sets CCR2 to check for randomized duty
 	TA0CTL = ACLK + UP + TACLR; 			// Start TA0 from zero with ACLK in UP MODE
 	TA0CCTL2 = RESET_SET;					// Setup TA0 to output in Reset/Set mode
@@ -136,7 +135,7 @@ int main(void) {
 	P1SEL1 |= BIT7;				// Setup pin P1.7 to output from the TA0 clock
 
 	TA0CTL = TA0CTL | 0x0010;				// Start the clock
-
+	//Print out instructions for game
 	//ScrollWords("GUESS THE EXTERNAL LED DUTY CYCLE ON THE RED LED IN TEN TRIALS   LEFT BUTTON INCREASES CYCLE   RIGHT BUTTON DECREASES CYCLE   EXTERNAL BUTTON SUBMITS"); //TODO: add button instructions
 	_BIS_SR(LPM0_bits | GIE); // Enter Low Power Mode 0 and activate interrupts
 }
@@ -146,17 +145,13 @@ int main(void) {
 __interrupt void buttonPressed(void){
 	//check which button
 	TA0CTL = TA0CTL & ~0x0010;				// Stop the clock
-	if(P1IFG & 0x02){
-		//btn 1.1
+	if(P1IFG & 0x02){ //btn 1.1
 		//adjust duty cycle - increment
 		TA0CCR1 += STEP_SIZE;
-	} else if(P1IFG & 0x04){
-		//btn 1.2
+	} else if(P1IFG & 0x04){ //btn 1.2
 		//adjust duty cycle - decrement
 		TA0CCR1 -= STEP_SIZE;
-	} else if(P1IFG & 0x08){
-		//btn 1.3
-		//guessVal = C
+	} else if(P1IFG & 0x08){ //btn 1.3
 		int guessed = TA0CCR1;
 		int actual = TA0CCR2;
 		percErr[submit] = (float)abs(guessed - actual)/(float)actual;//
@@ -165,31 +160,31 @@ __interrupt void buttonPressed(void){
 		itoa(percErr[submit-1]*100,currErr,10);
 		ScrollWords("PERCENT ERROR ");
 		ScrollWords(currErr);
-//TODO: make LED go on for good guess, off for bad guess
-		P9OUT = P9OUT ^ BIT7; //toggle green LED
 		//re-randomize duty cycles & frequency
-		cycTotal = (rand() % (valSpread+1))+minVal; //randomize frequency
-		TA0CCR0 = cycTotal;
+		cycTotal = (rand() % (valSpread+1))+minVal; //randomize frequency again
+		TA0CCR0 = cycTotal; //assign value to register to determine frequency
 		TA0CCR1 = cycTotal * (float)((rand() % (percSpread +1))+minPerc)/100.0; //randomize red light duty cycle
 		TA0CCR2 = cycTotal * (float)((rand() % (percSpread +1))+minPerc)/100.0; //randomize external light duty cycle
 	}
-	if(TA0CCR0<4630){TA0CCR0 = 4630;}
-	else if(TA0CCR0>18520){TA0CCR0 = 18520;}
+	if((float)TA0CCR1/(float)TA0CCR0<.1){TA0CCR1 = .1*TA0CCR0;} //check if LED duty cycle is out of bounds (<10%), put at 10%
+	else if((float)TA0CCR1/(float)TA0CCR0>.9){TA0CCR1 = .9*TA0CCR0;} //check if duty cycle is out of bounds (>90%), put at 90%
 	TA0CTL = TA0CTL | 0x0010;				// Start the clock
 
-	if(submit >= 10){//TODO: checks if 10 trials are done
-		int i = 0, total = 0;
-		for(;i<10;i++){
+	if(submit >= 10){//checks if 10 trials are done
+		int i = 0;
+		float total = 0.0;
+		for(;i<10;i++){ //sum all percent errors
 			total += percErr[i];
 		}
-		avgErr = total*10.0;
-		//TODO: display average & kill process
+		avgErr = total*10.0; //take average of errors
 		char displayString[10];
-		itoa(avgErr,displayString,10);
-		ScrollWords(displayString);
+		itoa(avgErr,displayString,10); //convert error to string
+		ScrollWords("GAME FINISHED   YOUR AVG PERCENT ERROR IS"); //print end message to LCD
+		ScrollWords(displayString);				//print average value to LCD
+		TA0CTL = TA0CTL & ~0x0010;				// Stop the clock
 	}
 
-	P1IFG = P1IFG & (~BIT3);
-	P1IFG = P1IFG & (~BIT2);
-	P1IFG = P1IFG & (~BIT1);
+	P1IFG = P1IFG & (~BIT3); //clear P1.3 flag
+	P1IFG = P1IFG & (~BIT2); //clear P1.2 flag
+	P1IFG = P1IFG & (~BIT1); //clear P1.1 flag
 }

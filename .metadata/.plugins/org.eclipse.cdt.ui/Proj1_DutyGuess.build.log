@@ -5,51 +5,58 @@
 'Building file: ../main.c'
 'Invoking: MSP430 Compiler'
 "C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --include_path="C:/ti/ccsv6/ccs_base/msp430/include" --include_path="D:/Junior Year/ECE422/Proj1_DutyGuess/driverlib/MSP430FR5xx_6xx" --include_path="C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --define=_MPU_ENABLE --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="main.d"  "../main.c"
-"../main.c", line 44: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
-"../main.c", line 58: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
-"../main.c", line 58: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
-"../main.c", line 72: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 120: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 121: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 130: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 162: remark #2553-D: (ULP 14.1) Array index (involving "submit") of type "int". Recommend using "unsigned int"
-"../main.c", line 162: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 165: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function itoa. Recommend moving function call away from ISR, or inlining the function, or using pragmas
-"../main.c", line 165: remark #2553-D: (ULP 14.1) Array index (involving "submit") of type "int". Recommend using "unsigned int"
-"../main.c", line 166: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function ScrollWords. Recommend moving function call away from ISR, or inlining the function, or using pragmas
-"../main.c", line 167: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function ScrollWords. Recommend moving function call away from ISR, or inlining the function, or using pragmas
-"../main.c", line 171: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 171: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function rand. Recommend moving function call away from ISR, or inlining the function, or using pragmas
-"../main.c", line 173: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 173: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function rand. Recommend moving function call away from ISR, or inlining the function, or using pragmas
-"../main.c", line 174: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 174: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function rand. Recommend moving function call away from ISR, or inlining the function, or using pragmas
-"../main.c", line 182: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
-"../main.c", line 183: remark #2553-D: (ULP 14.1) Array index (involving "i") of type "int". Recommend using "unsigned int"
-"../main.c", line 188: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function itoa. Recommend moving function call away from ISR, or inlining the function, or using pragmas
-"../main.c", line 189: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function ScrollWords. Recommend moving function call away from ISR, or inlining the function, or using pragmas
-"../main.c", line 162: remark #2553-D: (ULP 14.1) Array index (involving "submit") of type "int". Recommend using "unsigned int"
-"../main.c", line 165: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function itoa. Recommend moving function call away from ISR, or inlining the function, or using pragmas
-"../main.c", line 165: remark #2553-D: (ULP 14.1) Array index (involving "submit") of type "int". Recommend using "unsigned int"
-"../main.c", line 166: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function ScrollWords. Recommend moving function call away from ISR, or inlining the function, or using pragmas
-"../main.c", line 167: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function ScrollWords. Recommend moving function call away from ISR, or inlining the function, or using pragmas
-"../main.c", line 171: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function rand. Recommend moving function call away from ISR, or inlining the function, or using pragmas
-"../main.c", line 173: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function rand. Recommend moving function call away from ISR, or inlining the function, or using pragmas
-"../main.c", line 174: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function rand. Recommend moving function call away from ISR, or inlining the function, or using pragmas
-"../main.c", line 182: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
-"../main.c", line 183: remark #2553-D: (ULP 14.1) Array index (involving "i") of type "int". Recommend using "unsigned int"
-"../main.c", line 188: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function itoa. Recommend moving function call away from ISR, or inlining the function, or using pragmas
-"../main.c", line 189: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function ScrollWords. Recommend moving function call away from ISR, or inlining the function, or using pragmas
-"../main.c", line 28: remark #1535-D: (ULP 8.1) variable "percErr" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
-"../main.c", line 121 (col. 16): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 123 (col. 20): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 130 (col. 14): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 131 (col. 20): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 162 (col. 19): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 165 (col. 25): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 173 (col. 67): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 174 (col. 67): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 185 (col. 10): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 45: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 59: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 59: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../main.c", line 73: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 119: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 120: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 129: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 157: remark #2553-D: (ULP 14.1) Array index (involving "submit") of type "int". Recommend using "unsigned int"
+"../main.c", line 157: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 160: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function itoa. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 160: remark #2553-D: (ULP 14.1) Array index (involving "submit") of type "int". Recommend using "unsigned int"
+"../main.c", line 161: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function ScrollWords. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 162: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function ScrollWords. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 164: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 164: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function rand. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 166: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 166: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function rand. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 167: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 167: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function rand. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 169: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 170: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 176: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 177: remark #2553-D: (ULP 14.1) Array index (involving "i") of type "int". Recommend using "unsigned int"
+"../main.c", line 182: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function itoa. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 183: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function ScrollWords. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 184: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function ScrollWords. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 157: remark #2553-D: (ULP 14.1) Array index (involving "submit") of type "int". Recommend using "unsigned int"
+"../main.c", line 160: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function itoa. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 160: remark #2553-D: (ULP 14.1) Array index (involving "submit") of type "int". Recommend using "unsigned int"
+"../main.c", line 161: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function ScrollWords. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 162: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function ScrollWords. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 164: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function rand. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 166: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function rand. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 167: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function rand. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 176: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 177: remark #2553-D: (ULP 14.1) Array index (involving "i") of type "int". Recommend using "unsigned int"
+"../main.c", line 182: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function itoa. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 183: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function ScrollWords. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 184: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function ScrollWords. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 29: remark #1535-D: (ULP 8.1) variable "percErr" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../main.c", line 120 (col. 16): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 122 (col. 20): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 129 (col. 14): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 130 (col. 20): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 157 (col. 19): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 160 (col. 25): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 166 (col. 67): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 167 (col. 67): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 169 (col. 34): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 170 (col. 39): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 177 (col. 10): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 179 (col. 10): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
 'Finished building: ../main.c'
 ' '
 'Building target: Proj1_DutyGuess.out'
