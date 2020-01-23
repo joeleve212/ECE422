@@ -96,6 +96,9 @@ int main(void) {
 	P1DIR = P1DIR | BIT0; 					// P1.0 (Red LED) will be an output
 	P1OUT = P1OUT & ~BIT0; 					// Turn OFF P1.0 (Red LED)
 
+	P1DIR |= BIT7; 					// P1.7 (external LED) will be an output
+	P1OUT &= ~BIT7; 					// Turn OFF P1.7 (external LED)
+
 	P1DIR = P1DIR & ~BIT1; 				// P1.1 (Button S1) will be an input
 	P1REN = P1REN | BIT1;					// P1.1 will have a pull-up
 	P1OUT = P1OUT | BIT1; 					// resistor.
