@@ -139,7 +139,7 @@ int main(void) {
 
 	TA0CTL = TA0CTL | 0x0010;				// Start the clock
 	//Print out instructions for game
-	//ScrollWords("GUESS THE EXTERNAL LED DUTY CYCLE ON THE RED LED IN TEN TRIALS   LEFT BUTTON INCREASES CYCLE   RIGHT BUTTON DECREASES CYCLE   EXTERNAL BUTTON SUBMITS"); //TODO: add button instructions
+	ScrollWords("GUESS THE EXTERNAL LED DUTY CYCLE ON THE RED LED IN TEN TRIALS   LEFT BUTTON INCREASES CYCLE   RIGHT BUTTON DECREASES CYCLE   EXTERNAL BUTTON SUBMITS"); //TODO: add button instructions
 	_BIS_SR(LPM0_bits | GIE); // Enter Low Power Mode 0 and activate interrupts
 }
 
