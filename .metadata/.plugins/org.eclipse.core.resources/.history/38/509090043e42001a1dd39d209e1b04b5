@@ -1,0 +1,90 @@
+/* ECE 422 - Joe Leveille
+ * Assignment 3 - Displaying numbers on LCD
+ *
+ */
+
+
+#include <msp430.h>
+#include <stdlib.h>
+#include <string.h>
+#include <driverlib.h> // Required for the LCD
+#include "myGpio.h" // Required for the LCD
+#include "myClocks.h" // Required for the LCD
+#include "myLcd.h" // Required for the LCD
+#include <time.h>
+#define ACLK 0x0100 				// Timer ACLK source
+#define UP 0x0010 					// Timer Up mode
+
+void ADC_SETUP(void){
+	#define ADC12_SHT_16 0x0200 // 16 clock cycles for sample and hold
+	#define ADC12_ON 0x0010 // Used to turn ADC12 peripheral on
+	#define ADC12_SHT_SRC_SEL 0x0200 // Selects source for sample & hold
+	#define ADC12_12BIT 0x0020 // Selects 12-bits of resolution
+	#define ADC12_P84 0x0007 // Use input P8.4 for analog input
+	#define ADC12_P85 0x0006 // Use input P8.5 for analog input
+	#define ADC12_P86 0x0005 // Use input P8.6 for analog input
+	#define ADC12_P87 0x0004 // Use input P8.7 for analog input
+	#define ADC12_P90 0x0008 // Use input P9.0 for analog input
+	#define ADC12_P91 0x0009 // Use input P9.1 for analog input
+	#define ADC12_P92 0x000A // Use input P9.2 for analog input
+	#define ADC12_P93 0x000B // Use input P9.3 for analog input
+	#define ADC12_P95 0x000D // Use input P9.5 for analog input
+	#define ADC12_P96 0x000E // Use input P9.6 for analog input
+	ADC12CTL0 = ADC12_SHT_16 | ADC12_ON ; // Turn on, set sample & hold time
+	ADC12CTL1 = ADC12_SHT_SRC_SEL; // Specify sample & hold clock source
+	ADC12CTL2 = ADC12_12BIT; // 12-bit conversion results
+	ADC12MCTL0 = ADC12_P92; // P9.2 is analog input
+}
+
+main() {
+//	signed long i = -50; // Number to be displayed
+//	unsigned long j = 0;              // For delay
+	ADC_SETUP(); // Sets up ADC peripheral
+	WDTCTL = 0x5A80;           // Disable WDT (poor doggy!)
+	initGPIO();                    // Initializes Inputs and Outputs for LCD
+	initClocks();                   // Initialize clocks for LCD
+	myLCD_init();                   // Prepares LCD to receive commands
+
+
+
+	TA0CCR0 = 9600;		//set timer for quarter second
+	TA0CTL = ACLK + UP + TACLR;
+	TA0CCTL0 = CCIE; // Enable interrupt for Timer_0
+//	while (1) {
+//		myLCD_displayNumber(abs(i));     // Display the number
+//		if(i<0){
+//			myLCD_showSymbol(LCD_UPDATE , LCD_NEG , 0);  // Turn on negative sign
+//		} else{
+//			myLCD_showSymbol(LCD_CLEAR  , LCD_NEG , 0);  // Turn off negative sign
+//		}
+//		i = i + 1;                    // Increment the number
+//		for (j = 0; j < 123456; j++);      // Delay
+//	}
+
+
+	ADC12CTL0 = ADC12CTL0 | ADC12ENC; // Enable conversion
+	ADC12CTL0 = ADC12CTL0 | ADC12SC; // Start next conversion
+
+	ADC12IER0 = ADC12IE0; // Enable ADC interrupt
+	_BIS_SR(GIE); // Activate interrupts
+	while(1);
+}
+
+#pragma vector = ADC12_VECTOR
+__interrupt void ADC12_ISR(void){
+
+	ADC12CTL0 = ADC12CTL0 & (~ADC12ENC); // Need to disable peripheral
+
+//	ADC12CTL0 = ADC12CTL0 | ADC12ENC; // Re-enable conversion
+//	ADC12CTL0 = ADC12CTL0 | ADC12SC; // Start next conversion
+}
+
+#pragma vector=TIMER0_A0_VECTOR
+__interrupt void WDTresetTimer(void) {
+	ADC12CTL0 = ADC12CTL0 & (~ADC12ENC); // Need to disable peripheral
+	myLCD_displayNumber(abs(ADC12MEM0));     // Display the number
+	ADC12CTL0 = ADC12CTL0 | ADC12ENC; // Re-enable conversion
+	ADC12CTL0 = ADC12CTL0 | ADC12SC; // Start next conversion
+	TA0CTL |= TACLR;
+	TA0CTL &= ~TAIFG;
+}
