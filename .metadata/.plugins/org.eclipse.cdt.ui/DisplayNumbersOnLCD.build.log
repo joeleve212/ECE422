@@ -5,10 +5,10 @@
 'Building file: ../main.c'
 'Invoking: MSP430 Compiler'
 "C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --include_path="D:/Junior Year/ECE422/DisplayNumbersOnLCD/driverlib/MSP430FR5xx_6xx" --include_path="C:/ti/ccsv6/ccs_base/msp430/include" --include_path="C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="main.d"  "../main.c"
-"../main.c", line 68: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
-"../main.c", line 84: remark #1538-D: (ULP 10.1) ISR timerInterrupt calls function myLCD_displayNumber. Recommend moving function call away from ISR, or inlining the function, or using pragmas
-"../main.c", line 84: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 85: remark #1538-D: (ULP 10.1) ISR timerInterrupt calls function myLCD_showSymbol. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 55: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../main.c", line 62: remark #1538-D: (ULP 10.1) ISR timerInterrupt calls function myLCD_displayNumber. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 62: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 63: remark #1538-D: (ULP 10.1) ISR timerInterrupt calls function myLCD_showSymbol. Recommend moving function call away from ISR, or inlining the function, or using pragmas
 'Finished building: ../main.c'
 ' '
 'Building target: DisplayNumbersOnLCD.out'
