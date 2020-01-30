@@ -46,7 +46,11 @@ __interrupt void buttonPressed(void){
 //		P1IV ^= P1IV;
 	} else if(P1IFG & 0x04){ //btn 1.2
 		var1++;
+//		P1IV ^= P1IV;
 	} //P1.2 increment var1
+//	sum =
+//	btnPres = 1;
+	//P1IN &= ~0x06;
 	P1IFG ^= P1IFG; 				//Clear button flags
 	if(P1IV);
 }

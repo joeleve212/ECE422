@@ -30,12 +30,9 @@ int main(void) {
 	P1IES |= BIT2; 					// for transitions from HI-->LO
 
 	P1IFG ^= P1IFG; 				//Clear button flags
-	int i;
+
 	_BIS_SR(GIE); // Enter Low Power Mode 0 and activate interrupts
-	while(1){
-		comp(var1, var2);
-		for(i=0;i<20000;i++);
-	}
+	while(1);
 }
 
 #pragma vector=PORT1_VECTOR
@@ -46,7 +43,11 @@ __interrupt void buttonPressed(void){
 //		P1IV ^= P1IV;
 	} else if(P1IFG & 0x04){ //btn 1.2
 		var1++;
+//		P1IV ^= P1IV;
 	} //P1.2 increment var1
+	sum = comp(var1, var2);
+	//btnPres = 1;
+	//P1IN &= ~0x06;
 	P1IFG ^= P1IFG; 				//Clear button flags
 	if(P1IV);
 }
