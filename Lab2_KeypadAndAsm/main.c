@@ -1,5 +1,10 @@
 #include <msp430.h> 
 #include "mylib.h"
+#include <string.h>
+#include <driverlib.h> // Required for the LCD
+#include "myGpio.h" // Required for the LCD
+#include "myClocks.h" // Required for the LCD
+#include "myLcd.h" // Required for the LCD
 #define ROW1 BIT0
 #define ROW2 BIT1
 #define ROW3 BIT5
@@ -29,15 +34,15 @@ void setUpRails(){
     P9OUT |= ROW1 | ROW2 | ROW3| ROW4; //Turn on the rows
 
     //input
-    P3DIR &= ~(COL1|COL2|COL3); // P1.1 and P1.2 will be inputs
-    P3REN |= COL1|COL2|COL3; // P1.1 and P1.2 will have pull-up
-    P3OUT |= COL1|COL2|COL3; // resistors
+    P2DIR &= ~(COL1|COL2|COL3); // P1.1 and P1.2 will be inputs
+    P2REN |= COL1|COL2|COL3; // P1.1 and P1.2 will have pull-up
+    P2OUT |= COL1|COL2|COL3; // resistors
 
     setAllLow();
 
-    P3IE = COL1|COL2|COL3; // Enable interrupt ONLY for P3.0,P3.1,P3.2
-    P3IES = COL1|COL2|COL3; // for transitions from HI-->LO
-    P3IFG = 0x00; // Ensure no interrupts are pending
+    P2IE |= COL1|COL2|COL3; // Enable interrupt ONLY for P2.0,P2.1,P2.2
+    P2IES |= COL1|COL2|COL3; // for transitions from HI-->LO
+    P2IFG = 0x00; // Ensure no interrupts are pending
 
 
 
@@ -68,20 +73,20 @@ void setLowRail(int n){
     }
 }
 
-int test_all(){	//TODO: FIX triggering multiple low rail cases
+int test_all(){
 	int row;
     for(row = 1;row<=4;row++){
     	setLowRail(row);
 		//need to identify which button.
-		if (!(P3IN & COL1)){
+		if (!(P2IN & COL1)){
 			P1OUT |= 0x01;
 			setAllLow();
 			return row;
-		}else if (!(P3IN & COL2)){
+		}else if (!(P2IN & COL2)){
 			P1OUT &= ~0x01;
 			setAllLow();
 			return row;
-		}else if (!(P3IN & COL3)){
+		}else if (!(P2IN & COL3)){
 			P1OUT ^= 0x01;
 			setAllLow();
 			return row;
@@ -92,24 +97,11 @@ int test_all(){	//TODO: FIX triggering multiple low rail cases
     return -1;
 }
 
-/*
-int no_input = 0;
-int rail_off = 0;
-int last_button_pressed = -1;
-void switch_rails(){
-    rail_off+=1;
-    if(rail_off>4){rail_off=0;}
-    setLowRail(rail_off);
-}
-*/
-
-
-/*
- * main.c
- */
 int main(void) {
     WDTCTL = WDTPW | WDTHOLD;   // Stop watchdog timer
-
+    initGPIO(); // Initialize General Purpose Inputs and Outputs for the LCD
+	initClocks(); // Initialize clocks for the LCD
+	myLCD_init(); // Initialize Liquid Crystal Display
     setUpRails();
 
 
@@ -130,13 +122,12 @@ __interrupt void Timer0_ISR(void) {
 	multiply(prev,curr);//call the assembly function to multiply the values
 }
 
-#pragma vector=PORT3_VECTOR
-__interrupt void Port_3(void) {
+#pragma vector=PORT2_VECTOR
+__interrupt void Port_2(void) {
     rowNum = test_all();
 
-    if (P3IV)
-        ; // must read port interrupt vector to reset the highest pending interrupt
-    P3IFG ^=  P3IFG;
+    if (P2IV); // must read port interrupt vector to reset the highest pending interrupt
+    P2IFG ^=  P2IFG;
 }
 
 

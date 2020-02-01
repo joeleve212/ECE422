@@ -8,6 +8,9 @@ CMD_SRCS += \
 
 C_SRCS += \
 ../main.c \
+../myClocksWithCrystals.c \
+../myGpio.c \
+../myLcd.c \
 ../mylib.c 
 
 S_SRCS += \
@@ -15,6 +18,9 @@ S_SRCS += \
 
 OBJS += \
 ./main.obj \
+./myClocksWithCrystals.obj \
+./myGpio.obj \
+./myLcd.obj \
 ./mylib.obj \
 ./mylib_msp430.obj 
 
@@ -23,10 +29,16 @@ S_DEPS += \
 
 C_DEPS += \
 ./main.d \
+./myClocksWithCrystals.d \
+./myGpio.d \
+./myLcd.d \
 ./mylib.d 
 
 C_DEPS__QUOTED += \
 "main.d" \
+"myClocksWithCrystals.d" \
+"myGpio.d" \
+"myLcd.d" \
 "mylib.d" 
 
 S_DEPS__QUOTED += \
@@ -34,10 +46,16 @@ S_DEPS__QUOTED += \
 
 OBJS__QUOTED += \
 "main.obj" \
+"myClocksWithCrystals.obj" \
+"myGpio.obj" \
+"myLcd.obj" \
 "mylib.obj" \
 "mylib_msp430.obj" 
 
 C_SRCS__QUOTED += \
+"../myClocksWithCrystals.c" \
+"../myGpio.c" \
+"../myLcd.c" \
 "../mylib.c" 
 
 S_SRCS__QUOTED += \
