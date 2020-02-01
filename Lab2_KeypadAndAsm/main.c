@@ -1,4 +1,5 @@
 #include <msp430.h> 
+#include "mylib.h"
 #define ROW1 BIT0
 #define ROW2 BIT1
 #define ROW3 BIT5
@@ -17,24 +18,24 @@
 int rowNum;
 
 void setAllLow(){
-    P9OUT = P9OUT & ~( ROW1 | ROW2 | ROW3| ROW4); //Turn off the rows
+    P9OUT &= ~( ROW1 | ROW2 | ROW3| ROW4); //Turn off the rows
 }
 
 void setUpRails(){
     PM5CTL0 = 0xFFFE; // Turn on the Digital I/o
-    P1DIR = 0x01;
+    P1DIR |= 0x01;		//Activate P1.0 as Output
 
-    P9DIR = P9DIR | ROW1 | ROW2 | ROW3| ROW4;  // Set up the
-    P9OUT = P9OUT | ROW1 | ROW2 | ROW3| ROW4; //Turn on the rows
+    P9DIR |= ROW1 | ROW2 | ROW3| ROW4;  // Set up row pins as outputs
+    P9OUT |= ROW1 | ROW2 | ROW3| ROW4; //Turn on the rows
 
     //input
-    P3DIR = P3DIR & ~(COL1|COL2|COL3); // P1.1 and P1.2 will be inputs
-    P3REN = P3REN | COL1|COL2|COL3; // P1.1 and P1.2 will have pull-up
-    P3OUT = P3OUT | COL1|COL2|COL3; // resistors
+    P3DIR &= ~(COL1|COL2|COL3); // P1.1 and P1.2 will be inputs
+    P3REN |= COL1|COL2|COL3; // P1.1 and P1.2 will have pull-up
+    P3OUT |= COL1|COL2|COL3; // resistors
 
     setAllLow();
 
-    P3IE = COL1|COL2|COL3; // Enable interrupt ONLY for P1.1 and P1.2
+    P3IE = COL1|COL2|COL3; // Enable interrupt ONLY for P3.0,P3.1,P3.2
     P3IES = COL1|COL2|COL3; // for transitions from HI-->LO
     P3IFG = 0x00; // Ensure no interrupts are pending
 
@@ -83,6 +84,8 @@ int test_all(){	//TODO: FIX triggering multiple low rail cases
 			return row;
 		}
     }
+
+
 
 
 //    setLowRail(2);
@@ -150,6 +153,8 @@ int main(void) {
 
 #pragma vector=TIMER0_A0_VECTOR
 __interrupt void Timer0_ISR(void) {
+	int prev = 2, curr = 5;
+	multiply(prev,curr);//call the assembly function to multiply the values
 }
 
 #pragma vector=PORT3_VECTOR
