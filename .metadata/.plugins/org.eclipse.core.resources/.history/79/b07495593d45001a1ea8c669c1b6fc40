@@ -88,6 +88,36 @@ int test_all(){	//TODO: FIX triggering multiple low rail cases
 		}
     }
 
+
+
+
+//    setLowRail(2);
+//    if (!(P3IN & COL1)){
+//        P1OUT |= 0x01;
+//    }else if (P3IN & COL2){
+//        P1OUT &= ~0x01;
+//    }else if (P3IN & COL3){
+//        P1OUT ^= 0x01;
+//    }
+//
+//    setLowRail(3);
+//    if (!(P3IN & COL1)){
+//        P1OUT |= 0x01;
+//    }else if (P3IN & COL2){
+//        P1OUT &= ~0x01;
+//    }else if (P3IN & COL3){
+//        P1OUT ^= 0x01;
+//    }
+//
+//    setLowRail(4);
+//    if (!(P3IN & COL1)){
+//        P1OUT |= 0x01;
+//    }else if (P3IN & COL2){
+//        P1OUT &= ~0x01;
+//    }else if (P3IN & COL3){
+//        P1OUT ^= 0x01;
+//    }
+
     setAllLow();
     return -1;
 }

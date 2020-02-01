@@ -1,10 +1,10 @@
 ******************************************************************************
                   MSP430 Linker PC v15.12.1                    
 ******************************************************************************
->> Linked Fri Jan 31 17:35:18 2020
+>> Linked Sat Feb 01 15:54:03 2020
 
 OUTPUT FILE NAME:   <Lab2_KeypadAndAsm.out>
-ENTRY POINT SYMBOL: "_c_int00_noargs_noexit"  address: 0000441e
+ENTRY POINT SYMBOL: "_c_int00_noargs_noexit"  address: 00004400
 
 
 MEMORY CONFIGURATION
@@ -19,7 +19,7 @@ MEMORY CONFIGURATION
   INFOB                 00001900   00000080  00000000  00000080  RWIX
   INFOA                 00001980   00000080  00000000  00000080  RWIX
   RAM                   00001c00   00000800  000000a2  0000075e  RWIX
-  FRAM                  00004400   0000bb80  00000062  0000bb1e  RWIX
+  FRAM                  00004400   0000bb80  0000005c  0000bb24  RWIX
   JTAGSIGNATURE         0000ff80   00000004  00000004  00000000  RWIX  ffff 
   BSLSIGNATURE          0000ff84   00000004  00000004  00000000  RWIX  ffff 
   IPESIGNATURE          0000ff88   00000008  00000008  00000000  RWIX  ffff 
@@ -79,7 +79,7 @@ MEMORY CONFIGURATION
   INT53                 0000fffa   00000002  00000002  00000000  RWIX
   INT54                 0000fffc   00000002  00000002  00000000  RWIX
   RESET                 0000fffe   00000002  00000002  00000000  RWIX
-  FRAM2                 00010000   00014000  00000236  00013dca  RWIX
+  FRAM2                 00010000   00014000  00000248  00013db8  RWIX
 
 
 SECTION ALLOCATION MAP
@@ -115,20 +115,20 @@ section   page    origin      length       input sections
 .ipe_vars 
 *          0    00004400    00000000     UNINITIALIZED
 
-.cinit     0    00004450    00000012     
-                  00004450    00000006     (.cinit..bss.load) [load image, compression = zero_init]
-                  00004456    00000004     (__TI_handler_table)
-                  0000445a    00000008     (__TI_cinit_table)
+.cinit     0    0000444a    00000012     
+                  0000444a    00000006     (.cinit..bss.load) [load image, compression = zero_init]
+                  00004450    00000004     (__TI_handler_table)
+                  00004454    00000008     (__TI_cinit_table)
 
 .init_array 
 *          0    00004400    00000000     UNINITIALIZED
 
 .text:_isr 
-*          0    00004400    00000050     
-                  00004400    0000001e     main.obj (.text:_isr:Port_3)
-                  0000441e    0000001a     rts430x_lc_rd_eabi.lib : boot_special.obj (.text:_isr:_c_int00_noargs_noexit)
-                  00004438    00000010     main.obj (.text:_isr:Timer0_ISR)
-                  00004448    00000008     rts430x_lc_rd_eabi.lib : isr_trap.obj (.text:_isr:__TI_ISR_TRAP)
+*          0    00004400    0000004a     
+                  00004400    0000001a     rts430x_lc_rd_eabi.lib : boot_special.obj (.text:_isr:_c_int00_noargs_noexit)
+                  0000441a    00000018     main.obj (.text:_isr:Port_3)
+                  00004432    00000010     main.obj (.text:_isr:Timer0_ISR)
+                  00004442    00000008     rts430x_lc_rd_eabi.lib : isr_trap.obj (.text:_isr:__TI_ISR_TRAP)
 
 $fill000   0    0000ff80    00000004     
                   0000ff80    00000004     --HOLE-- [fill = ffff]
@@ -236,31 +236,31 @@ SYSNMI     0    0000fffc    00000002
 .reset     0    0000fffe    00000002     
                   0000fffe    00000002     rts430x_lc_rd_eabi.lib : boot.obj (.reset)
 
-.text      0    00010000    00000236     
+.text      0    00010000    00000248     
                   00010000    00000082     rts430x_lc_rd_eabi.lib : autoinit_wdt.obj (.text:_auto_init_hold_wdt)
                   00010082    00000066                            : cpy_tbl.obj (.text:copy_in)
-                  000100e8    0000004a     main.obj (.text:setLowRail)
-                  00010132    00000048     main.obj (.text:test_all)
-                  0001017a    0000003e     main.obj (.text:setUpRails)
-                  000101b8    00000024     rts430x_lc_rd_eabi.lib : copy_zero_init.obj (.text:decompress:ZI:__TI_zero_init)
-                  000101dc    00000018                            : mult16_f5hw.obj (.text)
-                  000101f4    00000016     main.obj (.text:main)
-                  0001020a    00000014     rts430x_lc_rd_eabi.lib : memcpy.obj (.text:memcpy)
-                  0001021e    00000008     main.obj (.text:setAllLow)
-                  00010226    00000006     rts430x_lc_rd_eabi.lib : exit.obj (.text:abort)
-                  0001022c    00000004                            : pre_init.obj (.text:_system_pre_init)
-                  00010230    00000004     mylib_msp430.obj (.text)
-                  00010234    00000002     rts430x_lc_rd_eabi.lib : startup.obj (.text:_system_post_cinit)
+                  000100e8    00000054     main.obj (.text:test_all)
+                  0001013c    0000004a     main.obj (.text:setLowRail)
+                  00010186    0000003e     main.obj (.text:setUpRails)
+                  000101c4    00000024     rts430x_lc_rd_eabi.lib : copy_zero_init.obj (.text:decompress:ZI:__TI_zero_init)
+                  000101e8    00000018                            : mult16_f5hw.obj (.text)
+                  00010200    00000016     main.obj (.text:main)
+                  00010216    00000014     rts430x_lc_rd_eabi.lib : memcpy.obj (.text:memcpy)
+                  0001022a    0000000a     mylib_msp430.obj (.text)
+                  00010234    00000008     main.obj (.text:setAllLow)
+                  0001023c    00000006     rts430x_lc_rd_eabi.lib : exit.obj (.text:abort)
+                  00010242    00000004                            : pre_init.obj (.text:_system_pre_init)
+                  00010246    00000002                            : startup.obj (.text:_system_post_cinit)
 
 MODULE SUMMARY
 
        Module               code   ro data   rw data
        ------               ----   -------   -------
     .\
-       main.obj             284    4         2      
-       mylib_msp430.obj     4      0         0      
+       main.obj             290    4         2      
+       mylib_msp430.obj     10     0         0      
     +--+--------------------+------+---------+---------+
-       Total:               288    4         2      
+       Total:               300    4         2      
                                                     
     C:\ti\ccsv6\tools\compiler\ti-cgt-msp430_15.12.1.LTS\lib\rts430x_lc_rd_eabi.lib
        autoinit_wdt.obj     130    0         0      
@@ -306,18 +306,18 @@ MODULE SUMMARY
        Stack:               0      0         160    
        Linker Generated:    0      18        0      
     +--+--------------------+------+---------+---------+
-       Grand Total:         646    76        162    
+       Grand Total:         658    76        162    
 
 
 LINKER GENERATED COPY TABLES
 
-__TI_cinit_table @ 0000445a records: 1, size/record: 8, table size: 8
-	.bss: load addr=00004450, load size=00000006 bytes, run addr=00001c00, run size=00000002 bytes, compression=zero_init
+__TI_cinit_table @ 00004454 records: 1, size/record: 8, table size: 8
+	.bss: load addr=0000444a, load size=00000006 bytes, run addr=00001c00, run size=00000002 bytes, compression=zero_init
 
 
 LINKER GENERATED HANDLER TABLE
 
-__TI_handler_table @ 00004456 records: 1, size/record: 4, table size: 4
+__TI_handler_table @ 00004450 records: 1, size/record: 4, table size: 4
 	index: 0, handler: __TI_zero_init
 
 
@@ -582,7 +582,7 @@ address   name
 000009ce  AESAXIN_L               
 000004be  BCD2BIN                 
 000004bc  BIN2BCD                 
-00010226  C$$EXIT                 
+0001023c  C$$EXIT                 
 0000043e  CAPTIO0CTL              
 0000043f  CAPTIO0CTL_H            
 0000043e  CAPTIO0CTL_L            
@@ -1396,7 +1396,7 @@ address   name
 0000012a  PMMIFG                  
 0000012b  PMMIFG_H                
 0000012a  PMMIFG_L                
-00004400  Port_3                  
+0000441a  Port_3                  
 00000158  RCCTL0                  
 00000159  RCCTL0_H                
 00000158  RCCTL0_L                
@@ -1560,7 +1560,7 @@ address   name
 000003e0  TB0EX0                  
 000003ee  TB0IV                   
 000003d0  TB0R                    
-00004438  Timer0_ISR              
+00004432  Timer0_ISR              
 000005d0  UCA0ABCTL               
 000005c6  UCA0BRW                 
 000005c7  UCA0BRW_H               
@@ -1726,13 +1726,13 @@ address   name
 000000a0  __STACK_SIZE            
 UNDEFED   __TI_BINIT_Base         
 UNDEFED   __TI_BINIT_Limit        
-0000445a  __TI_CINIT_Base         
-00004462  __TI_CINIT_Limit        
-00004456  __TI_Handler_Table_Base 
-0000445a  __TI_Handler_Table_Limit
+00004454  __TI_CINIT_Base         
+0000445c  __TI_CINIT_Limit        
+00004450  __TI_Handler_Table_Base 
+00004454  __TI_Handler_Table_Limit
 UNDEFED   __TI_INITARRAY_Base     
 UNDEFED   __TI_INITARRAY_Limit    
-00004448  __TI_ISR_TRAP           
+00004442  __TI_ISR_TRAP           
 0000ffc6  __TI_int27              
 0000ffc8  __TI_int28              
 0000ffca  __TI_int29              
@@ -1764,29 +1764,29 @@ UNDEFED   __TI_INITARRAY_Limit
 ffffffff  __TI_pprof_out_hndl     
 ffffffff  __TI_prof_data_size     
 ffffffff  __TI_prof_data_start    
-000101b8  __TI_zero_init          
+000101c4  __TI_zero_init          
 ffffffff  __c_args__              
-000101dc  __mspabi_mpyi_f5hw      
+000101e8  __mspabi_mpyi_f5hw      
 00010000  _auto_init_hold_wdt     
-0000441e  _c_int00_noargs_noexit  
+00004400  _c_int00_noargs_noexit  
 0000fffe  _reset_vector           
 00002360  _stack                  
-00010234  _system_post_cinit      
-0001022c  _system_pre_init        
-00010226  abort                   
+00010246  _system_post_cinit      
+00010242  _system_pre_init        
+0001023c  abort                   
 00010082  copy_in                 
 00004400  fram_ipe_end            
 00004400  fram_ipe_start          
 00004400  fram_rw_start           
 00004400  fram_rx_start           
-000101f4  main                    
-0001020a  memcpy                  
-00010230  multiply                
+00010200  main                    
+00010216  memcpy                  
+0001022a  multiply                
 00001c00  rowNum                  
-0001021e  setAllLow               
-000100e8  setLowRail              
-0001017a  setUpRails              
-00010132  test_all                
+00010234  setAllLow               
+0001013c  setLowRail              
+00010186  setUpRails              
+000100e8  test_all                
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -3191,18 +3191,18 @@ address   name
 00001c00  rowNum                  
 00002360  _stack                  
 00002400  __STACK_END             
-00004400  Port_3                  
+00004400  _c_int00_noargs_noexit  
 00004400  fram_ipe_end            
 00004400  fram_ipe_start          
 00004400  fram_rw_start           
 00004400  fram_rx_start           
-0000441e  _c_int00_noargs_noexit  
-00004438  Timer0_ISR              
-00004448  __TI_ISR_TRAP           
-00004456  __TI_Handler_Table_Base 
-0000445a  __TI_CINIT_Base         
-0000445a  __TI_Handler_Table_Limit
-00004462  __TI_CINIT_Limit        
+0000441a  Port_3                  
+00004432  Timer0_ISR              
+00004442  __TI_ISR_TRAP           
+00004450  __TI_Handler_Table_Base 
+00004454  __TI_CINIT_Base         
+00004454  __TI_Handler_Table_Limit
+0000445c  __TI_CINIT_Limit        
 0000ffc6  __TI_int27              
 0000ffc8  __TI_int28              
 0000ffca  __TI_int29              
@@ -3234,19 +3234,19 @@ address   name
 0000fffe  _reset_vector           
 00010000  _auto_init_hold_wdt     
 00010082  copy_in                 
-000100e8  setLowRail              
-00010132  test_all                
-0001017a  setUpRails              
-000101b8  __TI_zero_init          
-000101dc  __mspabi_mpyi_f5hw      
-000101f4  main                    
-0001020a  memcpy                  
-0001021e  setAllLow               
-00010226  C$$EXIT                 
-00010226  abort                   
-0001022c  _system_pre_init        
-00010230  multiply                
-00010234  _system_post_cinit      
+000100e8  test_all                
+0001013c  setLowRail              
+00010186  setUpRails              
+000101c4  __TI_zero_init          
+000101e8  __mspabi_mpyi_f5hw      
+00010200  main                    
+00010216  memcpy                  
+0001022a  multiply                
+00010234  setAllLow               
+0001023c  C$$EXIT                 
+0001023c  abort                   
+00010242  _system_pre_init        
+00010246  _system_post_cinit      
 ffffffff  __TI_pprof_out_hndl     
 ffffffff  __TI_prof_data_size     
 ffffffff  __TI_prof_data_start    
