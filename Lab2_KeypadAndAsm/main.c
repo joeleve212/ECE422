@@ -1,6 +1,7 @@
 #include <msp430.h> 
 #include "mylib.h"
 #include <string.h>
+#include <math.h>
 #include <driverlib.h> // Required for the LCD
 #include "myGpio.h" // Required for the LCD
 #include "myClocks.h" // Required for the LCD
@@ -20,8 +21,9 @@
 #define TACLR_ 0x0004 // Clear TAxR
 #define ENABLE_PINS 0xFFFE // Required to use inputs and outputs
 
-int rowNum,currNum=0;
+int rowNum,index=0,currNum=0;
 long int val;
+int digs[3];  //-1 means not filled with a value
 
 void setAllLow(){
     P9OUT &= ~( ROW1 | ROW2 | ROW3| ROW4); //Turn off the rows
@@ -96,19 +98,32 @@ int test_all(){
     return btnVal; //gives back value (bottom row is all interpreted as 0s)
 }
 
+int interpNum(int digits[]){
+	int enteredVal = 0;
+	int i;
+	for(i=0;i<3;i++){//index 0 is ones digit
+		if(digs[i]<0){break;}
+		enteredVal += pow(10,i) * digs[i];
+	}
+	return enteredVal;
+}
+
 int main(void) {
     WDTCTL = WDTPW | WDTHOLD;   // Stop watchdog timer
     initGPIO(); // Initialize General Purpose Inputs and Outputs for the LCD
 	initClocks(); // Initialize clocks for the LCD
 	myLCD_init(); // Initialize Liquid Crystal Display
     setUpRails();
+    digs[0]=-1;
+    digs[1]=-1;
+    digs[1]=-1;
+    P1IE |= BIT1; 							// Enable interrupt ONLY for P1.1
+	P1IES |= BIT1; 							// for transitions from HI-->LO
 
-
-
-    //TA0CCR0 = 200; // Sets value of Timer_0
-    //TA0CTL = ACLK + UP + TACLR_; // Start TA0 from zero with ACLK in UP MODE
-
-    //TA0CCTL0 = CCIE; // Enable interrupt for Timer_0
+    TA0CCR0 = 9600;		//set timer for quarter second   19230 = up time for 1Hz @ 50%, 38 = up time for 999Hz @ 50%
+	TA0CTL = ACLK + UP + TACLR;
+	TA0CCTL0 = CCIE; // Enable interrupt for Timer_0
+	TA0CTL &= ~0x0010; //stop clock for now
 
     _BIS_SR(LPM0_bits | GIE); // Enter Low Power Mode 0 and activate interrupts
     return 0;
@@ -117,19 +132,39 @@ int main(void) {
 
 #pragma vector=TIMER0_A0_VECTOR
 __interrupt void Timer0_ISR(void) {
-	int prev = 2, curr = 5;
-	val = multiply(prev,curr);//call the assembly function to multiply the values
-	myLCD_displayNumber(val);
+//	int prev = 2, curr = 5;
+//	val = multiply(prev,curr);//call the assembly function to multiply the values
+//	myLCD_displayNumber(val);
+	P1OUT ^= 0x01;
+	//TODO: use timer to trigger 50% duty @ freq = entered value
+	//TODO: timer for 5 second delay till multiplication is shown
 }
 
 #pragma vector=PORT2_VECTOR
 __interrupt void Port_2(void) {
-    int btnVal = test_all();
+
+
+//    if(digs[index]==-1){index = 3;} //increment
+//    else{
+    	digs[2]=digs[1];
+    	digs[1]=digs[0];
+    	digs[0]= test_all();
+//    }
     int prev = 2, curr = 5;
 	val = multiply(prev,curr);
-	myLCD_displayNumber(btnVal);
+	myLCD_displayNumber(interpNum(digs));
     if (P2IV); // must read port interrupt vector to reset the highest pending interrupt
     P2IFG ^=  P2IFG;
 }
 
+#pragma vector=PORT1_VECTOR
+__interrupt void SubmitButton(void){
+	//TODO: handle btn 1.1 to submit freq value/start timers
+	//19230 = up time for 1Hz @ 50%, 38 = up time for 999Hz @ 50%
+	int dispVal=interpNum(digs);
+
+	TA0CCR0 = (int)(((float)dispVal/999.0)*(19230-38))+38;
+	//TA0CTL |= 0x0010;				// Start the clock
+	P1IFG = P1IFG & (~BIT1); //clear P1.1 flag
+}
 

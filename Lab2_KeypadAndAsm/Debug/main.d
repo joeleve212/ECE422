@@ -9,6 +9,8 @@ main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/intrinsic
 main.obj: ../mylib.h
 main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/string.h
 main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/linkage.h
+main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/math.h
+main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/_defs.h
 main.obj: D:/Junior\ Year/ECE422/Proj1_DutyGuess/driverlib/MSP430FR5xx_6xx/driverlib.h
 main.obj: D:/Junior\ Year/ECE422/Proj1_DutyGuess/driverlib/MSP430FR5xx_6xx/inc/hw_memmap.h
 main.obj: C:/ti/ccsv6/ccs_base/msp430/include/msp430fr5xx_6xxgeneric.h
@@ -55,6 +57,8 @@ C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/intrinsics_legacy_u
 ../mylib.h: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/string.h: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/linkage.h: 
+C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/math.h: 
+C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/_defs.h: 
 D:/Junior\ Year/ECE422/Proj1_DutyGuess/driverlib/MSP430FR5xx_6xx/driverlib.h: 
 D:/Junior\ Year/ECE422/Proj1_DutyGuess/driverlib/MSP430FR5xx_6xx/inc/hw_memmap.h: 
 C:/ti/ccsv6/ccs_base/msp430/include/msp430fr5xx_6xxgeneric.h: 
