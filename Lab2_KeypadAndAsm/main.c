@@ -20,7 +20,8 @@
 #define TACLR_ 0x0004 // Clear TAxR
 #define ENABLE_PINS 0xFFFE // Required to use inputs and outputs
 
-int rowNum;
+int rowNum,currNum=0;
+long int val;
 
 void setAllLow(){
     P9OUT &= ~( ROW1 | ROW2 | ROW3| ROW4); //Turn off the rows
@@ -74,27 +75,25 @@ void setLowRail(int n){
 }
 
 int test_all(){
-	int row;
-    for(row = 1;row<=4;row++){
+	int row, btnVal=0;
+    for(row = 1;row<4;row++){
     	setLowRail(row);
 		//need to identify which button.
 		if (!(P2IN & COL1)){
-			P1OUT |= 0x01;
-			setAllLow();
-			return row;
+			btnVal = 3*(row-1)+1;
+			break;
 		}else if (!(P2IN & COL2)){
-			P1OUT &= ~0x01;
-			setAllLow();
-			return row;
+			btnVal = 3*(row-1)+2;
+			break;
 		}else if (!(P2IN & COL3)){
-			P1OUT ^= 0x01;
-			setAllLow();
-			return row;
+			btnVal = 3*(row-1)+3;
+			break;
 		}
     }
 
     setAllLow();
-    return -1;
+
+    return btnVal; //gives back value (bottom row is all interpreted as 0s)
 }
 
 int main(void) {
@@ -105,13 +104,13 @@ int main(void) {
     setUpRails();
 
 
+
     //TA0CCR0 = 200; // Sets value of Timer_0
     //TA0CTL = ACLK + UP + TACLR_; // Start TA0 from zero with ACLK in UP MODE
 
     //TA0CCTL0 = CCIE; // Enable interrupt for Timer_0
 
     _BIS_SR(LPM0_bits | GIE); // Enter Low Power Mode 0 and activate interrupts
-
     return 0;
 }
 
@@ -119,13 +118,16 @@ int main(void) {
 #pragma vector=TIMER0_A0_VECTOR
 __interrupt void Timer0_ISR(void) {
 	int prev = 2, curr = 5;
-	multiply(prev,curr);//call the assembly function to multiply the values
+	val = multiply(prev,curr);//call the assembly function to multiply the values
+	myLCD_displayNumber(val);
 }
 
 #pragma vector=PORT2_VECTOR
 __interrupt void Port_2(void) {
-    rowNum = test_all();
-
+    int btnVal = test_all();
+    int prev = 2, curr = 5;
+	val = multiply(prev,curr);
+	myLCD_displayNumber(btnVal);
     if (P2IV); // must read port interrupt vector to reset the highest pending interrupt
     P2IFG ^=  P2IFG;
 }
