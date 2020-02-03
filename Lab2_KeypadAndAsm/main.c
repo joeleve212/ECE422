@@ -119,6 +119,7 @@ int main(void) {
     digs[1]=-1;
     P1IE |= BIT1; 							// Enable interrupt ONLY for P1.1
 	P1IES |= BIT1; 							// for transitions from HI-->LO
+	MPY32CTL0 = 0x0200; //setup multiplier
 
     TA0CCR0 = 9600;		//set timer for quarter second   19230 = up time for 1Hz @ 50%, 38 = up time for 999Hz @ 50%
 	TA0CTL = ACLK + UP + TACLR;
@@ -150,7 +151,7 @@ __interrupt void Port_2(void) {
     	digs[1]=digs[0];
     	digs[0]= test_all();
 //    }
-    int prev = 2, curr = 5;
+    int prev = 64, curr = 128;
 	val = multiply(prev,curr);
 	myLCD_displayNumber(interpNum(digs));
     if (P2IV); // must read port interrupt vector to reset the highest pending interrupt
