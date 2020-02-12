@@ -19,29 +19,29 @@ void delay(int microSecs){
 }
 void extLCDinit(){
 	//TODO: wait 15ms
-	//send RS = 0, DB7 - DB4[0,0,1,1]
+	//send DB7 - DB4[0,0,1,1], RS = 0
 	//wait 4.1ms
-	//send RS = 0, DB7 - DB4[0,0,1,1]
+	//send DB7 - DB4[0,0,1,1], RS = 0
 	//wait 100us
-	//send RS = 0, DB7 - DB4[0,0,1,1]
+	//send DB7 - DB4[0,0,1,1], RS = 0
 	//wait 37us
-	//send RS = 0, DB7 - DB4[0,0,1,0]
+	//send DB7 - DB4[0,0,1,0], RS = 0
 	//wait 37us
-	//send RS = 0, DB7 - DB4[0,0,1,0]
+	//send DB7 - DB4[0,0,1,0], RS = 0
 	//wait 37us
-	//send RS = 0, DB7 - DB4[1,1,1,1] //2 lines, font 1?, don't care?,don't care?
+	//send DB7 - DB4[1,1,1,1] //2 lines, font 1?, don't care?,don't care?
 	//wait 37us
-	//send RS = 0, DB7 - DB4[0,0,0,0]
+	//send DB7 - DB4[0,0,0,0], RS = 0
 	//wait 37us
-	//send RS = 0, DB7 - DB4[1,0,0,0]
+	//send DB7 - DB4[1,0,0,0], RS = 0
 	//wait 37us
-	//send RS = 0, DB7 - DB4[0,0,0,0]
+	//send DB7 - DB4[0,0,0,0], RS = 0
 	//wait 37us
-	//send RS = 0, DB7 - DB4[0,0,0,1]
+	//send DB7 - DB4[0,0,0,1], RS = 0
 	//wait 37us
-	//send RS = 0, DB7 - DB4[0,0,0,0]
+	//send DB7 - DB4[0,0,0,0], RS = 0
 	//wait 37us
-	//send RS = 0, DB7 - DB4[0,1,0,0] //idk,idk,dec(0)/inc(1),allow shifting?
+	//send DB7 - DB4[0,1,0,0], RS = 0 //idk,idk,dec(0)/inc(1),allow shifting?
 	//wait 37us
 
 }

@@ -16,6 +16,17 @@
  */
 int main(void) {
     WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
+    extLCDinit();
+    //TODO: pin assignments:
+    /*
+     * 9.2 = DB7
+     * 4.3 = DB6
+     * 4.2 = DB5
+     * 3.2 = DB4
+     * 9.3 = ENable
+     * 1.4 = RS
+     *
+     */
 	
 	return 0;
 }
