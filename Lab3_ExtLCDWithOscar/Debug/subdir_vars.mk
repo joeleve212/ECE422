@@ -27,7 +27,6 @@ OBJS__QUOTED += \
 "main.obj" 
 
 C_SRCS__QUOTED += \
-"../OB_JL_4bitLCD.c" \
-"../main.c" 
+"../OB_JL_4bitLCD.c" 
 
 

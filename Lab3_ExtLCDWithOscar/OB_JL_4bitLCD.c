@@ -11,7 +11,7 @@
 #define ACLK 0x0100 // Timer ACLK source
 #define UP 0x0010 // Timer Up mode
 #define STOP 0x0030 // stop Timer Up mode
-#define TACLR_ 0x0004 // Clear TAxR
+#define TACLR 0x0004 // Clear TAxR
 #define SLOW 0x00C0 // Slow down the clock TAxR
 #define ENABLE_PINS 0xFFFE // Required to use inputs and outputs
 #define DB7 0x04
@@ -21,6 +21,25 @@
 #define ENABLE 0x08
 #define RS 0x10
 
+void delay(unsigned int x){
+	TA2CCR0 = 1000;
+	TA2CTL = 0x0214;
+	while(1){
+		if(TA2CTL&BIT0){
+			TA2CTL &= ~BIT0;
+			x--;
+			if(x==0)break;
+		}
+	}
+	TA2CTL = 0x0204; //stop timer
+}
+
+void sendMessage(){
+	P9OUT |= ENABLE; //send data
+	int enHigh = 1;
+	delay(enHigh); //wait 10 us before turning off enable
+	P9OUT &= ~ENABLE;
+}
 void clearScreen(){
 	//
 }
@@ -28,23 +47,67 @@ void setCursor(int location){ //0 -> 31
 
 }
 void printToLCD(char word[32]){ //>16 chars or scroll
+	unsigned int letterInd;
+	for(letterInd = 0;letterInd<32;letterInd++){
 
+		//TODO: print each char
+		if(word[letterInd] & 0x80){
+			P9OUT |= DB7; //set DB7 hi
+		} else{
+			P9OUT &= ~DB7; //set DB7 lo
+		}
+		if(word[letterInd] & 0x40){
+			P4OUT |= DB6; //set DB6 hi
+		} else{
+			P4OUT &= ~DB6; //set DB6 lo
+		}
+		if(word[letterInd] & 0x20){
+			P4OUT |= DB5; //set DB5 hi
+		} else{
+			P4OUT &= ~DB5; //set DB5 lo
+		}
+		if(word[letterInd] & 0x10){
+			P3OUT |= DB4; //set DB4 hi
+		} else{
+			P3OUT &= ~DB4; //set DB4 lo
+		}
+		P9OUT |= ENABLE; //send data
+		delay(10); //wait at least 37us total, 10us with EN hi
+		P9OUT &= ~ENABLE; //turn off enable
+		delay(30); //finish delay
+
+		if(word[letterInd] & 0x08){
+			P9OUT |= DB7; //set DB7 hi
+		} else{
+			P9OUT &= ~DB7; //set DB7 lo
+		}
+		if(word[letterInd] & 0x04){
+			P4OUT |= DB6; //set DB6 hi
+		} else{
+			P4OUT &= ~DB6; //set DB6 lo
+		}
+		if(word[letterInd] & 0x02){
+			P4OUT |= DB5; //set DB5 hi
+		} else{
+			P4OUT &= ~DB5; //set DB5 lo
+		}
+		if(word[letterInd] & 0x01){
+			P3OUT |= DB4; //set DB4 hi
+		} else{
+			P3OUT &= ~DB4; //set DB4 lo
+		}
+		P9OUT |= ENABLE; //send data
+		delay(10); //wait at least 37us total, 10us with EN hi
+		P9OUT &= ~ENABLE; //turn off enable
+		delay(30); //finish delay
+
+
+	}
 }
 void setRow(int rowNum){ //0 - 2, 2 being both
 
 }
-void delay(int microSecs){ //stay below 65 ms
-	//TODO: adjust microSecs to CCR value
-	//setup timer
-	//start timer
-	//Stay in this function until timer stops
-	TA0CCR0 = microSecs;  //set length of timer
-	TA0CTL = SMCLK + UP + TACLR;
-	int i;
-	while(!TAIFG){ //TODO: see if for loop can be avoided??
-		for(i=0;i<1000;i++);
-	}
-}
+
 void extLCDinit(){
 	/*
 	 * 9.2 = DB7
@@ -61,89 +124,81 @@ void extLCDinit(){
 	P3DIR |= DB4;		//Activate P3 outputs
 	P1DIR |= 0x01 | RS;		//Activate P1 outputs
 	P9OUT &= ~ENABLE; //make sure enable is low
-	int stdDelay = 45, enHigh = 10;
+	int stdDelay = 2;
 
-	delay(16); // wait 15ms
+	delay(16); // wait 15us
 	P9OUT &= ~DB7; //send DB7 - DB4[0,0,1,1], RS = 0
 	P4OUT &= ~DB6; //set DB6
 	P4OUT |= DB5; //set DB5
 	P3OUT |= DB4; //set DB4
 	P1OUT &= ~RS;
-	P9OUT |= ENABLE; //send data
-	delay(500); //wait for .5 ms before turning off enable
-	P9OUT &= ~ENABLE;
+	sendMessage(); //send data
 
-	delay(6000);//wait for 4.1ms - .5ms
-	P9OUT |= ENABLE; //send data
-	delay(50); //wait for 50 us before turning off enable
-	P9OUT &= ~ENABLE;
+	delay(5);//wait for more than 4.1ms
+	sendMessage();//send data
 
-	delay(120);
-	P9OUT |= ENABLE; //send DB7 - DB4[0,0,1,1], RS = 0
-	delay(50); //wait for 50 us before turning off enable
-	P9OUT &= ~ENABLE;
+	delay(2);
+	sendMessage(); //send DB7 - DB4[0,0,1,1], RS = 0
+	delay(50); //wait for 50 us before next message
 
 	P3OUT &= ~DB4;
-	delay(stdDelay);//wait 37us
-	P9OUT |= ENABLE;//send DB7 - DB4[0,0,1,0], RS = 0
-	delay(enHigh); //wait before turning off enable
-	P9OUT &= ~ENABLE;
+	sendMessage();//send DB7 - DB4[0,0,1,0], RS = 0
 
-	delay(stdDelay-enHigh); //wait the rest of 37us
-	P9OUT |= ENABLE;//send DB7 - DB4[0,0,1,0], RS = 0
-	delay(enHigh); //wait before turning off enable
-	P9OUT &= ~ENABLE;
+
+	delay(stdDelay); //wait the rest of 37us
+	sendMessage();//send DB7 - DB4[0,0,1,0], RS = 0
 
 	P9OUT |= DB7; //set DB7 hi
 	P4OUT |= DB6; //set DB6 hi
 	P3OUT |= DB4; //set DB4 hi
-	delay(stdDelay-enHigh); //wait the rest of delay
-	P9OUT |= ENABLE;//send DB7 - DB4[1,1,1,1] //2 lines, font 1?, don't care?,don't care?
-	delay(enHigh); //wait before turning off enable
-	P9OUT &= ~ENABLE;
+	delay(stdDelay); //wait the rest of delay
+	sendMessage();//send DB7 - DB4[1,1,1,1] //2 lines, font 1?, don't care?,don't care?
+
+//	P9OUT &= ~DB7; //set DB7 lo				//THIS BOI TURNS OFF LCD
+//	P4OUT &= ~DB6; //set DB6 lo
+//	P4OUT &= ~DB5; //set DB5 lo
+//	P3OUT &= ~DB4; //set DB4 lo
+//	delay(stdDelay-enHigh); //wait the rest of delay
+//	sendMessage();//send DB7 - DB4[0,0,0,0], RS = 0
+//
+//
+//	P9OUT |= DB7; //set DB7 hi
+//	delay(stdDelay-enHigh); //wait the rest of delay
+//	sendMessage();//send DB7 - DB4[1,0,0,0], RS = 0
+
 
 	P9OUT &= ~DB7; //set DB7 lo
-	P4OUT &= ~DB6; //set DB6 lo
-	P4OUT &= ~DB5; //set DB5 lo
-	P3OUT &= ~DB4; //set DB4 lo
-	delay(stdDelay-enHigh); //wait the rest of delay
-	P9OUT |= ENABLE;//send DB7 - DB4[0,0,0,0], RS = 0
-	delay(enHigh); //wait before turning off enable
-	P9OUT &= ~ENABLE;
-
-	P9OUT |= DB7; //set DB7 hi
-	delay(stdDelay-enHigh); //wait the rest of delay
-	P9OUT |= ENABLE;//send DB7 - DB4[1,0,0,0], RS = 0
-	delay(enHigh); //wait before turning off enable
-	P9OUT &= ~ENABLE;
-
-	P9OUT &= ~DB7; //set DB7 lo
-	delay(stdDelay-enHigh); //wait the rest of delay
-	P9OUT |= ENABLE;//send DB7 - DB4[0,0,0,0], RS = 0
-	delay(enHigh); //wait before turning off enable
-	P9OUT &= ~ENABLE;
+	delay(stdDelay); //wait the rest of delay
+	sendMessage();//send DB7 - DB4[0,0,0,0], RS = 0
 
 	P3OUT |= DB4; //set DB4 hi
-	delay(stdDelay-enHigh); //wait the rest of delay
-	P9OUT |= ENABLE;//send DB7 - DB4[0,0,0,1], RS = 0
-	delay(enHigh); //wait before turning off enable
-	P9OUT &= ~ENABLE;
+	delay(stdDelay); //wait the rest of delay
+	sendMessage();//send DB7 - DB4[0,0,0,1], RS = 0
 
 	P3OUT &= ~DB4; //set DB4 lo
-	delay(stdDelay-enHigh); //wait the rest of delay
-	P9OUT |= ENABLE;//send DB7 - DB4[0,0,0,0], RS = 0
-	delay(enHigh); //wait before turning off enable
-	P9OUT &= ~ENABLE;
+	delay(stdDelay); //wait the rest of delay
+	sendMessage();//send DB7 - DB4[0,0,0,0], RS = 0
 
 	//wait 37us
 
 	P4OUT |= DB6; //set DB6
 	P4OUT |= DB5; //set DB5
-	delay(stdDelay-enHigh); //wait the rest of delay
-	P9OUT |= ENABLE;//send DB7 - DB4[0,1,1,0], RS = 0 //idk,idk,dec(0)/inc(1),allow shifting?
-	delay(enHigh); //wait before turning off enable
-	P9OUT &= ~ENABLE;
+	delay(stdDelay); //wait the rest of delay
+	sendMessage();//send DB7 - DB4[0,1,1,0], RS = 0 //idk,idk,dec(0)/inc(1),allow shifting?
 
+	delay(stdDelay);
+	//TURN ON CURSOR (theoretically)
+	P9OUT &= ~DB7; //set DB7 lo
+	P4OUT &= ~DB6; //set DB6 lo
+	P4OUT &= ~DB5; //set DB5 lo
+	P3OUT &= ~DB4; //set DB4 lo
+	sendMessage();
+	delay(stdDelay);
+	P9OUT |=DB7; //set DB7 hi
+	P4OUT |= DB6; //set DB6 hi
+	P4OUT |= DB5; //set DB5 hi
+	P3OUT |= DB4; //set DB4 hi
+	sendMessage();
 	delay(stdDelay);
 }
 
