@@ -45,30 +45,46 @@ void clearScreen(){
 	//
 }
 void setCursor(int location){ //0 -> 31
-	//TURN ON CURSOR (theoretically)
+	//PLACE CURSOR (theoretically)
 	P9OUT &= ~ENABLE;
 	P1OUT &= ~RS;
-	P9OUT &= ~DB7; //set DB7 lo
-	P4OUT &= ~DB6; //set DB6 lo
+	P9OUT |= DB7; //set DB7 hi
+	if(location>15){
+		P4OUT |= DB6; //set DB6 hi
+	} else{
+		P4OUT &= ~DB6; //set DB6 lo
+	}
 	P4OUT &= ~DB5; //set DB5 lo
 	P3OUT &= ~DB4; //set DB4 lo
-	sendMessage();
-	delay(stdDelay);
-	P9OUT |=DB7; //set DB7 hi
-	P4OUT |= DB6; //set DB6 hi
-	P4OUT |= DB5; //set DB5 hi
-	P3OUT |= DB4; //set DB4 hi
-	sendMessage();
+	sendMessage();				//Send first half of char
 	delay(stdDelay);
 
-
+	if(location%16>7){
+		P9OUT |= DB7; //set DB7 hi
+	} else{
+		P9OUT &= ~DB7; //set DB7 lo
+	}
+	if(location%8>3){
+		P4OUT |= DB6; //set DB6 hi
+	} else{
+		P4OUT &= ~DB6; //set DB6 lo
+	}
+	if(location%4>1){
+		P4OUT |= DB5; //set DB5 hi
+	} else{
+		P4OUT &= ~DB5; //set DB5 lo
+	}
+	if(location%2==1){
+		P3OUT |= DB4; //set DB4 hi
+	} else{
+		P3OUT &= ~DB4; //set DB4 lo
+	}
+	sendMessage();
+	delay(stdDelay);
 }
 void printToLCD(char* word){ //>16 chars or scroll
-	unsigned int letterInd;
 	P1OUT |= RS;
-	for(;*word!=0;word++){
-
-		//TODO: print each char
+	for(;*word!=0;word++){ //
 		if(*word & 0x80){
 			P9OUT |= DB7; //set DB7 hi
 		} else{
@@ -90,8 +106,7 @@ void printToLCD(char* word){ //>16 chars or scroll
 			P3OUT &= ~DB4; //set DB4 lo
 		}
 		sendMessage();
-		delay(30); //finish delay
-
+		delay(3); //finish delay
 		if(*word & 0x08){
 			P9OUT |= DB7; //set DB7 hi
 		} else{
@@ -112,10 +127,8 @@ void printToLCD(char* word){ //>16 chars or scroll
 		} else{
 			P3OUT &= ~DB4; //set DB4 lo
 		}
-//		sendMessage();
-
+		sendMessage();
 		delay(30); //finish delay
-
 	}
 	P1OUT &= ~RS;
 }
