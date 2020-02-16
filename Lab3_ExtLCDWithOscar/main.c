@@ -38,6 +38,9 @@ int main(void) {
     setCursor(24);
     printToLCD("yeet");
 
+    delay(4000);
+    clearScreen();
+
 
     /*
      * 9.2 = DB7

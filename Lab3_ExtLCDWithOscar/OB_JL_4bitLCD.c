@@ -42,7 +42,16 @@ void sendMessage(){
 	P9OUT &= ~ENABLE;
 }
 void clearScreen(){
-	//
+	P9OUT &= ~DB7; //set DB7 lo
+	P4OUT &= ~DB6; //set DB6 lo
+	P4OUT &= ~DB5; //set DB5 lo
+	P3OUT &= ~DB4; //set DB4 lo
+	delay(stdDelay); //wait the rest of delay
+	sendMessage();//send DB7 - DB4[0,0,0,0], RS = 0
+
+	P3OUT |= DB4; //set DB4 hi
+	delay(stdDelay); //wait the rest of delay
+	sendMessage();//send DB7 - DB4[0,0,0,1], RS = 0
 }
 void setCursor(int location){ //0 -> 31
 	//PLACE CURSOR (theoretically)
@@ -180,18 +189,6 @@ void extLCDinit(){
 	P3OUT |= DB4; //set DB4 hi
 	delay(stdDelay); //wait the rest of delay
 	sendMessage();//send DB7 - DB4[1,1,1,1] //2 lines, font 1?, don't care?,don't care?
-
-//	P9OUT &= ~DB7; //set DB7 lo				//THIS BOI TURNS OFF LCD
-//	P4OUT &= ~DB6; //set DB6 lo
-//	P4OUT &= ~DB5; //set DB5 lo
-//	P3OUT &= ~DB4; //set DB4 lo
-//	delay(stdDelay-enHigh); //wait the rest of delay
-//	sendMessage();//send DB7 - DB4[0,0,0,0], RS = 0
-//
-//
-//	P9OUT |= DB7; //set DB7 hi
-//	delay(stdDelay-enHigh); //wait the rest of delay
-//	sendMessage();//send DB7 - DB4[1,0,0,0], RS = 0
 
 	P9OUT &= ~DB7; //set DB7 lo
 	P4OUT &= ~DB6; //set DB6 lo
