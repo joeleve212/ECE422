@@ -35,6 +35,7 @@ int main(void) {
     //TA0CTL = SMCLK + UP + TACLR;
 
     extLCDinit();
+    setCursor(3);
     //printToLCD("asdf");
 //  TA0CCR0 = 100;							// Sets value of Timer_0 to 10kHz
 //	TA0CCR1 = 60;							// sets CCR1 to check for 60% duty

@@ -20,6 +20,7 @@
 #define DB4 0x04
 #define ENABLE 0x08
 #define RS 0x10
+#define stdDelay 2
 
 void delay(unsigned int x){
 	TA2CCR0 = 1000;
@@ -44,6 +45,22 @@ void clearScreen(){
 	//
 }
 void setCursor(int location){ //0 -> 31
+	//TURN ON CURSOR (theoretically)
+	P9OUT &= ~ENABLE;
+	P1OUT &= ~RS;
+	P9OUT &= ~DB7; //set DB7 lo
+	P4OUT &= ~DB6; //set DB6 lo
+	P4OUT &= ~DB5; //set DB5 lo
+	P3OUT &= ~DB4; //set DB4 lo
+	sendMessage();
+	delay(stdDelay);
+	P9OUT |=DB7; //set DB7 hi
+	P4OUT |= DB6; //set DB6 hi
+	P4OUT |= DB5; //set DB5 hi
+	P3OUT |= DB4; //set DB4 hi
+	sendMessage();
+	delay(stdDelay);
+
 
 }
 void printToLCD(char word[32]){ //>16 chars or scroll
@@ -71,9 +88,7 @@ void printToLCD(char word[32]){ //>16 chars or scroll
 		} else{
 			P3OUT &= ~DB4; //set DB4 lo
 		}
-		P9OUT |= ENABLE; //send data
-		delay(10); //wait at least 37us total, 10us with EN hi
-		P9OUT &= ~ENABLE; //turn off enable
+		sendMessage();
 		delay(30); //finish delay
 
 		if(word[letterInd] & 0x08){
@@ -96,12 +111,8 @@ void printToLCD(char word[32]){ //>16 chars or scroll
 		} else{
 			P3OUT &= ~DB4; //set DB4 lo
 		}
-		P9OUT |= ENABLE; //send data
-		delay(10); //wait at least 37us total, 10us with EN hi
-		P9OUT &= ~ENABLE; //turn off enable
+		sendMessage();
 		delay(30); //finish delay
-
-
 	}
 }
 void setRow(int rowNum){ //0 - 2, 2 being both
@@ -124,7 +135,6 @@ void extLCDinit(){
 	P3DIR |= DB4;		//Activate P3 outputs
 	P1DIR |= 0x01 | RS;		//Activate P1 outputs
 	P9OUT &= ~ENABLE; //make sure enable is low
-	int stdDelay = 2;
 
 	delay(16); // wait 15us
 	P9OUT &= ~DB7; //send DB7 - DB4[0,0,1,1], RS = 0
@@ -139,7 +149,7 @@ void extLCDinit(){
 
 	delay(2);
 	sendMessage(); //send DB7 - DB4[0,0,1,1], RS = 0
-	delay(50); //wait for 50 us before next message
+	delay(5); //wait for 50 us before next message
 
 	P3OUT &= ~DB4;
 	sendMessage();//send DB7 - DB4[0,0,1,0], RS = 0
@@ -149,7 +159,7 @@ void extLCDinit(){
 	sendMessage();//send DB7 - DB4[0,0,1,0], RS = 0
 
 	P9OUT |= DB7; //set DB7 hi
-	P4OUT |= DB6; //set DB6 hi
+	P4OUT |= DB6; //set DB6 lo
 	P3OUT |= DB4; //set DB4 hi
 	delay(stdDelay); //wait the rest of delay
 	sendMessage();//send DB7 - DB4[1,1,1,1] //2 lines, font 1?, don't care?,don't care?
@@ -166,8 +176,10 @@ void extLCDinit(){
 //	delay(stdDelay-enHigh); //wait the rest of delay
 //	sendMessage();//send DB7 - DB4[1,0,0,0], RS = 0
 
-
 	P9OUT &= ~DB7; //set DB7 lo
+	P4OUT &= ~DB6; //set DB6 lo
+	P4OUT &= ~DB5; //set DB5 lo
+	P3OUT &= ~DB4; //set DB4 lo
 	delay(stdDelay); //wait the rest of delay
 	sendMessage();//send DB7 - DB4[0,0,0,0], RS = 0
 
