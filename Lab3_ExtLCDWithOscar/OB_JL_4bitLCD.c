@@ -63,27 +63,28 @@ void setCursor(int location){ //0 -> 31
 
 
 }
-void printToLCD(char word[32]){ //>16 chars or scroll
+void printToLCD(char* word){ //>16 chars or scroll
 	unsigned int letterInd;
-	for(letterInd = 0;letterInd<32;letterInd++){
+	P1OUT |= RS;
+	for(;*word!=0;word++){
 
 		//TODO: print each char
-		if(word[letterInd] & 0x80){
+		if(*word & 0x80){
 			P9OUT |= DB7; //set DB7 hi
 		} else{
 			P9OUT &= ~DB7; //set DB7 lo
 		}
-		if(word[letterInd] & 0x40){
+		if(*word & 0x40){
 			P4OUT |= DB6; //set DB6 hi
 		} else{
 			P4OUT &= ~DB6; //set DB6 lo
 		}
-		if(word[letterInd] & 0x20){
+		if(*word & 0x20){
 			P4OUT |= DB5; //set DB5 hi
 		} else{
 			P4OUT &= ~DB5; //set DB5 lo
 		}
-		if(word[letterInd] & 0x10){
+		if(*word & 0x10){
 			P3OUT |= DB4; //set DB4 hi
 		} else{
 			P3OUT &= ~DB4; //set DB4 lo
@@ -91,29 +92,32 @@ void printToLCD(char word[32]){ //>16 chars or scroll
 		sendMessage();
 		delay(30); //finish delay
 
-		if(word[letterInd] & 0x08){
+		if(*word & 0x08){
 			P9OUT |= DB7; //set DB7 hi
 		} else{
 			P9OUT &= ~DB7; //set DB7 lo
 		}
-		if(word[letterInd] & 0x04){
+		if(*word & 0x04){
 			P4OUT |= DB6; //set DB6 hi
 		} else{
 			P4OUT &= ~DB6; //set DB6 lo
 		}
-		if(word[letterInd] & 0x02){
+		if(*word & 0x02){
 			P4OUT |= DB5; //set DB5 hi
 		} else{
 			P4OUT &= ~DB5; //set DB5 lo
 		}
-		if(word[letterInd] & 0x01){
+		if(*word & 0x01){
 			P3OUT |= DB4; //set DB4 hi
 		} else{
 			P3OUT &= ~DB4; //set DB4 lo
 		}
-		sendMessage();
+//		sendMessage();
+
 		delay(30); //finish delay
+
 	}
+	P1OUT &= ~RS;
 }
 void setRow(int rowNum){ //0 - 2, 2 being both
 
