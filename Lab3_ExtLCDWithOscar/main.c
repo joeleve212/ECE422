@@ -15,7 +15,7 @@
 
 /*
  * TODO:
- * - function for specific timed delays delay(int microSecs)
+ * - function for specific timed delays delay(int milliSecs)
  * - initialize LCD in 4bit
  * - clearScreen()
  * - setCursor(int location) //0 -> 31
@@ -40,8 +40,6 @@ int main(void) {
 
     delay(4000);
     clearScreen();
-
-
     /*
      * 9.2 = DB7
      * 4.3 = DB6

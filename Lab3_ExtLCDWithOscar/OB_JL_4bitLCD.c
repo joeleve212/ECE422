@@ -22,17 +22,17 @@
 #define RS 0x10
 #define stdDelay 2
 
-void delay(unsigned int x){
-	TA2CCR0 = 1000;
-	TA2CTL = 0x0214;
+void delay(unsigned int milliSecs){
+	TA1CCR0 = 1000;
+	TA1CTL = 0x0214;
 	while(1){
-		if(TA2CTL&BIT0){
-			TA2CTL &= ~BIT0;
-			x--;
-			if(x==0)break;
+		if(TA1CTL&BIT0){
+			TA1CTL &= ~BIT0;
+			milliSecs--;
+			if(milliSecs==0)break;
 		}
 	}
-	TA2CTL = 0x0204; //stop timer
+	TA1CTL = 0x0204; //stop timer
 }
 
 void sendMessage(){
