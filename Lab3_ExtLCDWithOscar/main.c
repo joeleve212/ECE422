@@ -14,15 +14,16 @@
 #define ENABLE_PINS 0xFFFE // Required to use inputs and outputs
 
 /*
- * TODO:
- * - function for specific timed delays delay(int milliSecs)
- * - initialize LCD in 4bit
- * - clearScreen()
- * - setCursor(int location) //0 -> 31
- * - printToLCD(string word) //>16 chars or scroll
+ * TODO: Things with stars in front are not completed yet
+  - function for specific timed delays delay(int milliSecs)
+  - initialize LCD in 4bit
+  - clearScreen()
+  - setCursor(int location) //0 -> 31
+ * - printToLCD(string word) //>16 chars or scroll			TODO: handle strings that will spill over
  * - setRow(int rowNum) //0 - 2, 2 being both
- * - fill main with demo
- * - LOW POWER MODE
+  - fill main with demo
+  - LOW POWER MODE
+ * - Extra features
  */
 
 int main(void) {
