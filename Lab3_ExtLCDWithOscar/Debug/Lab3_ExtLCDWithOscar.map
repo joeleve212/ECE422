@@ -1,7 +1,7 @@
 ******************************************************************************
                   MSP430 Linker PC v15.12.1                    
 ******************************************************************************
->> Linked Sun Feb 16 16:41:13 2020
+>> Linked Mon Feb 17 13:13:46 2020
 
 OUTPUT FILE NAME:   <Lab3_ExtLCDWithOscar.out>
 ENTRY POINT SYMBOL: "_c_int00_noargs_noexit"  address: 00004400
@@ -18,8 +18,8 @@ MEMORY CONFIGURATION
   INFOC                 00001880   00000080  00000000  00000080  RWIX
   INFOB                 00001900   00000080  00000000  00000080  RWIX
   INFOA                 00001980   00000080  00000000  00000080  RWIX
-  RAM                   00001c00   00000800  000000a0  00000760  RWIX
-  FRAM                  00004400   0000bb80  00000034  0000bb4c  RWIX
+  RAM                   00001c00   00000800  000000a2  0000075e  RWIX
+  FRAM                  00004400   0000bb80  00000078  0000bb08  RWIX
   JTAGSIGNATURE         0000ff80   00000004  00000004  00000000  RWIX  ffff 
   BSLSIGNATURE          0000ff84   00000004  00000004  00000000  RWIX  ffff 
   IPESIGNATURE          0000ff88   00000008  00000008  00000000  RWIX  ffff 
@@ -79,7 +79,7 @@ MEMORY CONFIGURATION
   INT53                 0000fffa   00000002  00000002  00000000  RWIX
   INT54                 0000fffc   00000002  00000002  00000000  RWIX
   RESET                 0000fffe   00000002  00000002  00000000  RWIX
-  FRAM2                 00010000   00014000  00000450  00013bb0  RWIX
+  FRAM2                 00010000   00014000  0000049a  00013b66  RWIX
 
 
 SECTION ALLOCATION MAP
@@ -87,6 +87,9 @@ SECTION ALLOCATION MAP
  output                                  attributes/
 section   page    origin      length       input sections
 --------  ----  ----------  ----------   ----------------
+.bss       0    00001c00    00000002     UNINITIALIZED
+                  00001c00    00000002     (.common:curPosition)
+
 .stack     0    00002360    000000a0     UNINITIALIZED
                   00002360    00000004     rts430x_lc_rd_eabi.lib : boot.obj (.stack)
                   00002364    0000009c     --HOLE--
@@ -112,7 +115,10 @@ section   page    origin      length       input sections
 .ipe_vars 
 *          0    00004400    00000000     UNINITIALIZED
 
-.cinit     0    00004400    00000000     UNINITIALIZED
+.cinit     0    00004466    00000012     
+                  00004466    00000006     (.cinit..bss.load) [load image, compression = zero_init]
+                  0000446c    00000004     (__TI_handler_table)
+                  00004470    00000008     (__TI_cinit_table)
 
 .init_array 
 *          0    00004400    00000000     UNINITIALIZED
@@ -122,8 +128,9 @@ section   page    origin      length       input sections
                   00004400    0000001a     rts430x_lc_rd_eabi.lib : boot_special.obj (.text:_isr:_c_int00_noargs_noexit)
                   0000441a    00000008                            : isr_trap.obj (.text:_isr:__TI_ISR_TRAP)
 
-.const     0    00004422    00000012     
-                  00004422    00000012     main.obj (.const:.string)
+.const     0    00004422    00000044     
+                  00004422    0000002e     main.obj (.const:.string)
+                  00004450    00000016     OB_JL_4bitLCD.obj (.const:.string)
 
 $fill000   0    0000ff80    00000004     
                   0000ff80    00000004     --HOLE-- [fill = ffff]
@@ -231,77 +238,92 @@ SYSNMI     0    0000fffc    00000002
 .reset     0    0000fffe    00000002     
                   0000fffe    00000002     rts430x_lc_rd_eabi.lib : boot.obj (.reset)
 
-.text      0    00010000    00000450     
+.text      0    00010000    0000049a     
                   00010000    0000010c     OB_JL_4bitLCD.obj (.text:extLCDinit)
-                  0001010c    000000bc     OB_JL_4bitLCD.obj (.text:printToLCD)
-                  000101c8    000000b8     OB_JL_4bitLCD.obj (.text:setCursor)
-                  00010280    00000082     rts430x_lc_rd_eabi.lib : autoinit_wdt.obj (.text:_auto_init_hold_wdt)
-                  00010302    00000066                            : cpy_tbl.obj (.text:copy_in)
-                  00010368    00000054     main.obj (.text:main)
-                  000103bc    0000002a     OB_JL_4bitLCD.obj (.text:clearScreen)
-                  000103e6    00000022     OB_JL_4bitLCD.obj (.text:delay)
-                  00010408    00000018     rts430x_lc_rd_eabi.lib : mult16_f5hw.obj (.text)
-                  00010420    00000014                            : memcpy.obj (.text:memcpy)
-                  00010434    00000010     OB_JL_4bitLCD.obj (.text:sendMessage)
-                  00010444    00000006     rts430x_lc_rd_eabi.lib : exit.obj (.text:abort)
-                  0001044a    00000004                            : pre_init.obj (.text:_system_pre_init)
-                  0001044e    00000002                            : startup.obj (.text:_system_post_cinit)
+                  0001010c    000000e4     OB_JL_4bitLCD.obj (.text:printToLCD)
+                  000101f0    000000be     OB_JL_4bitLCD.obj (.text:setCursor)
+                  000102ae    00000082     rts430x_lc_rd_eabi.lib : autoinit_wdt.obj (.text:_auto_init_hold_wdt)
+                  00010330    00000066                            : cpy_tbl.obj (.text:copy_in)
+                  00010396    0000003c     main.obj (.text:main)
+                  000103d2    0000003a     OB_JL_4bitLCD.obj (.text:clearScreen)
+                  0001040c    00000024     rts430x_lc_rd_eabi.lib : copy_zero_init.obj (.text:decompress:ZI:__TI_zero_init)
+                  00010430    00000022     OB_JL_4bitLCD.obj (.text:delay)
+                  00010452    00000018     rts430x_lc_rd_eabi.lib : mult16_f5hw.obj (.text)
+                  0001046a    00000014                            : memcpy.obj (.text:memcpy)
+                  0001047e    00000010     OB_JL_4bitLCD.obj (.text:sendMessage)
+                  0001048e    00000006     rts430x_lc_rd_eabi.lib : exit.obj (.text:abort)
+                  00010494    00000004                            : pre_init.obj (.text:_system_pre_init)
+                  00010498    00000002                            : startup.obj (.text:_system_post_cinit)
 
 MODULE SUMMARY
 
-       Module              code   ro data   rw data
-       ------              ----   -------   -------
+       Module               code   ro data   rw data
+       ------               ----   -------   -------
     .\
-       OB_JL_4bitLCD.obj   732    0         0      
-       main.obj            84     18        0      
-    +--+-------------------+------+---------+---------+
-       Total:              816    18        0      
-                                                   
+       OB_JL_4bitLCD.obj    794    22        2      
+       main.obj             60     46        0      
+    +--+--------------------+------+---------+---------+
+       Total:               854    68        2      
+                                                    
     C:\ti\ccsv6\tools\compiler\ti-cgt-msp430_15.12.1.LTS\lib\rts430x_lc_rd_eabi.lib
-       autoinit_wdt.obj    130    0         0      
-       cpy_tbl.obj         102    0         0      
-       boot_special.obj    26     0         0      
-       mult16_f5hw.obj     24     0         0      
-       memcpy.obj          20     0         0      
-       isr_trap.obj        8      0         0      
-       exit.obj            6      0         0      
-       pre_init.obj        4      0         0      
-       boot.obj            0      2         0      
-       int27.obj           0      2         0      
-       int28.obj           0      2         0      
-       int29.obj           0      2         0      
-       int30.obj           0      2         0      
-       int31.obj           0      2         0      
-       int32.obj           0      2         0      
-       int33.obj           0      2         0      
-       int34.obj           0      2         0      
-       int35.obj           0      2         0      
-       int36.obj           0      2         0      
-       int37.obj           0      2         0      
-       int38.obj           0      2         0      
-       int39.obj           0      2         0      
-       int40.obj           0      2         0      
-       int41.obj           0      2         0      
-       int42.obj           0      2         0      
-       int43.obj           0      2         0      
-       int44.obj           0      2         0      
-       int45.obj           0      2         0      
-       int46.obj           0      2         0      
-       int47.obj           0      2         0      
-       int48.obj           0      2         0      
-       int49.obj           0      2         0      
-       int50.obj           0      2         0      
-       int51.obj           0      2         0      
-       int52.obj           0      2         0      
-       int53.obj           0      2         0      
-       int54.obj           0      2         0      
-       startup.obj         2      0         0      
-    +--+-------------------+------+---------+---------+
-       Total:              322    58        0      
-                                                   
-       Stack:              0      0         160    
-    +--+-------------------+------+---------+---------+
-       Grand Total:        1138   76        160    
+       autoinit_wdt.obj     130    0         0      
+       cpy_tbl.obj          102    0         0      
+       copy_zero_init.obj   36     0         0      
+       boot_special.obj     26     0         0      
+       mult16_f5hw.obj      24     0         0      
+       memcpy.obj           20     0         0      
+       isr_trap.obj         8      0         0      
+       exit.obj             6      0         0      
+       pre_init.obj         4      0         0      
+       boot.obj             0      2         0      
+       int27.obj            0      2         0      
+       int28.obj            0      2         0      
+       int29.obj            0      2         0      
+       int30.obj            0      2         0      
+       int31.obj            0      2         0      
+       int32.obj            0      2         0      
+       int33.obj            0      2         0      
+       int34.obj            0      2         0      
+       int35.obj            0      2         0      
+       int36.obj            0      2         0      
+       int37.obj            0      2         0      
+       int38.obj            0      2         0      
+       int39.obj            0      2         0      
+       int40.obj            0      2         0      
+       int41.obj            0      2         0      
+       int42.obj            0      2         0      
+       int43.obj            0      2         0      
+       int44.obj            0      2         0      
+       int45.obj            0      2         0      
+       int46.obj            0      2         0      
+       int47.obj            0      2         0      
+       int48.obj            0      2         0      
+       int49.obj            0      2         0      
+       int50.obj            0      2         0      
+       int51.obj            0      2         0      
+       int52.obj            0      2         0      
+       int53.obj            0      2         0      
+       int54.obj            0      2         0      
+       startup.obj          2      0         0      
+    +--+--------------------+------+---------+---------+
+       Total:               358    58        0      
+                                                    
+       Stack:               0      0         160    
+       Linker Generated:    0      18        0      
+    +--+--------------------+------+---------+---------+
+       Grand Total:         1212   144       162    
+
+
+LINKER GENERATED COPY TABLES
+
+__TI_cinit_table @ 00004470 records: 1, size/record: 8, table size: 8
+	.bss: load addr=00004466, load size=00000006 bytes, run addr=00001c00, run size=00000002 bytes, compression=zero_init
+
+
+LINKER GENERATED HANDLER TABLE
+
+__TI_handler_table @ 0000446c records: 1, size/record: 4, table size: 4
+	index: 0, handler: __TI_zero_init
 
 
 GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
@@ -565,7 +587,7 @@ address   name
 000009ce  AESAXIN_L               
 000004be  BCD2BIN                 
 000004bc  BIN2BCD                 
-00010444  C$$EXIT                 
+0001048e  C$$EXIT                 
 0000043e  CAPTIO0CTL              
 0000043f  CAPTIO0CTL_H            
 0000043e  CAPTIO0CTL_L            
@@ -1707,10 +1729,10 @@ address   name
 000000a0  __STACK_SIZE            
 UNDEFED   __TI_BINIT_Base         
 UNDEFED   __TI_BINIT_Limit        
-UNDEFED   __TI_CINIT_Base         
-UNDEFED   __TI_CINIT_Limit        
-UNDEFED   __TI_Handler_Table_Base 
-UNDEFED   __TI_Handler_Table_Limit
+00004470  __TI_CINIT_Base         
+00004478  __TI_CINIT_Limit        
+0000446c  __TI_Handler_Table_Base 
+00004470  __TI_Handler_Table_Limit
 UNDEFED   __TI_INITARRAY_Base     
 UNDEFED   __TI_INITARRAY_Limit    
 0000441a  __TI_ISR_TRAP           
@@ -1745,28 +1767,30 @@ UNDEFED   __TI_INITARRAY_Limit
 ffffffff  __TI_pprof_out_hndl     
 ffffffff  __TI_prof_data_size     
 ffffffff  __TI_prof_data_start    
+0001040c  __TI_zero_init          
 ffffffff  __c_args__              
-00010408  __mspabi_mpyi_f5hw      
-00010280  _auto_init_hold_wdt     
+00010452  __mspabi_mpyi_f5hw      
+000102ae  _auto_init_hold_wdt     
 00004400  _c_int00_noargs_noexit  
 0000fffe  _reset_vector           
 00002360  _stack                  
-0001044e  _system_post_cinit      
-0001044a  _system_pre_init        
-00010444  abort                   
-000103bc  clearScreen             
-00010302  copy_in                 
-000103e6  delay                   
+00010498  _system_post_cinit      
+00010494  _system_pre_init        
+0001048e  abort                   
+000103d2  clearScreen             
+00010330  copy_in                 
+00001c00  curPosition             
+00010430  delay                   
 00010000  extLCDinit              
 00004400  fram_ipe_end            
 00004400  fram_ipe_start          
 00004400  fram_rw_start           
 00004400  fram_rx_start           
-00010368  main                    
-00010420  memcpy                  
+00010396  main                    
+0001046a  memcpy                  
 0001010c  printToLCD              
-00010434  sendMessage             
-000101c8  setCursor               
+0001047e  sendMessage             
+000101f0  setCursor               
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -3168,6 +3192,7 @@ address   name
 00000e7d  ESIRAM125               
 00000e7e  ESIRAM126               
 00000e7f  ESIRAM127               
+00001c00  curPosition             
 00002360  _stack                  
 00002400  __STACK_END             
 00004400  _c_int00_noargs_noexit  
@@ -3176,6 +3201,10 @@ address   name
 00004400  fram_rw_start           
 00004400  fram_rx_start           
 0000441a  __TI_ISR_TRAP           
+0000446c  __TI_Handler_Table_Base 
+00004470  __TI_CINIT_Base         
+00004470  __TI_Handler_Table_Limit
+00004478  __TI_CINIT_Limit        
 0000ffc6  __TI_int27              
 0000ffc8  __TI_int28              
 0000ffca  __TI_int29              
@@ -3207,30 +3236,27 @@ address   name
 0000fffe  _reset_vector           
 00010000  extLCDinit              
 0001010c  printToLCD              
-000101c8  setCursor               
-00010280  _auto_init_hold_wdt     
-00010302  copy_in                 
-00010368  main                    
-000103bc  clearScreen             
-000103e6  delay                   
-00010408  __mspabi_mpyi_f5hw      
-00010420  memcpy                  
-00010434  sendMessage             
-00010444  C$$EXIT                 
-00010444  abort                   
-0001044a  _system_pre_init        
-0001044e  _system_post_cinit      
+000101f0  setCursor               
+000102ae  _auto_init_hold_wdt     
+00010330  copy_in                 
+00010396  main                    
+000103d2  clearScreen             
+0001040c  __TI_zero_init          
+00010430  delay                   
+00010452  __mspabi_mpyi_f5hw      
+0001046a  memcpy                  
+0001047e  sendMessage             
+0001048e  C$$EXIT                 
+0001048e  abort                   
+00010494  _system_pre_init        
+00010498  _system_post_cinit      
 ffffffff  __TI_pprof_out_hndl     
 ffffffff  __TI_prof_data_size     
 ffffffff  __TI_prof_data_start    
 ffffffff  __c_args__              
 UNDEFED   __TI_BINIT_Base         
 UNDEFED   __TI_BINIT_Limit        
-UNDEFED   __TI_CINIT_Base         
-UNDEFED   __TI_CINIT_Limit        
-UNDEFED   __TI_Handler_Table_Base 
-UNDEFED   __TI_Handler_Table_Limit
 UNDEFED   __TI_INITARRAY_Base     
 UNDEFED   __TI_INITARRAY_Limit    
 
-[1459 symbols]
+[1461 symbols]

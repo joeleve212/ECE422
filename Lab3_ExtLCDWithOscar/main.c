@@ -31,16 +31,21 @@ int main(void) {
     PM5CTL0 = 0xFFFE; // Turn on the Digital I/o
 
     extLCDinit();
-    setCursor(3);
+    /*setCursor(3);
     printToLCD("asdf");
     setCursor(16);
     printToLCD("test");
 
     setCursor(24);
-    printToLCD("yeet");
+    printToLCD("yeet");*/
+
+    setCursor(16);
+    printToLCD("The quick brown ");
 
     delay(4000);
     clearScreen();
+
+    printToLCD("The quick brown fox jumps ");
     /*
      * 9.2 = DB7
      * 4.3 = DB6

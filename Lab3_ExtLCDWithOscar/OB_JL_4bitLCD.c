@@ -22,6 +22,8 @@
 #define RS 0x10
 #define stdDelay 2
 
+int curPosition; // variable that tracks cursor position
+
 void delay(unsigned int milliSecs){
 	TA1CCR0 = 1000;
 	TA1CTL = 0x0214;
@@ -42,6 +44,7 @@ void sendMessage(){
 	P9OUT &= ~ENABLE;
 }
 void clearScreen(){
+	delay(2);
 	P9OUT &= ~DB7; //set DB7 lo
 	P4OUT &= ~DB6; //set DB6 lo
 	P4OUT &= ~DB5; //set DB5 lo
@@ -52,6 +55,8 @@ void clearScreen(){
 	P3OUT |= DB4; //set DB4 hi
 	delay(stdDelay); //wait the rest of delay
 	sendMessage();//send DB7 - DB4[0,0,0,1], RS = 0
+	curPosition = 0;
+	delay(2);
 }
 void setCursor(int location){ //0 -> 31
 	//PLACE CURSOR (theoretically)
@@ -90,6 +95,7 @@ void setCursor(int location){ //0 -> 31
 	}
 	sendMessage();
 	delay(stdDelay);
+	curPosition = location; // update position tracker
 }
 void printToLCD(char* word){ //>16 chars or scroll
 	P1OUT |= RS;
@@ -138,6 +144,15 @@ void printToLCD(char* word){ //>16 chars or scroll
 		}
 		sendMessage();
 		delay(30); //finish delay
+		curPosition++;
+		if(curPosition == 16){
+			setCursor(16);
+		}
+		else if(curPosition == 32){
+			clearScreen();
+			printToLCD("Error: input too long");
+			break;
+		}
 	}
 	P1OUT &= ~RS;
 }
