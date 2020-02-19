@@ -11,7 +11,7 @@
 void extLCDinit();
 void clearScreen();
 void setCursor(int location); //0 -> 31
-void printToLCD(char word[32]); //>16 chars or scroll
+void printToLCD(char* word); //>16 chars or scroll
 void setRow(int rowNum); //0 - 2, 2 being both
 void delay(int microSecs);
 
