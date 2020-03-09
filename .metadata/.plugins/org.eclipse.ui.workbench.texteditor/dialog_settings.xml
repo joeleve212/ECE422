@@ -12,19 +12,21 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
-		<item value="true" key="wholeword"/>
-		<item value="test_all" key="selection"/>
+		<item value="false" key="wholeword"/>
+		<item value="delay" key="selection"/>
 		<list key="findhistory">
-			<item value="test_all"/>
-			<item value="i"/>
-			<item value="row"/>
-			<item value="Turn off the red Led"/>
-			<item value="off"/>
-			<item value="turn off"/>
-			<item value="minVal"/>
-			<item value="4630"/>
+			<item value="delay( int"/>
+			<item value="delay(int"/>
+			<item value="delay"/>
+			<item value="print"/>
+			<item value="setcur"/>
+			<item value="word*"/>
+			<item value="P9OUT &amp;= ~ENABLE; "/>
+			<item value="sendMessage"/>
 		</list>
 		<list key="replacehistory">
+			<item value="*word"/>
+			<item value="P2"/>
 			<item value="row"/>
 			<item value="Set row to low"/>
 		</list>

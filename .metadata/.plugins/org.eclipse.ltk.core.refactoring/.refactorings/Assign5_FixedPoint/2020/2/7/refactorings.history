@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move &apos;QmathLib_CCS_MPY32_5xx_6xx_CPUX_small_code_small_data.lib&apos; to &apos;Assign5_FixedPoint&apos;" description="Move &apos;QmathLib_CCS_MPY32_5xx_6xx_CPUX_small_code_small_data.lib&apos; to &apos;Assign5_FixedPoint&apos;" destination="/Assign5_FixedPoint" element1="libraries/CCS/MPY32/5xx_6xx/QmathLib_CCS_MPY32_5xx_6xx_CPUX_small_code_small_data.lib" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="1" stamp="1581535037880" updateReferences="true"/>
+</session>

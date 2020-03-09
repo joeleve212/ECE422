@@ -49,8 +49,8 @@ void setUpRails(){
     P9OUT |= ROW1 | ROW2 | ROW3| ROW4; //Turn on the rows
 
     //input
-    P2DIR &= ~(COL1|COL2|COL3); // P1.1 and P1.2 will be inputs
-    P2REN |= COL1|COL2|COL3; // P1.1 and P1.2 will have pull-up
+    P2DIR &= ~(COL1|COL2|COL3); // P2.0, P2.1, P2.2 will be inputs
+    P2REN |= COL1|COL2|COL3; // P2.0, P2.1, P2.2 will have pull-up
     P2OUT |= COL1|COL2|COL3; // resistors
 
     setAllLow();

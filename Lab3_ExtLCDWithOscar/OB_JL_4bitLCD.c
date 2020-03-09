@@ -49,7 +49,6 @@ void clearScreen(){
 	P4OUT &= ~DB6; //set DB6 lo
 	P4OUT &= ~DB5; //set DB5 lo
 	P3OUT &= ~DB4; //set DB4 lo
-	delay(stdDelay); //wait the rest of delay
 	sendMessage();//send DB7 - DB4[0,0,0,0], RS = 0
 
 	P3OUT |= DB4; //set DB4 hi
