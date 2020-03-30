@@ -2,34 +2,6 @@
 **** Build of configuration Debug for project Assign5_FixedPoint ****
 
 "C:\\ti\\ccsv6\\utils\\bin\\gmake" -k all 
-'Building file: ../main.c'
-'Invoking: MSP430 Compiler'
-"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --code_model=large --data_model=large -Ooff --opt_for_speed=1 --use_hw_mpy=F5 --include_path="C:/ti/ccsv6/ccs_base/msp430/include" --include_path="D:/Junior Year/ECE422/Assign5_FixedPoint/include" --include_path="C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --define=_MPU_ENABLE --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="main.d"  "../main.c"
-"../main.c", line 7: warning #552-D: variable "z1" was set but never used
-"../main.c", line 7: warning #552-D: variable "z2" was set but never used
-"../main.c", line 9: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 15: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
-"../main.c", line 7: remark #1535-D: (ULP 8.1) variable "x" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
-"../main.c", line 7: remark #1535-D: (ULP 8.1) variable "y" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
-"../main.c", line 8: remark #1535-D: (ULP 8.1) variable "xx" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
-"../main.c", line 8: remark #1535-D: (ULP 8.1) variable "yy" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
-"../main.c", line 9 (col. 4): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 14 (col. 5): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-'Finished building: ../main.c'
-' '
-'Building target: Assign5_FixedPoint.out'
-'Invoking: MSP430 Linker'
-"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --code_model=large --data_model=large --use_hw_mpy=F5 --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --define=_MPU_ENABLE --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal -z -m"Assign5_FixedPoint.map" --heap_size=160 --stack_size=160 --cinit_hold_wdt=on -i"C:/ti/ccsv6/ccs_base/msp430/include" -i"C:/ti/ccsv6/ccs_base/msp430/lib/5xx_6xx_FRxx" -i"C:/ti/ccsv6/ccs_base/msp430/lib/FR59xx" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/lib" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --reread_libs --priority --define=_MPU_ENABLE --display_error_number --warn_sections --diag_wrap=off --xml_link_info="Assign5_FixedPoint_linkInfo.xml" --use_hw_mpy=F5 --rom_model -o "Assign5_FixedPoint.out" "./main.obj" "../QmathLib_CCS_MPY32_5xx_6xx_CPUX_large_code_large_data.lib" "../QmathLib_CCS_MPY32_5xx_6xx_CPUX_small_code_small_data.lib" "../lnk_msp430fr6989.cmd" "../libraries/CCS/MPY32/5xx_6xx/IQmathLib_CCS_MPY32_5xx_6xx_CPUX_large_code_large_data.lib" "../libraries/CCS/MPY32/5xx_6xx/IQmathLib_CCS_MPY32_5xx_6xx_CPUX_large_code_restricted_data.lib" "../libraries/CCS/MPY32/5xx_6xx/IQmathLib_CCS_MPY32_5xx_6xx_CPUX_large_code_small_data.lib" "../libraries/CCS/MPY32/5xx_6xx/IQmathLib_CCS_MPY32_5xx_6xx_CPUX_small_code_small_data.lib" "../libraries/CCS/MPY32/5xx_6xx/QmathLib_CCS_MPY32_5xx_6xx_CPUX_large_code_restricted_data.lib" "../libraries/CCS/MPY32/5xx_6xx/QmathLib_CCS_MPY32_5xx_6xx_CPUX_large_code_small_data.lib"  -llibmpu_init.a -llibmath.a -llibc.a   ../libraries/CCS/MPY32/5xx_6xx/IQmathLib.a ../libraries/CCS/MPY32/5xx_6xx/QmathLib.a 
-<Linking>
-warning #10207-D: resolving index library "QmathLib.a" to "QmathLib_CCS_MPY32_5xx_6xx_CPUX_large_code_large_data.lib", but "QmathLib_CCS_MPY32_5xx_6xx_CPUX_large_code_large_data.lib" was not found
-remark #10371-D: (ULP 1.1) Detected no uses of low power mode state changing instructions
-warning #10420-D: For FRAM devices, at start up, the GPO power-on default high-impedance mode needs to be disabled to activate previously configured port settings. This can be done by clearing the LOCKLPM5 bit in PM5CTL0 register.
-remark #10372-D: (ULP 4.1) Detected uninitialized Port A in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
-remark #10372-D: (ULP 4.1) Detected uninitialized Port B in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
-remark #10372-D: (ULP 4.1) Detected uninitialized Port C in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
-remark #10372-D: (ULP 4.1) Detected uninitialized Port D in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
-remark #10372-D: (ULP 4.1) Detected uninitialized Port E in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
-'Finished building target: Assign5_FixedPoint.out'
-' '
+gmake: Nothing to be done for 'all'.
 
 **** Build Finished ****

@@ -1,0 +1,20 @@
+#include <msp430.h> 
+
+#include <stdlib.h>
+#include <string.h>
+#include <driverlib.h> // Required for the LCD
+#include "myGpio.h" // Required for the LCD
+#include "myClocks.h" // Required for the LCD
+#include "myLcd.h" // Required for the LCD
+#include <time.h>
+/*
+ * main.c
+ */
+int main(void) {
+    WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
+	initGPIO();                // Initializes Inputs and Outputs for LCD
+	initClocks();              // Initialize clocks for LCD
+	myLCD_init();              // Prepares LCD to receive commands
+	
+	return 0;
+}

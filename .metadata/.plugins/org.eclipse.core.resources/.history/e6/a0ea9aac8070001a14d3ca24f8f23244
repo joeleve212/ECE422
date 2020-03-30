@@ -1,0 +1,33 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+# Add inputs and outputs from these tool invocations to the build variables 
+CMD_SRCS += \
+../lnk_msp430fr6989.cmd 
+
+C_SRCS += \
+../Task2.c \
+../main.c 
+
+OBJS += \
+./Task2.obj \
+./main.obj 
+
+C_DEPS += \
+./Task2.d \
+./main.d 
+
+C_DEPS__QUOTED += \
+"Task2.d" \
+"main.d" 
+
+OBJS__QUOTED += \
+"Task2.obj" \
+"main.obj" 
+
+C_SRCS__QUOTED += \
+"../Task2.c" \
+"../main.c" 
+
+

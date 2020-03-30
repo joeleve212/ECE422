@@ -7,15 +7,9 @@
 "C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --include_path="C:/ti/ccsv6/ccs_base/msp430/include" --include_path="C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="OB_JL_4bitLCD.d"  "../OB_JL_4bitLCD.c"
 "../OB_JL_4bitLCD.c", line 14: warning #48-D: incompatible redefinition of macro "TACLR" (declared at line 5127 of "C:\ti\ccsv6\ccs_base\msp430\include\msp430fr6989.h")
 "../OB_JL_4bitLCD.c", line 42: remark #1535-D: (ULP 8.1) variable "enHigh" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
-"../OB_JL_4bitLCD.c", line 103: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
-"../OB_JL_4bitLCD.c", line 104: remark #1540-D: (ULP 11.2) Assignment of higher bits (constants) to "PAOUT_L" within a loop. Recommend using lower 4 bits to allow use of constant generators
+"../OB_JL_4bitLCD.c", line 102: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../OB_JL_4bitLCD.c", line 103: remark #1540-D: (ULP 11.2) Assignment of higher bits (constants) to "PAOUT_L" within a loop. Recommend using lower 4 bits to allow use of constant generators
 'Finished building: ../OB_JL_4bitLCD.c'
-' '
-'Building file: ../main.c'
-'Invoking: MSP430 Compiler'
-"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --data_model=restricted -Ooff --use_hw_mpy=F5 --include_path="C:/ti/ccsv6/ccs_base/msp430/include" --include_path="C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="main.d"  "../main.c"
-"../main.c", line 59: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
-'Finished building: ../main.c'
 ' '
 'Building target: Lab3_ExtLCDWithOscar.out'
 'Invoking: MSP430 Linker'

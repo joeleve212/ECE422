@@ -1,0 +1,13 @@
+
+**** Build of configuration Debug for project Lab4_RNGwithAllen ****
+
+"C:\\ti\\ccsv6\\utils\\bin\\gmake" -k all 
+
+**** Build of configuration Debug for project Lab4_RNGwithAllen ****
+
+!CommandLauncher.error.commandCanceled!
+Error: Program "C:/ti/ccsv6/utils/bin/gmake" is not found in PATH
+
+PATH=[C:\ti\ccsv6\ccs_base\common\bin;C:\ti\ccsv6\ccs_base\common\uscif;C:\ti\ccsv6\ccs_base\DebugServer\license;C:\Program Files\AdoptOpenJDK\jdk-12.0.2.10-hotspot\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\System32;C:\Windows;C:\Windows\System32\wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files\PuTTY\;C:\Program Files\Git\cmd;D:\Program Files\Node_js\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;D:\Program Files (x86)\Yarn\bin\;D:\Program Files\Microsoft VS Code\bin;C:\Program Files (x86)\sbt\bin;D:\Program Files\Go\bin;D:\Matlab\bin;C:\Users\Joe Leveille\AppData\Local\Microsoft\WindowsApps;D:\Program Files\Microsoft VS Code\bin;C:\Users\Joe Leveille\AppData\Roaming\npm;C:\Users\Joe Leveille\AppData\Local\Yarn\bin;D:\Program Files\MinGW\MinGW\bin;;D:\ModelSim\modelsim_ase\win32aloem;D:\Quartus\modelsim_ase\win32aloem;C:\Users\Joe Leveille\go\bin;C:\Users\Joe Leveille\AppData\Local\hyper\app-3.0.2\resources\bin;D:\Program Files\RubyMine 2019.2.4\bin;]
+
+**** Build Finished ****
