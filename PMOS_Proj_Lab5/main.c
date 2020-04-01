@@ -7,8 +7,8 @@
 #include "myClocks.h" // Required for the LCD
 #include "myLcd.h" // Required for the LCD
 #include <time.h>
-
-int HoldGreenLED, maxNumTasks = 4;
+#define ENABLE_PINS 0xFFFE // Required to use inputs and outputs
+int HoldGreenLED, maxNumTasks = 3;
 
 struct timer{
 	int stopCount, currCount, controlReg;
@@ -21,12 +21,29 @@ struct taskRegs{
 
 };
 void ScrollWords(char words[300]);
-struct taskRegs sysTasks[maxNumTasks]; //this OS can handle at most 4 tasks
+void task1();
+void task2();
+void task3();
+void somethingInteresting(){
+	//TODO: insert some P1.0 stuff
+	short int onBool = TA3CCR0 % 2; //decides whether to turn LED on or off first
+	TA3CCR1 = TA3CCR0 + 1000; //set end time of first state
+	if(onBool){ //if odd number,
+		P1OUT |= 0x01; //turn on LED
+	} else{ //if even,
+		P1OUT &= ~0x01; //turn off LED
+	}
+	//TODO: when timer reaches + 1000, toggle LED & set CCR1 to something else
+	//when new CCR1 is reached, turn off LED and return
+	return;
+}
+
 int main(void) {
     WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
-
-
-
+    PM5CTL0 = ENABLE_PINS; 				// Enable inputs and outputs
+    HoldGreenLED = 3;
+    task2();
+//struct taskRegs sysTasks[maxNumTasks]; //this OS can handle at most 4 tasks
 
 	//TODO: init array (length of max num/tasks) of structs
     //init each task w/ it's struct in corresponding loc in array
@@ -44,13 +61,13 @@ void task1(){
 	int counter = 0;
 	while(1){
 		//LOOP display counter(start at 0) on LCD
-		myLCD_displayNumber(counter);
-		if(P1IN & 0x02 || counter == 999999){ //check if P1.1 is pressed
+		if(!(P1IN & 0x02) || counter == 999999){ //check if P1.1 is pressed
 			counter = 0; //reset counter to 0
 
 			//display "START OVER"
 			ScrollWords("START OVER");
 		}
+		myLCD_displayNumber(counter);
 		// wait 1 sec
 		TA1CCR0 = 32768;     // setup TA1 timer to count for 1 second
 		TA1CTL = 0x0114;     // start TA1 timer from zero in UP mode with ACLK
@@ -99,13 +116,25 @@ void task2(void){ // Setup - runs once
 
 void task3(){
 	//setup TODO:
+	P1DIR |= BIT0;       // make P1.0 (Red LED) an output
+	P1OUT &= ~BIT0;      // Turn off P1.0 (Red LED)
+	TA3CCR0 = 32768;     // setup TA3 timer to count for 1 second
+	TA3CTL = 0x0114;     // start TA3 timer from zero in UP mode with ACLK
+	srand(time(NULL));
+	int counter = 0; //start counter at 0
 
-	while(1){
-		//Loop TODO:
-		//wait 10 seconds (TA3)
-		//randomize value 0 - 25
-		//place value in holdGreenLED
-		//mess with P1.0
+	while(1){ //Loop TODO:
+		if(TA3CTL & BIT0){     // check if timer finished counting
+			TA3CTL &= ~BIT0;     // reset timer flag
+			TA3CTL = 0x0114;     // start TA3 timer from zero in UP mode with ACLK
+			counter++;             // increment counter
+		}
+		if(counter >= 10){//wait 10 seconds (TA3)
+			HoldGreenLED = rand()%26; //place random num under 26 in global variable
+			TA3CCR0 = 32768;     // set timer to count for 1 second
+			TA3CTL = 0x0114;     // start TA3 timer from zero in UP mode with ACLK
+			somethingInteresting();//mess with P1.0
+		}
 	}
 }
 
