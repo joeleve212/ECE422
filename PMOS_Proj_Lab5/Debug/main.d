@@ -6,8 +6,9 @@ main.obj: C:/ti/ccsv6/ccs_base/msp430/include/msp430fr6989.h
 main.obj: C:/ti/ccsv6/ccs_base/msp430/include/in430.h
 main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/intrinsics.h
 main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/intrinsics_legacy_undefs.h
-main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/stdlib.h
+main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/setjmp.h
 main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/linkage.h
+main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/stdlib.h
 main.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/string.h
 main.obj: D:/Junior\ Year/ECE422/PMOS_Proj_Lab5/driverlib/MSP430FR5xx_6xx/driverlib.h
 main.obj: D:/Junior\ Year/ECE422/PMOS_Proj_Lab5/driverlib/MSP430FR5xx_6xx/inc/hw_memmap.h
@@ -53,8 +54,9 @@ C:/ti/ccsv6/ccs_base/msp430/include/msp430fr6989.h:
 C:/ti/ccsv6/ccs_base/msp430/include/in430.h: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/intrinsics.h: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/intrinsics_legacy_undefs.h: 
-C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/stdlib.h: 
+C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/setjmp.h: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/linkage.h: 
+C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/stdlib.h: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include/string.h: 
 D:/Junior\ Year/ECE422/PMOS_Proj_Lab5/driverlib/MSP430FR5xx_6xx/driverlib.h: 
 D:/Junior\ Year/ECE422/PMOS_Proj_Lab5/driverlib/MSP430FR5xx_6xx/inc/hw_memmap.h: 
