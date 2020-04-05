@@ -30,6 +30,9 @@ void task3();
 void somethingInteresting(){ //Randomly turns P1.0 on or off 20 times based on TA3 count
 	int i,j,onBool;
 	for(j=0;j<20;j++){
+		if(currTask != 3){
+			longjmp(taskRegs[0],num);
+		}
 		onBool = rand() % 2; //decides whether to turn LED on or off first
 		for(i=0;i<200;i++);
 		if(onBool){ //if odd number,
@@ -151,10 +154,11 @@ void task2(void){ // Setup - runs once
 	dummy = setjmp(taskRegs[currTask]); //Save current task's regs in taskRegs[currTask]          -------------------------
 	// loop that repeats forever - 1Hz 50% DC signl or on for HoldGreenLED seconds
 	while(1){     // infinite loop// 1 Hz 50% DC signal
-		if(currTask != 2){
-			longjmp(taskRegs[0],num);
-		}
-		dummy = setjmp(taskRegs[currTask]); //Save current task's regs in taskRegs[currTask]              -------------------
+//		dummy = setjmp(taskRegs[currTask]); //Save current task's regs in taskRegs[currTask]              ------------------- Possibly comment out
+//		if(currTask != 2){
+//			longjmp(taskRegs[0],num);
+//		}
+
 		if (TA2CTL & BIT0){     // check if timer finished counting
 			TA2CTL &= ~BIT0;     // reset timer flag
 			P9OUT ^= BIT7;       // toggle P9.7 (Green LED)
@@ -169,6 +173,10 @@ void task2(void){ // Setup - runs once
                                 // how many seconds to keep P9.7 high
 
 			while (count > 0){         // count down to zero
+				dummy = setjmp(taskRegs[currTask]); //Save current task's regs in taskRegs[currTask]              -------------------
+				if(currTask != 2){
+					longjmp(taskRegs[0],num);
+				}
 				if (TA2CTL & BIT0){      // check if timer done counting to 1 second
 					TA2CTL &= ~BIT0;      // reset timer flag
 					count--;              // decrement counter
