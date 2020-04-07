@@ -37,7 +37,7 @@ void somethingInteresting(){ //Randomly turns P1.0 on or off 20 times based on T
 		} else{ //if even,
 			P1OUT &= ~0x01; //turn off LED
 		}
-		dummy = setjmp(taskRegs[currTask]); //Save current task's regs in taskRegs[currTask]          ------------------
+		dummy = setjmp(taskRegs[3]); //Save current task's regs in taskRegs[currTask]          ------------------
 	}
 	return;
 }
