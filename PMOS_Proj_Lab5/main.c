@@ -173,6 +173,10 @@ void task2(void){ // Setup - runs once
 					TA2CTL &= ~BIT0;      // reset timer flag
 					count--;              // decrement counter
 				}
+				if(currTask != 2){
+					longjmp(taskRegs[0],num);
+				}
+				dummy = setjmp(taskRegs[currTask]); //Save current task's regs in taskRegs[currTask]              -------------------
 			}//end while(count > 0)
 // Done with P9.7 high, go back to 1 Hz 50% DC signal
 			TA2CCR0 = 16384;      // setup TA2 timer to count for 0.5 second
