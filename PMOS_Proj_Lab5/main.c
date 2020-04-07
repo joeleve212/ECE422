@@ -11,7 +11,8 @@
 #define maxNumTasks 3
 
 int HoldGreenLED,dummy,startUp = 1,num=100;
-int currTask = 1;
+char currTask = 1;
+char priority[4] = {0, 0, 0, 1};     //set the priority of each task
 jmp_buf taskRegs[maxNumTasks+1];
 struct timer{
 	int stopCount, currCount, controlReg;
@@ -46,8 +47,9 @@ int main(void) {
     WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
     PM5CTL0 = ENABLE_PINS; 				// Enable inputs and outputs
     HoldGreenLED = 3; // place some default value for the LED
-    TA0CCR0 = 100000;     // setup TA0 timer to count for 100 ms
-    TA0CTL = 0x0214;     // start TA0 timer from zero in UP mode with SMCLK
+    const int defaultTime = 10000, longTime = 20000; //set time lengths
+    TA0CCR0 = defaultTime;     // setup TA0 timer to count for default length of time
+    TA0CTL = 0x0114;     // start TA0 timer from zero in UP mode with ACLK
     TA0CCTL0 = CCIE; // Enable interrupt for Timer0
     _BIS_SR(GIE); // Enter activate interrupts
     //struct taskRegs sysTasks[maxNumTasks]; //this OS can handle at most 4 tasks
@@ -55,6 +57,11 @@ int main(void) {
     //init each task w/ it's struct in corresponding loc in array
     dummy = setjmp(taskRegs[0]); //Save current task's regs in taskRegs[currTask]          ------------------
 
+    if(priority[currTask]){
+    	TA0CCR0 = longTime;     // setup TA0 timer to count for long time length
+    } else{
+    	TA0CCR0 = defaultTime;     // setup TA0 timer to count for default time length
+    }
     if(startUp){
     	switch(currTask){ //call appropriate current task
 			case 1:
@@ -130,6 +137,7 @@ void task1(){
 		if(!(P1IN & 0x02) || counter == 999999){ //check if P1.1 is pressed
 			counter = 0; //reset counter to 0
 			ScrollWords("START OVER"); //display "START OVER"
+			myLCD_displayNumber(counter);
 		} else if(TA1CTL & BIT0){// check if timer finished counting
 			TA1CTL &= ~BIT0;     // reset timer flag
 			counter++; //increment counter
