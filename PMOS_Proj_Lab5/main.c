@@ -12,27 +12,18 @@
 
 int HoldGreenLED,dummy,startUp = 1,num=100;
 char currTask = 1;
-char priority[4] = {0, 0, 0, 1};     //set the priority of each task
-jmp_buf taskRegs[maxNumTasks+1];
-struct timer{
-	int stopCount, currCount, controlReg;
-};
+char priority[4] = {0, 0, 0, 1};     //set the priority of each task (only task 3 is priority)
+jmp_buf taskRegs[maxNumTasks+1];	 //allows for one location to store the OS 'check point', and one for each task
 
-struct taskRegs{ //TODO: This should be uneeded with longjump() & setjmp()
-	//TODO: fill with registers that must be saved
-	int progCounter,status,genRegs;
-	struct timer timers[3];
-
-};
 void ScrollWords(char words[300]);
 void task1();
 void task2();
 void task3();
-void somethingInteresting(){ //Randomly turns P1.0 on or off 20 times based on TA3 count
+void somethingInteresting(){ //Randomly turns P1.0 on or off 20 times
 	int i,j,onBool;
 	for(j=0;j<20;j++){
 		onBool = rand() % 2; //decides whether to turn LED on or off first
-		for(i=0;i<200;i++);
+		for(i=0;i<250;i++);
 		if(onBool){ //if odd number,
 			P1OUT |= 0x01; //turn on LED
 		} else{ //if even,
@@ -40,6 +31,7 @@ void somethingInteresting(){ //Randomly turns P1.0 on or off 20 times based on T
 		}
 		dummy = setjmp(taskRegs[3]); //Save current task's regs in taskRegs[currTask]          ------------------
 	}
+	P1OUT &= ~0x01; //turn off LED
 	return;
 }
 
@@ -52,10 +44,7 @@ int main(void) {
     TA0CTL = 0x0114;     // start TA0 timer from zero in UP mode with ACLK
     TA0CCTL0 = CCIE; // Enable interrupt for Timer0
     _BIS_SR(GIE); // Enter activate interrupts
-    //struct taskRegs sysTasks[maxNumTasks]; //this OS can handle at most 4 tasks
-	//TODO: init array (length of max num/tasks) of structs OR import functions to store regs
-    //init each task w/ it's struct in corresponding loc in array
-    dummy = setjmp(taskRegs[0]); //Save current task's regs in taskRegs[currTask]          ------------------
+    dummy = setjmp(taskRegs[0]); //Save current task's regs in taskRegs[0]          ------------------
 
     if(priority[currTask]){
     	TA0CCR0 = longTime;     // setup TA0 timer to count for long time length
@@ -71,15 +60,14 @@ int main(void) {
 				task2();
 				break;
 			case 3:
-				startUp = 0;
-				task3();
+				startUp = 0;  //once this is changed, all tasks have been started,
+				task3();	  //so we no longer will be in 'start up mode'
 				break;
 			default:
 				break;
 		}
     } else{
-    	//TODO: start currTask
-    	switch(currTask){ //call appropriate current task
+    	switch(currTask){ //resume appropriate current task
 			case 1:
 				longjmp(taskRegs[currTask],num);
 				break;
@@ -98,16 +86,10 @@ int main(void) {
 	return 0;
 }
 #pragma vector=TIMER0_A0_VECTOR
-__interrupt void OStimer(void){ //TODO: handle task switching
-	//dummy = setjmp(taskRegs[currTask]); //Save current task's regs in taskRegs[currTask]
-	TA0CTL = TA0CTL & ~TAIFG;  //reset ISR flag
-	TA0CCTL0 &= ~0x01; //reset CCR0 ISR flag
-	if(currTask<3){
-		currTask++;
-	} else{
-		currTask = 1;
-	}
-	//TODO: handle priority tasks
+__interrupt void OStimer(void){ //handle task incrementing
+	TA0CTL = TA0CTL & ~TAIFG;    //reset ISR flag
+	//TA0CCTL0 &= ~0x01; 			 //reset CCR0 ISR flag
+	currTask = (currTask % 3)+1; //cycles
 	return;
 }
 
@@ -124,10 +106,7 @@ void task1(){
 	int counter = 0;
 	TA1CCR0 = 32768;     // setup TA1 timer to count for 1 second
 	TA1CTL = 0x0114;     // start TA1 timer from zero in UP mode with ACLK
-	if(currTask != 1){
-		longjmp(taskRegs[0],num);
-	}
-	dummy = setjmp(taskRegs[1]); //Save current task's regs in taskRegs[currTask]          ------------------
+
 	while(1){
 		dummy = setjmp(taskRegs[1]); //Save current task's regs in taskRegs[currTask]         ---------------
 		if(currTask != 1){
@@ -156,10 +135,10 @@ void task2(void){ // Setup - runs once
 	if(currTask != 2){
 		longjmp(taskRegs[0],num);
 	}
-	dummy = setjmp(taskRegs[2]); //Save current task's regs in taskRegs[currTask]          -------------------------
+	dummy = setjmp(taskRegs[2]); //Save current task's regs in taskRegs[currTask]
 	// loop that repeats forever - 1Hz 50% DC signl or on for HoldGreenLED seconds
 	while(1){     // infinite loop// 1 Hz 50% DC signal
-		dummy = setjmp(taskRegs[2]); //Save current task's regs in taskRegs[currTask]              -------------------
+		dummy = setjmp(taskRegs[2]); //Save current task's regs in taskRegs[currTask]
 		if(currTask != 2){
 			longjmp(taskRegs[0],num);
 		}
@@ -181,7 +160,7 @@ void task2(void){ // Setup - runs once
 					TA2CTL &= ~BIT0;      // reset timer flag
 					count--;              // decrement counter
 				}
-				dummy = setjmp(taskRegs[2]); //Save current task's regs in taskRegs[currTask]              -------------------
+				dummy = setjmp(taskRegs[2]); //Save current task's regs in taskRegs[currTask]
 				if(currTask != 2){
 					longjmp(taskRegs[0],num);
 				}
@@ -202,7 +181,6 @@ void task3(){
 	TA3CTL = 0x0114;     // start TA3 timer from zero in UP mode with ACLK
 	srand(time(NULL));   //seed randomizer
 	int counter = 0; //start counter at 0
-	dummy = setjmp(taskRegs[3]); //Save current task's regs in taskRegs[currTask]                   -------------------
 	if(currTask != 3){
 		longjmp(taskRegs[0],num);
 	}
@@ -221,6 +199,7 @@ void task3(){
 			TA3CCR0 = 32768;     // set timer to count for 1 second
 			TA3CTL = 0x0114;     // start TA3 timer from zero in UP mode with ACLK
 			somethingInteresting();//mess with P1.0
+			counter = 0;  		//reset counter
 		}
 	}
 }
