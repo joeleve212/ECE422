@@ -30,7 +30,6 @@ typedef struct TCB{
 
 #pragma PERSISTENT(taskBlocks);
 jmp_buf taskRegs[maxNumTasks+1];
-TCB asdf;
 TCB taskBlocks[maxNumTasks] = {
 	{task1, taskRegs[1], 0, 0},
 	{task2, taskRegs[2], 0, 0},
@@ -112,7 +111,7 @@ __interrupt void OStimer(void){ //handle task incrementing
 
 	if(!setjmp(taskBlocks[currTask].task_buf)){ // Responsible for saving jmp
 		// location for when we return
-		currTask = (currTask % 3)+1; //cycles to the next task
+		currTask = ++currTask % 3; //cycles to the next task
 
 		if(taskBlocks[currTask].started){ // If task is finished
 			longjmp(taskBlocks[currTask].task_buf,1);// Jump to next task
