@@ -10,15 +10,33 @@
 #define ENABLE_PINS 0xFFFE // Required to use inputs and outputs
 #define maxNumTasks 3
 
-int HoldGreenLED,dummy,startUp = 1,num=100;
+int HoldGreenLED,dummy,startUp = 1,num=100; //TODO: remove startUp when able
 char currTask = 1;
 char priority[4] = {0, 0, 0, 1};     //set the priority of each task (only task 3 is priority)
-jmp_buf taskRegs[maxNumTasks+1];	 //allows for one location to store the OS 'check point', and one for each task
+//jmp_buf taskRegs[maxNumTasks+1];	 //allows for one location to store the OS 'check point', and one for each task
 
 void ScrollWords(char words[300]);
 void task1();
 void task2();
 void task3();
+
+
+typedef struct TCB {
+	void (*functionPtr)(void); // Pointer to our task function
+	jmp_buf *task_buf; // Jump buffer (stores where we need to jump back to)
+	bool started; // Flag if task is completed
+	unsigned int taskData[800]; // Memory storage for SP, PC, etc...
+}
+
+#pragma PERSISTENT(taskBlocks);
+jmp_buf taskRegs[maxNumTasks+1];
+TCB taskBlocks[maxNumTasks] = {
+	{task1, taskRegs[1], 0, 0},
+	{task2, taskRegs[2], 0, 0},
+	{task3, taskRegs[3], 0, 0}
+};
+
+
 void somethingInteresting(){ //Randomly turns P1.0 on or off 20 times
 	int i,j,onBool;
 	for(j=0;j<20;j++){
@@ -51,36 +69,36 @@ int main(void) {
     } else{
     	TA0CCR0 = defaultTime;     // setup TA0 timer to count for default time length
     }
-    if(startUp){
-    	switch(currTask){ //call appropriate current task
-			case 1:
-				task1();
-				break;
-			case 2:
-				task2();
-				break;
-			case 3:
-				startUp = 0;  //once this is changed, all tasks have been started,
-				task3();	  //so we no longer will be in 'start up mode'
-				break;
-			default:
-				break;
-		}
-    } else{
-    	switch(currTask){ //resume appropriate current task
-			case 1:
-				longjmp(taskRegs[currTask],num);
-				break;
-			case 2:
-				longjmp(taskRegs[currTask],num);
-				break;
-			case 3:
-				longjmp(taskRegs[currTask],num);
-				break;
-			default:
-				break;
-		}
-    }
+//    if(startUp){
+//    	switch(currTask){ //call appropriate current task
+//			case 1:
+//				task1();
+//				break;
+//			case 2:
+//				task2();
+//				break;
+//			case 3:
+//				startUp = 0;  //once this is changed, all tasks have been started,
+//				task3();	  //so we no longer will be in 'start up mode'
+//				break;
+//			default:
+//				break;
+//		}
+//    } else{
+//    	switch(currTask){ //resume appropriate current task
+//			case 1:
+//				longjmp(taskRegs[currTask],num);
+//				break;
+//			case 2:
+//				longjmp(taskRegs[currTask],num);
+//				break;
+//			case 3:
+//				longjmp(taskRegs[currTask],num);
+//				break;
+//			default:
+//				break;
+//		}
+//    }
 
 
 	return 0;
@@ -88,9 +106,23 @@ int main(void) {
 #pragma vector=TIMER0_A0_VECTOR
 __interrupt void OStimer(void){ //handle task incrementing
 	TA0CTL = TA0CTL & ~TAIFG;    //reset ISR flag
-	//TA0CCTL0 &= ~0x01; 			 //reset CCR0 ISR flag
-	currTask = (currTask % 3)+1; //cycles
-	return;
+
+	//TODO: fix comments & vars
+
+	if(!setjmp(taskBlocks[currTask].task_buf)){ // Responsible for saving jmp
+		// location for when we return
+		currTask = (currTask % 3)+1; //cycles to the next task
+
+		if(taskBlocks[currTask].completed){ // If task is finished
+			longjmp(taskBlocks[currTask].task_buf,1);// Jump to next task
+		} else {
+			taskBlocks[currTask].completed = true; // Mark Task as finished
+			__set_SP_register(taskBlocks[currTask].taskData + 800);
+			// Load next task data into SP
+			_BIS_SR(GIE); // Activate all interrupts
+			(taskBlocks[currTask].functionPtr)(); // Jump into our next task
+		}
+	}
 }
 
 void task1(){
