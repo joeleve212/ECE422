@@ -1,3 +1,9 @@
+/*
+* ECE 422 - PMOS Project
+* Joe Leveille's USB-OS
+* 4/13/20
+*/
+
 #include <msp430.h> 
 #include <setjmp.h>
 #include <stdlib.h>
@@ -21,9 +27,9 @@ void task3();
 
 
 typedef struct TCB{
-	void (*functionPtr)(void); // Pointer to our task function
-	jmp_buf *task_buf; // Jump buffer (stores where we need to jump back to)
-	char started; // Flag if task is completed
+	void (*functionPtr)(void); // Pointer to task function
+	jmp_buf *task_buf; // Jump buffer 
+	char started; // Flag if task is started
 	unsigned int taskData[800]; // Memory storage for SP, PC, etc...
 }TCB;
 
