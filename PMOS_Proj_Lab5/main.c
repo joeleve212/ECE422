@@ -10,10 +10,9 @@
 #define ENABLE_PINS 0xFFFE // Required to use inputs and outputs
 #define maxNumTasks 3
 
-int HoldGreenLED; //TODO: remove vars when able
+int HoldGreenLED;
 char currTask = 1;
 char priority[3] = {0, 0, 1};     //set the priority of each task (only task 3 is priority)
-//jmp_buf taskRegs[maxNumTasks+1];	 //allows for one location to store the OS 'check point', and one for each task
 
 void ScrollWords(char words[300]);
 void task1();
@@ -26,15 +25,14 @@ typedef struct TCB{
 	jmp_buf *task_buf; // Jump buffer (stores where we need to jump back to)
 	char started; // Flag if task is completed
 	unsigned int taskData[800]; // Memory storage for SP, PC, etc...
-	char priority;
 }TCB;
 
 #pragma PERSISTENT(taskBlocks);
-jmp_buf taskRegs[maxNumTasks+1];
-TCB taskBlocks[maxNumTasks] = {
-	{task1, taskRegs[1], 0, 0, 0},
-	{task2, taskRegs[2], 0, 0, 0},
-	{task3, taskRegs[3], 0, 0, 1}  //not started, no data, but has priority
+jmp_buf taskRegs[maxNumTasks];
+TCB taskBlocks[maxNumTasks] = { //Setup Task Control Block array
+	{task1, taskRegs[0], 0, 0},
+	{task2, taskRegs[1], 0, 0},
+	{task3, taskRegs[2], 0, 0}  //not started, no data
 };
 
 
@@ -48,7 +46,6 @@ void somethingInteresting(){ //Randomly turns P1.0 on or off 20 times
 		} else{ //if even,
 			P1OUT &= ~0x01; //turn off LED
 		}
-//		dummy = setjmp(taskRegs[3]); //Save current task's regs in taskRegs[currTask]          ------------------
 	}
 	P1OUT &= ~0x01; //turn off LED
 	return;
@@ -62,18 +59,15 @@ int main(void) {
     TA0CTL = 0x0114;     // start TA0 timer from zero in UP mode with ACLK
     TA0CCTL0 = CCIE; // Enable interrupt for Timer0
     _BIS_SR(GIE); // Enter activate interrupts
-//    dummy = setjmp(taskRegs[0]); //Save current task's regs in taskRegs[0]          ------------------
 	return 0;
 }
 #pragma vector=TIMER0_A0_VECTOR
 __interrupt void OStimer(void){ //handle task incrementing
 	TA0CTL = TA0CTL & ~TAIFG;    //reset ISR flag
 	static const int defaultTime = 10000, longTime = 20000; //set time lengths
-	//TODO: fix comments & vars
 
-	if(!setjmp(taskBlocks[currTask].task_buf)){ // Responsible for saving jmp
-		// location for when we return
-		currTask = ++currTask % 3; //cycles to the next task
+	if(!setjmp(taskBlocks[currTask].task_buf)){ // Save jmp 'Check point'
+		currTask = ++currTask % 3; //cycle to the next task
 
 		if(priority[currTask]==1){
 			TA0CCR0 = longTime;     // setup TA0 timer to count for long time length
@@ -81,26 +75,22 @@ __interrupt void OStimer(void){ //handle task incrementing
 			TA0CCR0 = defaultTime;     // setup TA0 timer to count for default time length
 		}
 
-		if(taskBlocks[currTask].started){ // If task is finished
-			longjmp(taskBlocks[currTask].task_buf,1);// Jump to next task
+		if(taskBlocks[currTask].started){  				// Check if current task has started
+			longjmp(taskBlocks[currTask].task_buf,1);	// Jump to next task if already started
 		} else {
-			taskBlocks[currTask].started = true; // Mark Task as started
-			__set_SP_register(taskBlocks[currTask].taskData + 800);
-			// Load next task data into SP
-			_BIS_SR(GIE); // Activate all interrupts
-			(taskBlocks[currTask].functionPtr)(); // Jump into our next task
+			taskBlocks[currTask].started = true; 		// Mark Task as started
+			__set_SP_register(taskBlocks[currTask].taskData + 800); // Load next task data into SP
+			_BIS_SR(GIE); 								// Reactivate TA0 interrupt
+			(taskBlocks[currTask].functionPtr)(); 		// Jump into next task
 		}
 	}
 }
 
 void task1(){
-//	dummy = setjmp(taskRegs[1]); //Save current task's regs in taskRegs[currTask]          -------------------------
 	initGPIO();                // Initializes Inputs and Outputs for LCD
 	initClocks();              // Initialize clocks for LCD
-//	dummy = setjmp(taskRegs[1]); //Save current task's regs in taskRegs[currTask]          -------------------------
 	myLCD_init();              // Prepares LCD to receive commands
 	P1DIR = P1DIR & ~BIT1;     // P1.1 (Button S1) will be an input
-//	dummy = setjmp(taskRegs[1]); //Save current task's regs in taskRegs[currTask]          -------------------------
 	P1REN = P1REN | BIT1;      // P1.1 will have a pull-up
 	P1OUT = P1OUT | BIT1;      // resistor.
 	int counter = 0;
@@ -108,10 +98,6 @@ void task1(){
 	TA1CTL = 0x0114;     // start TA1 timer from zero in UP mode with ACLK
 
 	while(1){
-//		dummy = setjmp(taskRegs[1]); //Save current task's regs in taskRegs[currTask]         ---------------
-//		if(currTask != 1){
-//			longjmp(taskRegs[0],num);
-//		}
 		//LOOP display counter(start at 0) on LCD
 		if(!(P1IN & 0x02) || counter == 999999){ //check if P1.1 is pressed
 			counter = 0; //reset counter to 0
@@ -132,16 +118,8 @@ void task2(void){ // Setup - runs once
 	P9OUT &= ~BIT7;      // Turn off P9.7 (Green LED)
 	TA2CCR0 = 16384;     // setup TA2 timer to count for 0.5 second
 	TA2CTL = 0x0114;     // start TA2 timer from zero in UP mode with ACLK
-//	if(currTask != 2){
-//		longjmp(taskRegs[0],num);
-//	}
-//	dummy = setjmp(taskRegs[2]); //Save current task's regs in taskRegs[currTask]
 	// loop that repeats forever - 1Hz 50% DC signl or on for HoldGreenLED seconds
 	while(1){     // infinite loop// 1 Hz 50% DC signal
-//		dummy = setjmp(taskRegs[2]); //Save current task's regs in taskRegs[currTask]
-//		if(currTask != 2){
-//			longjmp(taskRegs[0],num);
-//		}
 		if (TA2CTL & BIT0){     // check if timer finished counting
 			TA2CTL &= ~BIT0;     // reset timer flag
 			P9OUT ^= BIT7;       // toggle P9.7 (Green LED)
@@ -160,10 +138,6 @@ void task2(void){ // Setup - runs once
 					TA2CTL &= ~BIT0;      // reset timer flag
 					count--;              // decrement counter
 				}
-//				dummy = setjmp(taskRegs[2]); //Save current task's regs in taskRegs[currTask]
-//				if(currTask != 2){
-//					longjmp(taskRegs[0],num);
-//				}
 			}//end while(count > 0)
 // Done with P9.7 high, go back to 1 Hz 50% DC signal
 			TA2CCR0 = 16384;      // setup TA2 timer to count for 0.5 second
@@ -181,14 +155,7 @@ void task3(){
 	TA3CTL = 0x0114;     // start TA3 timer from zero in UP mode with ACLK
 	srand(time(NULL));   //seed randomizer
 	int counter = 0; //start counter at 0
-//	if(currTask != 3){
-//		longjmp(taskRegs[0],num);
-//	}
 	while(1){ //Loop
-//		dummy = setjmp(taskRegs[3]); //Save current task's regs in taskRegs[currTask]                   -------------------
-//		if(currTask != 3){
-//			longjmp(taskRegs[0],num);
-//		}
 		if(TA3CTL & BIT0){     // check if timer finished counting
 			TA3CTL &= ~BIT0;     // reset timer flag
 			TA3CTL = 0x0114;     // start TA3 timer from zero in UP mode with ACLK

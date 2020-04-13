@@ -1,7 +1,7 @@
 ******************************************************************************
                   MSP430 Linker PC v15.12.1                    
 ******************************************************************************
->> Linked Sun Apr 12 19:04:50 2020
+>> Linked Sun Apr 12 19:17:54 2020
 
 OUTPUT FILE NAME:   <PMOS_Proj_Lab5.out>
 ENTRY POINT SYMBOL: "_c_int00_noargs_noexit"  address: 00005cc4
@@ -18,7 +18,7 @@ MEMORY CONFIGURATION
   INFOC                 00001880   00000080  00000000  00000080  RWIX
   INFOB                 00001900   00000080  00000000  00000080  RWIX
   INFOA                 00001980   00000080  00000000  00000080  RWIX
-  RAM                   00001c00   00000800  0000016c  00000694  RWIX
+  RAM                   00001c00   00000800  00000148  000006b8  RWIX
   FRAM                  00004400   0000bb80  000019b4  0000a1cc  RWIX
   JTAGSIGNATURE         0000ff80   00000004  00000004  00000000  RWIX  ffff 
   BSLSIGNATURE          0000ff84   00000004  00000004  00000000  RWIX  ffff 
@@ -87,20 +87,20 @@ SECTION ALLOCATION MAP
  output                                  attributes/
 section   page    origin      length       input sections
 --------  ----  ----------  ----------   ----------------
-.bss       0    00001c00    0000009a     UNINITIALIZED
-                  00001c00    00000090     (.common:taskRegs)
-                  00001c90    00000008     rts430x_lc_rd_eabi.lib : trgdrv.obj (.bss:parmbuf)
-                  00001c98    00000002     (.common:HoldGreenLED)
+.bss       0    00001c00    00000076     UNINITIALIZED
+                  00001c00    0000006c     (.common:taskRegs)
+                  00001c6c    00000008     rts430x_lc_rd_eabi.lib : trgdrv.obj (.bss:parmbuf)
+                  00001c74    00000002     (.common:HoldGreenLED)
 
-.data      0    00001c9a    00000032     UNINITIALIZED
-                  00001c9a    0000000e     myClocksWithCrystals.obj (.data)
-                  00001ca8    0000000c     myLcd.obj (.data:initParams)
-                  00001cb4    00000008     cs.obj (.data)
-                  00001cbc    00000004     rts430x_lc_rd_eabi.lib : _lock.obj (.data:_lock)
-                  00001cc0    00000004                            : _lock.obj (.data:_unlock)
-                  00001cc4    00000004                            : rand.obj (.data)
-                  00001cc8    00000003     main.obj (.data:priority)
-                  00001ccb    00000001     main.obj (.data)
+.data      0    00001c76    00000032     UNINITIALIZED
+                  00001c76    0000000e     myClocksWithCrystals.obj (.data)
+                  00001c84    0000000c     myLcd.obj (.data:initParams)
+                  00001c90    00000008     cs.obj (.data)
+                  00001c98    00000004     rts430x_lc_rd_eabi.lib : _lock.obj (.data:_lock)
+                  00001c9c    00000004                            : _lock.obj (.data:_unlock)
+                  00001ca0    00000004                            : rand.obj (.data)
+                  00001ca4    00000003     main.obj (.data:priority)
+                  00001ca7    00000001     main.obj (.data)
 
 .stack     0    00002360    000000a0     UNINITIALIZED
                   00002360    00000004     rts430x_lc_rd_eabi.lib : boot.obj (.stack)
@@ -329,13 +329,13 @@ MODULE SUMMARY
        Module                     code   ro data   rw data
        ------                     ----   -------   -------
     .\
-       main.obj                   790    18        4984   
+       main.obj                   790    18        4948   
        myLcd.obj                  1116   96        12     
        myClocksWithCrystals.obj   158    0         14     
        myGpio.obj                 58     0         0      
        Task2.obj                  0      0         2      
     +--+--------------------------+------+---------+---------+
-       Total:                     2122   114       5012   
+       Total:                     2122   114       4976   
                                                           
     .\driverlib\MSP430FR5xx_6xx\
        cs.obj                     908    0         8      
@@ -405,14 +405,14 @@ MODULE SUMMARY
        Stack:                     0      0         160    
        Linker Generated:          0      65        0      
     +--+--------------------------+------+---------+---------+
-       Grand Total:               4984   263       5488   
+       Grand Total:               4984   263       5452   
 
 
 LINKER GENERATED COPY TABLES
 
 __TI_cinit_table @ 00005da4 records: 2, size/record: 8, table size: 16
-	.data: load addr=00005d72, load size=00000020 bytes, run addr=00001c9a, run size=00000032 bytes, compression=rle
-	.bss: load addr=00005d92, load size=00000009 bytes, run addr=00001c00, run size=0000009a bytes, compression=rle
+	.data: load addr=00005d72, load size=00000020 bytes, run addr=00001c76, run size=00000032 bytes, compression=rle
+	.bss: load addr=00005d92, load size=00000009 bytes, run addr=00001c00, run size=00000076 bytes, compression=rle
 
 
 LINKER GENERATED HANDLER TABLE
@@ -1185,7 +1185,7 @@ address   name
 00000146  GCCTL1_L                                  
 0001096e  GPIO_setAsPeripheralModuleFunctionInputPin
 00010d64  HOSTtime                                  
-00001c98  HoldGreenLED                              
+00001c74  HoldGreenLED                              
 00000a40  LCDBM1                                    
 00000a49  LCDBM10                                   
 00000a4a  LCDBM11                                   
@@ -1927,19 +1927,19 @@ ffffffff  __c_args__
 0001116e  __time32                                  
 000108ec  _auto_init_hold_wdt                       
 00005cc4  _c_int00_noargs_noexit                    
-00001cbc  _lock                                     
+00001c98  _lock                                     
 0001128e  _nop                                      
 0000fffe  _reset_vector                             
 00010bf8  _setjmp                                   
 00002360  _stack                                    
 00011290  _system_post_cinit                        
 0001128a  _system_pre_init                          
-00001cc0  _unlock                                   
+00001c9c  _unlock                                   
 0001127e  abort                                     
 00005ce6  alphabetBig                               
-00001ca7  bReturn                                   
+00001c83  bReturn                                   
 00010b92  copy_in                                   
-00001ccb  currTask                                  
+00001ca7  currTask                                  
 00005d4e  digit                                     
 00005c00  fram_ipe_end                              
 00005c00  fram_ipe_start                            
@@ -1947,19 +1947,19 @@ ffffffff  __c_args__
 00005c00  fram_rx_start                             
 000106b8  initClocks                                
 00010f54  initGPIO                                  
-00001ca8  initParams                                
+00001c84  initParams                                
 00010c28  longjmp                                   
 00011024  main                                      
 000111e0  memcpy                                    
-00001c9a  myACLK                                    
+00001c76  myACLK                                    
 000101e2  myLCD_displayNumber                       
 00010618  myLCD_init                                
 00010000  myLCD_showChar                            
-00001ca2  myMCLK                                    
-00001c9e  mySMCLK                                   
-00001cc8  priority                                  
+00001c7e  myMCLK                                    
+00001c7a  mySMCLK                                   
+00001ca4  priority                                  
 00010e96  rand                                      
-00001ca6  returnValue                               
+00001c82  returnValue                               
 00010bf8  setjmp                                    
 00010e0c  somethingInteresting                      
 000111ca  srand                                     
@@ -3372,17 +3372,17 @@ address   name
 00000e7e  ESIRAM126                                 
 00000e7f  ESIRAM127                                 
 00001c00  taskRegs                                  
-00001c98  HoldGreenLED                              
-00001c9a  myACLK                                    
-00001c9e  mySMCLK                                   
-00001ca2  myMCLK                                    
-00001ca6  returnValue                               
-00001ca7  bReturn                                   
-00001ca8  initParams                                
-00001cbc  _lock                                     
-00001cc0  _unlock                                   
-00001cc8  priority                                  
-00001ccb  currTask                                  
+00001c74  HoldGreenLED                              
+00001c76  myACLK                                    
+00001c7a  mySMCLK                                   
+00001c7e  myMCLK                                    
+00001c82  returnValue                               
+00001c83  bReturn                                   
+00001c84  initParams                                
+00001c98  _lock                                     
+00001c9c  _unlock                                   
+00001ca4  priority                                  
+00001ca7  currTask                                  
 00002360  _stack                                    
 00002400  __STACK_END                               
 00004400  fram_rw_start                             
