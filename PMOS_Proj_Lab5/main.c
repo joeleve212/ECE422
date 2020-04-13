@@ -10,9 +10,9 @@
 #define ENABLE_PINS 0xFFFE // Required to use inputs and outputs
 #define maxNumTasks 3
 
-int HoldGreenLED,dummy,startUp = 1,num=100; //TODO: remove startUp when able
+int HoldGreenLED; //TODO: remove vars when able
 char currTask = 1;
-char priority[4] = {0, 0, 0, 1};     //set the priority of each task (only task 3 is priority)
+char priority[3] = {0, 0, 1};     //set the priority of each task (only task 3 is priority)
 //jmp_buf taskRegs[maxNumTasks+1];	 //allows for one location to store the OS 'check point', and one for each task
 
 void ScrollWords(char words[300]);
@@ -26,14 +26,15 @@ typedef struct TCB{
 	jmp_buf *task_buf; // Jump buffer (stores where we need to jump back to)
 	char started; // Flag if task is completed
 	unsigned int taskData[800]; // Memory storage for SP, PC, etc...
+	char priority;
 }TCB;
 
 #pragma PERSISTENT(taskBlocks);
 jmp_buf taskRegs[maxNumTasks+1];
 TCB taskBlocks[maxNumTasks] = {
-	{task1, taskRegs[1], 0, 0},
-	{task2, taskRegs[2], 0, 0},
-	{task3, taskRegs[3], 0, 0}
+	{task1, taskRegs[1], 0, 0, 0},
+	{task2, taskRegs[2], 0, 0, 0},
+	{task3, taskRegs[3], 0, 0, 1}  //not started, no data, but has priority
 };
 
 
@@ -57,66 +58,33 @@ int main(void) {
     WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
     PM5CTL0 = ENABLE_PINS; 				// Enable inputs and outputs
     HoldGreenLED = 3; // place some default value for the LED
-    const int defaultTime = 10000, longTime = 20000; //set time lengths
-    TA0CCR0 = defaultTime;     // setup TA0 timer to count for default length of time
+    TA0CCR0 = 10000;     // setup TA0 timer to count for default length of time
     TA0CTL = 0x0114;     // start TA0 timer from zero in UP mode with ACLK
     TA0CCTL0 = CCIE; // Enable interrupt for Timer0
     _BIS_SR(GIE); // Enter activate interrupts
 //    dummy = setjmp(taskRegs[0]); //Save current task's regs in taskRegs[0]          ------------------
-
-    if(priority[currTask]){ //TODO: place priority check better
-    	TA0CCR0 = longTime;     // setup TA0 timer to count for long time length
-    } else{
-    	TA0CCR0 = defaultTime;     // setup TA0 timer to count for default time length
-    }
-//    if(startUp){
-//    	switch(currTask){ //call appropriate current task
-//			case 1:
-//				task1();
-//				break;
-//			case 2:
-//				task2();
-//				break;
-//			case 3:
-//				startUp = 0;  //once this is changed, all tasks have been started,
-//				task3();	  //so we no longer will be in 'start up mode'
-//				break;
-//			default:
-//				break;
-//		}
-//    } else{
-//    	switch(currTask){ //resume appropriate current task
-//			case 1:
-//				longjmp(taskRegs[currTask],num);
-//				break;
-//			case 2:
-//				longjmp(taskRegs[currTask],num);
-//				break;
-//			case 3:
-//				longjmp(taskRegs[currTask],num);
-//				break;
-//			default:
-//				break;
-//		}
-//    }
-
-
 	return 0;
 }
 #pragma vector=TIMER0_A0_VECTOR
 __interrupt void OStimer(void){ //handle task incrementing
 	TA0CTL = TA0CTL & ~TAIFG;    //reset ISR flag
-
+	static const int defaultTime = 10000, longTime = 20000; //set time lengths
 	//TODO: fix comments & vars
 
 	if(!setjmp(taskBlocks[currTask].task_buf)){ // Responsible for saving jmp
 		// location for when we return
 		currTask = ++currTask % 3; //cycles to the next task
 
+		if(priority[currTask]==1){
+			TA0CCR0 = longTime;     // setup TA0 timer to count for long time length
+		} else{
+			TA0CCR0 = defaultTime;     // setup TA0 timer to count for default time length
+		}
+
 		if(taskBlocks[currTask].started){ // If task is finished
 			longjmp(taskBlocks[currTask].task_buf,1);// Jump to next task
 		} else {
-			taskBlocks[currTask].started = true; // Mark Task as finished
+			taskBlocks[currTask].started = true; // Mark Task as started
 			__set_SP_register(taskBlocks[currTask].taskData + 800);
 			// Load next task data into SP
 			_BIS_SR(GIE); // Activate all interrupts
