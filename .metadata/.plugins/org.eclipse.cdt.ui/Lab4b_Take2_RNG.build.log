@@ -1,0 +1,92 @@
+
+**** Build of configuration Debug for project Lab4b_Take2_RNG ****
+
+"C:\\ti\\ccsv6\\utils\\bin\\gmake" -k all 
+'Building file: ../myClocksWithCrystals.c'
+'Invoking: MSP430 Compiler'
+"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --include_path="C:/ti/ccsv6/ccs_base/msp430/include" --include_path="C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="myClocksWithCrystals.d"  "../myClocksWithCrystals.c"
+
+>> Compilation failure
+subdir_rules.mk:14: recipe for target 'myClocksWithCrystals.obj' failed
+"../myClocksWithCrystals.c", line 13: fatal error #1965: cannot open source file "driverlib.h"
+1 catastrophic error detected in the compilation of "../myClocksWithCrystals.c".
+Compilation terminated.
+gmake: *** [myClocksWithCrystals.obj] Error 1
+'Building file: ../myGpio.c'
+'Invoking: MSP430 Compiler'
+"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --include_path="C:/ti/ccsv6/ccs_base/msp430/include" --include_path="C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="myGpio.d"  "../myGpio.c"
+
+>> Compilation failure
+subdir_rules.mk:21: recipe for target 'myGpio.obj' failed
+"../myGpio.c", line 5: fatal error #1965: cannot open source file "driverlib.h"
+1 catastrophic error detected in the compilation of "../myGpio.c".
+Compilation terminated.
+gmake: *** [myGpio.obj] Error 1
+'Building file: ../myLcd.c'
+'Invoking: MSP430 Compiler'
+"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --include_path="C:/ti/ccsv6/ccs_base/msp430/include" --include_path="D:/Junior Year/ECE422/Lab4b_Take2_RNG/driverlib/MSP430FR5xx_6xx" --include_path="C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="myLcd.d"  "../myLcd.c"
+"../myLcd.c", line 197: remark #2553-D: (ULP 14.1) Array index (involving "Position") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 198: remark #2553-D: (ULP 14.1) Array index (involving "Position") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 199: remark #2553-D: (ULP 14.1) Array index (involving "Position") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 200: remark #2553-D: (ULP 14.1) Array index (involving "Position") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 205: remark #2553-D: (ULP 14.1) Array index (involving "Position") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 205: remark #2553-D: (ULP 14.1) Array index (involving "c") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 206: remark #2553-D: (ULP 14.1) Array index (involving "Position") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 206: remark #2553-D: (ULP 14.1) Array index (involving "c") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 207: remark #2553-D: (ULP 14.1) Array index (involving "Position") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 207: remark #2553-D: (ULP 14.1) Array index (involving "c") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 208: remark #2553-D: (ULP 14.1) Array index (involving "Position") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 208: remark #2553-D: (ULP 14.1) Array index (involving "c") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 213: remark #2553-D: (ULP 14.1) Array index (involving "Position") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 213: remark #2553-D: (ULP 14.1) Array index (involving "c") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 214: remark #2553-D: (ULP 14.1) Array index (involving "Position") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 214: remark #2553-D: (ULP 14.1) Array index (involving "c") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 215: remark #2553-D: (ULP 14.1) Array index (involving "Position") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 215: remark #2553-D: (ULP 14.1) Array index (involving "c") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 216: remark #2553-D: (ULP 14.1) Array index (involving "Position") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 216: remark #2553-D: (ULP 14.1) Array index (involving "c") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 221: remark #2553-D: (ULP 14.1) Array index (involving "Position") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 222: remark #2553-D: (ULP 14.1) Array index (involving "Position") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 223: remark #2553-D: (ULP 14.1) Array index (involving "Position") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 224: remark #2553-D: (ULP 14.1) Array index (involving "Position") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 248: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../myLcd.c", line 260: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../myLcd.c", line 261: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../myLcd.c", line 262: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../myLcd.c", line 263: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../myLcd.c", line 264: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../myLcd.c", line 265: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../myLcd.c", line 266: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../myLcd.c", line 267: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../myLcd.c", line 268: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../myLcd.c", line 269: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../myLcd.c", line 274: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../myLcd.c", line 276: remark #2553-D: (ULP 14.1) Array index (involving "i") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 282: remark #2553-D: (ULP 14.1) Array index (involving "i") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 288: remark #2553-D: (ULP 14.1) Array index (involving "i") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 274: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../myLcd.c", line 276: remark #2553-D: (ULP 14.1) Array index (involving "i") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 282: remark #2553-D: (ULP 14.1) Array index (involving "i") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 288: remark #2553-D: (ULP 14.1) Array index (involving "i") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 307: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../myLcd.c", line 318: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../myLcd.c", line 320: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../myLcd.c", line 494: remark #1545-D: (ULP 14.1) Array index of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 497: remark #1545-D: (ULP 14.1) Array index of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 500: remark #1545-D: (ULP 14.1) Array index of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 505: remark #1545-D: (ULP 14.1) Array index of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 530: remark #2553-D: (ULP 14.1) Array index (involving "LcdMemIndex") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 535: remark #2553-D: (ULP 14.1) Array index (involving "LcdMemIndex") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 540: remark #2553-D: (ULP 14.1) Array index (involving "LcdMemIndex") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 545: remark #2553-D: (ULP 14.1) Array index (involving "LcdMemIndex") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 550: remark #2553-D: (ULP 14.1) Array index (involving "LcdMemIndex") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 555: remark #2553-D: (ULP 14.1) Array index (involving "LcdMemIndex") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 560: remark #2553-D: (ULP 14.1) Array index (involving "LcdMemIndex") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 565: remark #2553-D: (ULP 14.1) Array index (involving "LcdMemIndex") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 570: remark #2553-D: (ULP 14.1) Array index (involving "LcdMemIndex") of type "int". Recommend using "unsigned int"
+"../myLcd.c", line 575: remark #2553-D: (ULP 14.1) Array index (involving "LcdMemIndex") of type "int". Recommend using "unsigned int"
+'Finished building: ../myLcd.c'
+' '
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****

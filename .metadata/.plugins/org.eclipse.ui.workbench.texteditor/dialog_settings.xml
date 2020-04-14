@@ -2,8 +2,8 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="305" key="DIALOG_WIDTH"/>
-		<item value="574" key="DIALOG_Y_ORIGIN"/>
-		<item value="1289" key="DIALOG_X_ORIGIN"/>
+		<item value="502" key="DIALOG_Y_ORIGIN"/>
+		<item value="1150" key="DIALOG_X_ORIGIN"/>
 		<item value="444" key="DIALOG_HEIGHT"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
@@ -12,23 +12,27 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
-		<item value="false" key="wholeword"/>
-		<item value="init" key="selection"/>
+		<item value="true" key="wholeword"/>
+		<item value="" key="selection"/>
 		<list key="findhistory">
-			<item value="init"/>
-			<item value="delay( int"/>
-			<item value="delay(int"/>
-			<item value="delay"/>
-			<item value="print"/>
-			<item value="setcur"/>
-			<item value="word*"/>
-			<item value="P9OUT &amp;= ~ENABLE; "/>
+			<item value="TODO"/>
+			<item value="taskRegs"/>
+			<item value="maxNumTasks"/>
+			<item value="todo"/>
+			<item value="num"/>
+			<item value="startUp"/>
+			<item value="holdLCD"/>
+			<item value="hold"/>
 		</list>
 		<list key="replacehistory">
+			<item value="started"/>
+			<item value="taskRegs"/>
+			<item value="taskBlocks"/>
+			<item value="currTask"/>
+			<item value="//dummy ="/>
+			<item value="num"/>
+			<item value="dummy"/>
 			<item value="*word"/>
-			<item value="P2"/>
-			<item value="row"/>
-			<item value="Set row to low"/>
 		</list>
 	</section>
 </section>
