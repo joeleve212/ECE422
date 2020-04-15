@@ -66,7 +66,7 @@ void ADC_SETUP(void){
 	ADC12MCTL0 = ADC12_P92; // P9.2 is analog input
 }
 
-int roll(){ //TODO: roll the dice and return the total roll
+int roll(){ // roll the dice and return the total roll
 	int i, total = 0;			//start total roll at 0
 	for(i=0;i<numDice;i++){			//loops for the each die being rolled
 		total += (rand() % numSides)+1; //adds random value from 1 - numSides
@@ -95,8 +95,8 @@ int main(void) {
 	_BIS_SR(GIE); 		//activate interrupts
 	
 	//Scroll instructions on screen
-	ScrollWords("USE L BUTTON TO ROLL DICE   USE R BUTTON TO INCREMENT NUMBER OF SIDES AND DICE USED");
-	ScrollWords("FIRST DIGIT IS NUMBER OF DICE ROLLING    NEXT 2 DIGITS ARE SIDES PER DIE   LAST 2 DIGITS ARE SUM OF YOUR ROLL");
+//	ScrollWords("USE L BUTTON TO ROLL DICE   USE R BUTTON TO INCREMENT NUMBER OF SIDES AND DICE USED");
+//	ScrollWords("FIRST DIGIT IS NUMBER OF DICE ROLLING    NEXT 2 DIGITS ARE SIDES PER DIE   LAST 2 DIGITS ARE SUM OF YOUR ROLL");
 
 	return 0;
 }
@@ -120,14 +120,14 @@ __interrupt void buttonPressed(void){
 		} else if(P1IFG & 0x04){ 		//P1.2 adjusts numSides and numDice
 			numSides = numSides % 20; 	//loops after max of 20 sides (range 6 - 20)
 			if(numSides==0){
-				numDice = (numDice % 4)+1; //loop after max of 4 dice (range 1 - 4)
+				numDice = (numDice % 3)+1; //loop after max of 4 dice (range 1 - 3)
 				numSides = 6; 		   //Set back to minimum numSides
 			}else{
 				numSides++;		   //increment number of sides per die
 			}
 
 		}
-		long finalDispNum = ((numSides+(100*numDice))*100)+rollTot;  //calculate single value to show: numDice, numSides, rollTot in that order
+		int finalDispNum = ((numSides+(100*numDice))*100)+rollTot;  //calculate single value to show: numDice, numSides, rollTot in that order
 		myLCD_displayNumber(finalDispNum);			     //Display calculated number to the LCD
 		ADC12CTL0 = ADC12CTL0 | ADC12ENC; 			     // Enable conversion
 		ADC12CTL0 = ADC12CTL0 | ADC12SC; 			     // Start next conversion for seed randomization
