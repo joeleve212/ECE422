@@ -1,5 +1,5 @@
 /*
-* ECE 422 - RNG Project
+* ECE 422 - RNG Project with Reduced Scope
 * Joe Leveille
 * 4/20/20
 */
@@ -23,8 +23,8 @@ void ScrollWords(char words[250]){
 	length = strlen(words); // Get the length of the message stored in words
 	amount_shifted=0; // We have not shifted the message yet
 	offset=0; // There is no offset yet
-	while( amount_shifted < length+7 ) // Loop as long as you haven't shifted all
-	{ // of the characters off the LCD screen
+	while( amount_shifted < length+7 ){ // Loop as long as you haven't shifted all
+					    // of the characters off the LCD screen
 		offset=amount_shifted; // Starting point in message for next LCD update
 		for(slot = 1;slot<=6;slot++){ // Loop 6 times to display 6 characters at a time
 			next_char = words[offset-6]; // Get the current character for LCD slot
@@ -67,9 +67,9 @@ void ADC_SETUP(void){
 }
 
 int roll(){ //TODO: roll the dice and return the total roll
-	int i, total = 0;
-	for(i=0;i<numDice;i++){
-		total += (rand() % numSides)+1;
+	int i, total = 0;			//start total roll at 0
+	for(i=0;i<numDice;i++){			//loops for the each die being rolled
+		total += (rand() % numSides)+1; //adds random value from 1 - numSides
 	}
 	return total;
 }
@@ -93,6 +93,8 @@ int main(void) {
 	P1IE |= BIT2; 		// Enable interrupt ONLY for P1.2
 	P1IES |= BIT2; 		// for transitions from HI-->LO
 	_BIS_SR(GIE); 		//activate interrupts
+	
+	//Scroll instructions on screen
 	ScrollWords("USE L BUTTON TO ROLL DICE   USE R BUTTON TO INCREMENT NUMBER OF SIDES AND DICE USED");
 	ScrollWords("FIRST DIGIT IS NUMBER OF DICE ROLLING    NEXT 2 DIGITS ARE SIDES PER DIE   LAST 2 DIGITS ARE SUM OF YOUR ROLL");
 
@@ -110,47 +112,26 @@ __interrupt void buttonPressed(void){
 		if(!(P1IN & 0x02) | !(P1IN & 0x04)) debounce++; // if pressed count
 	}
 
-
 	if (debounce > 5){ // pressed 5 of 15 times so a button is pressed (P1.1 or P 1.2)
-		unsigned char j;
-		unsigned int f;
-		for(f=0;f<30000;f++);
-//		for (j=0;j<15;j++){ // check buttons 15 times
-//			for(f=0;f<100;f++); // delay to check buttons (~10ms)
-//			if(!(P1IN & 0x04)) duration++; // if pressed count
-//		}
-//		while(P1IN & 0x04){
-//			duration++;
-//		}
-
-
-
-		ADC12CTL0 = ADC12CTL0 & (~ADC12ENC); // Need to disable peripheral
+		ADC12CTL0 = ADC12CTL0 & (~ADC12ENC); // Need to disable ADC peripheral while taking measurement
 		srand((int)(ADC12MEM0 & 0x0FF));     // seed randomization with bottom 8 bits of ADC input
-		//myLCD_displayNumber((int)(ADC12MEM0 & 0x0FF));
 		if(P1IFG & 0x02){ 				//P1.1 is rolling button
 			rollTot = roll();
-		} else if(P1IFG & 0x04){ 		//P1.2 adjusts vars
-
-
-			numSides = numSides % 20; //loops after max of 20 sides
-			if(numSides ==0){
-				numDice = (numDice % 4)+1; //loop after max of 4 dice
-			}
+		} else if(P1IFG & 0x04){ 		//P1.2 adjusts numSides and numDice
+			numSides = numSides % 20; 	//loops after max of 20 sides (range 6 - 20)
 			if(numSides==0){
-				numSides = 6;
+				numDice = (numDice % 4)+1; //loop after max of 4 dice (range 1 - 4)
+				numSides = 6; 		   //Set back to minimum numSides
 			}else{
-				numSides++;
+				numSides++;		   //increment number of sides per die
 			}
 
 		}
-		long finalDispNum = ((numSides+(100*numDice))*100)+rollTot;
-		myLCD_displayNumber(finalDispNum);
-		ADC12CTL0 = ADC12CTL0 | ADC12ENC; // Enable conversion
-		ADC12CTL0 = ADC12CTL0 | ADC12SC; // Start next conversion
+		long finalDispNum = ((numSides+(100*numDice))*100)+rollTot;  //calculate single value to show: numDice, numSides, rollTot in that order
+		myLCD_displayNumber(finalDispNum);			     //Display calculated number to the LCD
+		ADC12CTL0 = ADC12CTL0 | ADC12ENC; 			     // Enable conversion
+		ADC12CTL0 = ADC12CTL0 | ADC12SC; 			     // Start next conversion for seed randomization
 	}
-
-	P1IFG ^= P1IFG; 				//Clear button flags
-	if(P1IV);
-
+	P1IFG ^= P1IFG; 	//Clear button flags
+	if(P1IV);		//Clear Interrupt vector
 }
