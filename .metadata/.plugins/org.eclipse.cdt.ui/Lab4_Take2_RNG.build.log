@@ -5,12 +5,30 @@
 'Building file: ../main.c'
 'Invoking: MSP430 Compiler'
 "C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --include_path="D:/Junior Year/ECE422/Lab4_Take2_RNG/driverlib/MSP430FR5xx_6xx" --include_path="C:/ti/ccsv6/ccs_base/msp430/include" --include_path="C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="main.d"  "../main.c"
-"../main.c", line 37: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 50: warning #179-D: variable "numDice" was declared but never referenced
-"../main.c", line 50: warning #179-D: variable "numSides" was declared but never referenced
-"../main.c", line 57: remark #1530-D: (ULP 5.1) Detected divide operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 50: remark #1535-D: (ULP 8.1) variable "numDice" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
-"../main.c", line 50: remark #1535-D: (ULP 8.1) variable "numSides" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../main.c", line 23: warning #225-D: function "strlen" declared implicitly
+"../main.c", line 29: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 43: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 43: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../main.c", line 71: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 72: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 115: warning #179-D: variable "j" was declared but never referenced
+"../main.c", line 106: warning #179-D: variable "duration" was declared but never referenced
+"../main.c", line 108: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 109: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 109: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../main.c", line 117: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 117: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../main.c", line 129: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function srand. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 132: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function roll. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 136: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 138: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 148: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function myLCD_displayNumber. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 106: remark #1535-D: (ULP 8.1) variable "duration" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../main.c", line 117: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 117: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../main.c", line 129: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function srand. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 132: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function roll. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 148: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function myLCD_displayNumber. Recommend moving function call away from ISR, or inlining the function, or using pragmas
 'Finished building: ../main.c'
 ' '
 'Building target: Lab4_Take2_RNG.out'
