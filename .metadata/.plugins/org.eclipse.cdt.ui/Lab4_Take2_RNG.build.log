@@ -11,24 +11,19 @@
 "../main.c", line 43: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
 "../main.c", line 71: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
 "../main.c", line 72: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 115: warning #179-D: variable "j" was declared but never referenced
-"../main.c", line 106: warning #179-D: variable "duration" was declared but never referenced
-"../main.c", line 108: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
-"../main.c", line 109: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
-"../main.c", line 109: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
-"../main.c", line 117: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
-"../main.c", line 117: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
-"../main.c", line 129: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function srand. Recommend moving function call away from ISR, or inlining the function, or using pragmas
-"../main.c", line 132: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function roll. Recommend moving function call away from ISR, or inlining the function, or using pragmas
-"../main.c", line 136: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 138: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-"../main.c", line 148: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function myLCD_displayNumber. Recommend moving function call away from ISR, or inlining the function, or using pragmas
-"../main.c", line 106: remark #1535-D: (ULP 8.1) variable "duration" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
-"../main.c", line 117: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
-"../main.c", line 117: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
-"../main.c", line 129: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function srand. Recommend moving function call away from ISR, or inlining the function, or using pragmas
-"../main.c", line 132: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function roll. Recommend moving function call away from ISR, or inlining the function, or using pragmas
-"../main.c", line 148: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function myLCD_displayNumber. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 108: warning #179-D: variable "duration" was declared but never referenced
+"../main.c", line 110: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 111: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 111: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../main.c", line 117: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function srand. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 119: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function roll. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 121: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 123: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 131: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function myLCD_displayNumber. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 108: remark #1535-D: (ULP 8.1) variable "duration" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../main.c", line 117: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function srand. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 119: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function roll. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 131: remark #1538-D: (ULP 10.1) ISR buttonPressed calls function myLCD_displayNumber. Recommend moving function call away from ISR, or inlining the function, or using pragmas
 'Finished building: ../main.c'
 ' '
 'Building target: Lab4_Take2_RNG.out'

@@ -2,8 +2,8 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="305" key="DIALOG_WIDTH"/>
-		<item value="502" key="DIALOG_Y_ORIGIN"/>
-		<item value="1150" key="DIALOG_X_ORIGIN"/>
+		<item value="371" key="DIALOG_Y_ORIGIN"/>
+		<item value="802" key="DIALOG_X_ORIGIN"/>
 		<item value="444" key="DIALOG_HEIGHT"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
@@ -12,17 +12,17 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
-		<item value="true" key="wholeword"/>
-		<item value="" key="selection"/>
+		<item value="false" key="wholeword"/>
+		<item value="4" key="selection"/>
 		<list key="findhistory">
-			<item value="TODO"/>
-			<item value="taskRegs"/>
-			<item value="maxNumTasks"/>
-			<item value="todo"/>
-			<item value="num"/>
-			<item value="startUp"/>
-			<item value="holdLCD"/>
-			<item value="hold"/>
+			<item value="4"/>
+			<item value="scrollword"/>
+			<item value="scrollwords("/>
+			<item value="scroll"/>
+			<item value="delay"/>
+			<item value="debounce_2"/>
+			<item value="myLCD_"/>
+			<item value="clear"/>
 		</list>
 		<list key="replacehistory">
 			<item value="started"/>

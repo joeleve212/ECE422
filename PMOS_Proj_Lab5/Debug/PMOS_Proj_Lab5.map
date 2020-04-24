@@ -1,10 +1,10 @@
 ******************************************************************************
                   MSP430 Linker PC v15.12.1                    
 ******************************************************************************
->> Linked Sun Apr 12 19:17:54 2020
+>> Linked Thu Apr 16 09:17:04 2020
 
 OUTPUT FILE NAME:   <PMOS_Proj_Lab5.out>
-ENTRY POINT SYMBOL: "_c_int00_noargs_noexit"  address: 00005cc4
+ENTRY POINT SYMBOL: "_c_int00_noargs_noexit"  address: 000058c4
 
 
 MEMORY CONFIGURATION
@@ -19,7 +19,7 @@ MEMORY CONFIGURATION
   INFOB                 00001900   00000080  00000000  00000080  RWIX
   INFOA                 00001980   00000080  00000000  00000080  RWIX
   RAM                   00001c00   00000800  00000148  000006b8  RWIX
-  FRAM                  00004400   0000bb80  000019b4  0000a1cc  RWIX
+  FRAM                  00004400   0000bb80  000015b4  0000a5cc  RWIX
   JTAGSIGNATURE         0000ff80   00000004  00000004  00000000  RWIX  ffff 
   BSLSIGNATURE          0000ff84   00000004  00000004  00000000  RWIX  ffff 
   IPESIGNATURE          0000ff88   00000008  00000008  00000000  RWIX  ffff 
@@ -107,51 +107,51 @@ section   page    origin      length       input sections
                   00002364    0000009c     --HOLE--
 
 .TI.persistent 
-*          0    00004400    000012e4     
-                  00004400    000012e4     main.obj (.TI.persistent:taskBlocks)
+*          0    00004400    000012de     
+                  00004400    000012de     main.obj (.TI.persistent:taskBlocks)
 
-.cio       0    000056e4    00000120     UNINITIALIZED
-                  000056e4    00000120     rts430x_lc_rd_eabi.lib : trgmsg.obj (.cio)
+.cio       0    000056de    00000120     UNINITIALIZED
+                  000056de    00000120     rts430x_lc_rd_eabi.lib : trgmsg.obj (.cio)
 
-.sysmem    0    00005804    00000000     UNINITIALIZED
+.sysmem    0    000057fe    00000000     UNINITIALIZED
 
 .ipestruct 
-*          0    00005c00    00000000     UNINITIALIZED
+*          0    00005800    00000000     UNINITIALIZED
 
-.ipe       0    00005c00    00000000     UNINITIALIZED
+.ipe       0    00005800    00000000     UNINITIALIZED
 
 .ipe_const 
-*          0    00005c00    00000000     UNINITIALIZED
+*          0    00005800    00000000     UNINITIALIZED
 
 .ipe:_isr 
-*          0    00005c00    00000000     UNINITIALIZED
+*          0    00005800    00000000     UNINITIALIZED
 
 .ipe_vars 
-*          0    00005c00    00000000     UNINITIALIZED
+*          0    00005800    00000000     UNINITIALIZED
 
-.cinit     0    00005d72    00000042     
-                  00005d72    00000020     (.cinit..data.load) [load image, compression = rle]
-                  00005d92    00000009     (.cinit..bss.load) [load image, compression = rle]
-                  00005d9b    00000001     --HOLE-- [fill = 0]
-                  00005d9c    00000008     (__TI_handler_table)
-                  00005da4    00000010     (__TI_cinit_table)
+.cinit     0    00005972    00000042     
+                  00005972    00000020     (.cinit..data.load) [load image, compression = rle]
+                  00005992    00000009     (.cinit..bss.load) [load image, compression = rle]
+                  0000599b    00000001     --HOLE-- [fill = 0]
+                  0000599c    00000008     (__TI_handler_table)
+                  000059a4    00000010     (__TI_cinit_table)
 
 .init_array 
 *          0    00004400    00000000     UNINITIALIZED
 
 .text:_isr 
-*          0    00005c00    000000e6     
-                  00005c00    000000c4     main.obj (.text:_isr:OStimer)
-                  00005cc4    0000001a     rts430x_lc_rd_eabi.lib : boot_special.obj (.text:_isr:_c_int00_noargs_noexit)
-                  00005cde    00000008                            : isr_trap.obj (.text:_isr:__TI_ISR_TRAP)
+*          0    00005800    000000e6     
+                  00005800    000000c4     main.obj (.text:_isr:OStimer)
+                  000058c4    0000001a     rts430x_lc_rd_eabi.lib : boot_special.obj (.text:_isr:_c_int00_noargs_noexit)
+                  000058de    00000008                            : isr_trap.obj (.text:_isr:__TI_ISR_TRAP)
 
-.const     0    00005ce6    0000008c     
-                  00005ce6    00000034     myLcd.obj (.const:alphabetBig)
-                  00005d1a    0000001c     gpio.obj (.const:GPIO_PORT_TO_BASE)
-                  00005d36    00000018     myLcd.obj (.const:SegmentLoc)
-                  00005d4e    00000014     myLcd.obj (.const:digit)
-                  00005d62    0000000c     main.obj (.const:.string)
-                  00005d6e    00000004     main.obj (.const)
+.const     0    000058e6    0000008c     
+                  000058e6    00000034     myLcd.obj (.const:alphabetBig)
+                  0000591a    0000001c     gpio.obj (.const:GPIO_PORT_TO_BASE)
+                  00005936    00000018     myLcd.obj (.const:SegmentLoc)
+                  0000594e    00000014     myLcd.obj (.const:digit)
+                  00005962    0000000c     main.obj (.const:.string)
+                  0000596e    00000004     main.obj (.const)
 
 $fill000   0    0000ff80    00000004     
                   0000ff80    00000004     --HOLE-- [fill = ffff]
@@ -329,13 +329,13 @@ MODULE SUMMARY
        Module                     code   ro data   rw data
        ------                     ----   -------   -------
     .\
-       main.obj                   790    18        4948   
+       main.obj                   790    18        4942   
        myLcd.obj                  1116   96        12     
        myClocksWithCrystals.obj   158    0         14     
        myGpio.obj                 58     0         0      
        Task2.obj                  0      0         2      
     +--+--------------------------+------+---------+---------+
-       Total:                     2122   114       4976   
+       Total:                     2122   114       4970   
                                                           
     .\driverlib\MSP430FR5xx_6xx\
        cs.obj                     908    0         8      
@@ -405,19 +405,19 @@ MODULE SUMMARY
        Stack:                     0      0         160    
        Linker Generated:          0      65        0      
     +--+--------------------------+------+---------+---------+
-       Grand Total:               4984   263       5452   
+       Grand Total:               4984   263       5446   
 
 
 LINKER GENERATED COPY TABLES
 
-__TI_cinit_table @ 00005da4 records: 2, size/record: 8, table size: 16
-	.data: load addr=00005d72, load size=00000020 bytes, run addr=00001c76, run size=00000032 bytes, compression=rle
-	.bss: load addr=00005d92, load size=00000009 bytes, run addr=00001c00, run size=00000076 bytes, compression=rle
+__TI_cinit_table @ 000059a4 records: 2, size/record: 8, table size: 16
+	.data: load addr=00005972, load size=00000020 bytes, run addr=00001c76, run size=00000032 bytes, compression=rle
+	.bss: load addr=00005992, load size=00000009 bytes, run addr=00001c00, run size=00000076 bytes, compression=rle
 
 
 LINKER GENERATED HANDLER TABLE
 
-__TI_handler_table @ 00005d9c records: 2, size/record: 4, table size: 8
+__TI_handler_table @ 0000599c records: 2, size/record: 4, table size: 8
 	index: 0, handler: __TI_decompress_rle24
 	index: 1, handler: __TI_decompress_none
 
@@ -1365,7 +1365,7 @@ address   name
 000004e0  OP2L_L                                    
 000004c9  OP2_H                                     
 000004c8  OP2_L                                     
-00005c00  OStimer                                   
+00005800  OStimer                                   
 0000020e  P1IV                                      
 0000021e  P2IV                                      
 0000022e  P3IV                                      
@@ -1627,7 +1627,7 @@ address   name
 0000019b  SYSUNIV_H                                 
 0000019a  SYSUNIV_L                                 
 000107e0  ScrollWords                               
-00005d36  SegmentLoc                                
+00005936  SegmentLoc                                
 00000352  TA0CCR0                                   
 00000354  TA0CCR1                                   
 00000356  TA0CCR2                                   
@@ -1849,18 +1849,18 @@ address   name
 0000015c  WDTCTL                                    
 0000015d  WDTCTL_H                                  
 0000015c  WDTCTL_L                                  
-000056e4  _CIOBUF_                                  
+000056de  _CIOBUF_                                  
 00002400  __STACK_END                               
 000000a0  __STACK_SIZE                              
 UNDEFED   __TI_BINIT_Base                           
 UNDEFED   __TI_BINIT_Limit                          
-00005da4  __TI_CINIT_Base                           
-00005db4  __TI_CINIT_Limit                          
-00005d9c  __TI_Handler_Table_Base                   
-00005da4  __TI_Handler_Table_Limit                  
+000059a4  __TI_CINIT_Base                           
+000059b4  __TI_CINIT_Limit                          
+0000599c  __TI_Handler_Table_Base                   
+000059a4  __TI_Handler_Table_Limit                  
 UNDEFED   __TI_INITARRAY_Base                       
 UNDEFED   __TI_INITARRAY_Limit                      
-00005cde  __TI_ISR_TRAP                             
+000058de  __TI_ISR_TRAP                             
 00011218  __TI_decompress_none                      
 00011284  __TI_decompress_rle24                     
 0000ffc6  __TI_int27                                
@@ -1926,7 +1926,7 @@ ffffffff  __c_args__
 00011268  __mspabi_srli                             
 0001116e  __time32                                  
 000108ec  _auto_init_hold_wdt                       
-00005cc4  _c_int00_noargs_noexit                    
+000058c4  _c_int00_noargs_noexit                    
 00001c98  _lock                                     
 0001128e  _nop                                      
 0000fffe  _reset_vector                             
@@ -1936,15 +1936,15 @@ ffffffff  __c_args__
 0001128a  _system_pre_init                          
 00001c9c  _unlock                                   
 0001127e  abort                                     
-00005ce6  alphabetBig                               
+000058e6  alphabetBig                               
 00001c83  bReturn                                   
 00010b92  copy_in                                   
 00001ca7  currTask                                  
-00005d4e  digit                                     
-00005c00  fram_ipe_end                              
-00005c00  fram_ipe_start                            
+0000594e  digit                                     
+00005800  fram_ipe_end                              
+00005800  fram_ipe_start                            
 00004400  fram_rw_start                             
-00005c00  fram_rx_start                             
+00005800  fram_rx_start                             
 000106b8  initClocks                                
 00010f54  initGPIO                                  
 00001c84  initParams                                
@@ -3387,20 +3387,20 @@ address   name
 00002400  __STACK_END                               
 00004400  fram_rw_start                             
 00004400  taskBlocks                                
-000056e4  _CIOBUF_                                  
-00005c00  OStimer                                   
-00005c00  fram_ipe_end                              
-00005c00  fram_ipe_start                            
-00005c00  fram_rx_start                             
-00005cc4  _c_int00_noargs_noexit                    
-00005cde  __TI_ISR_TRAP                             
-00005ce6  alphabetBig                               
-00005d36  SegmentLoc                                
-00005d4e  digit                                     
-00005d9c  __TI_Handler_Table_Base                   
-00005da4  __TI_CINIT_Base                           
-00005da4  __TI_Handler_Table_Limit                  
-00005db4  __TI_CINIT_Limit                          
+000056de  _CIOBUF_                                  
+00005800  OStimer                                   
+00005800  fram_ipe_end                              
+00005800  fram_ipe_start                            
+00005800  fram_rx_start                             
+000058c4  _c_int00_noargs_noexit                    
+000058de  __TI_ISR_TRAP                             
+000058e6  alphabetBig                               
+00005936  SegmentLoc                                
+0000594e  digit                                     
+0000599c  __TI_Handler_Table_Base                   
+000059a4  __TI_CINIT_Base                           
+000059a4  __TI_Handler_Table_Limit                  
+000059b4  __TI_CINIT_Limit                          
 0000ffc6  __TI_int27                                
 0000ffc8  __TI_int28                                
 0000ffca  __TI_int29                                
