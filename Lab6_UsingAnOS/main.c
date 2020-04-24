@@ -13,6 +13,7 @@
 int HoldGreenLED;
 char currTask = 1;
 char priority[3] = {0, 0, 1};     //set the priority of each task (only task 3 is priority)
+char p1Card,p2Card,p1Suit,p2Suit;
 
 void ScrollWords(char words[300]);
 void task1();
@@ -23,7 +24,7 @@ typedef struct TCB{
 	void (*functionPtr)(void); // Pointer to task function
 	jmp_buf *task_buf; // Jump buffer
 	char started; // Flag if task is started
-	unsigned int taskData[800]; // Memory storage for SP, PC, etc...
+	unsigned int taskData[1000]; // Memory storage for SP, PC, etc... (use 800 - 1000 for vars)
 }TCB;
 
 #pragma PERSISTENT(taskBlocks);
@@ -70,14 +71,54 @@ __interrupt void OStimer(void){ //handle task incrementing
 }
 
 void task1(){
-	//TODO: fill in
+	//TODO: set up button
+	P1DIR = P1DIR & ~BIT1;     // P1.1 (Button S1) will be an input
+	P1REN = P1REN | BIT1;      // P1.1 will have a pull-up
+	P1OUT = P1OUT | BIT1;      // resistor.
+
+	while(1){
+		//TODO: add debounce?
+		if(!(P1IN & 0x02)){ //check if button P1.1 is pressed
+			taskBlocks[0].taskData[800] = 1; //Set draw flag = 1, store that in taskData[800]
+
+			while(taskBlocks[0].taskData[800] == 1){ //spin here until task switch
+			}
+		} else{
+			taskBlocks[0].taskData[800] = 0; //clear draw flag
+		}
+	}
+}
+
+drawCards(){
+	//
 }
 
 void task2(){
-	//TODO: fill in
+	//TODO: setup vars & randomization
+
+	while(1){
+		if(taskBlocks[0].taskData[800]==1){ //check if draw is needed
+			//TODO: trigger drawing suit and card, prevent double
+
+			taskBlocks[1].taskData[801] = 1; //set ready to print flag
+		} else{
+			//TODO: if not, return? or go to next? or keep checking?
+			taskBlocks[1].taskData[801] = 0; //clear ready to print flag
+			while(taskBlocks[1].taskData[801] == 0){ //spin here until task switch
+			}
+		}
+	}
 }
 
 void task3(){
 	//TODO: fill in
+	initGPIO();                // Initializes Inputs and Outputs for LCD
+	initClocks();              // Initialize clocks for LCD
+	myLCD_init();              // Prepares LCD to receive commands
+
+	while(1){
+		//
+	}
+
 }
 
