@@ -4,5 +4,5 @@
 
 USER_OBJS :=
 
-LIBS := -llibmath.a -llibc.a
+LIBS := -llibmpu_init.a -llibmath.a -llibc.a
 
