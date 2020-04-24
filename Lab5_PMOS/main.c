@@ -70,7 +70,7 @@ int main(void) {
 #pragma vector=TIMER0_A0_VECTOR
 __interrupt void OStimer(void){ //handle task incrementing
 	TA0CTL = TA0CTL & ~TAIFG;    //reset ISR flag
-	static const int defaultTime = 10000, longTime = 20000; //set time lengths
+	static const int defaultTime = 1000, longTime = 2000; //set time lengths
 
 	if(!setjmp(taskBlocks[currTask].task_buf)){ // Save jmp 'Check point'
 		currTask = ++currTask % 3; //cycle to the next task

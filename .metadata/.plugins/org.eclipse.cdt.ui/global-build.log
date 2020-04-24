@@ -641,3 +641,192 @@ remark #10372-D: (ULP 4.1) Detected uninitialized Port E in this project. Recomm
 ' '
 
 **** Build Finished ****
+
+**** Build of configuration Debug for project Lab6_UsingAnOS ****
+
+"C:\\ti\\ccsv6\\utils\\bin\\gmake" -k all 
+'Building file: ../PMOS.c'
+'Invoking: MSP430 Compiler'
+"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --include_path="C:/ti/ccsv6/ccs_base/msp430/include" --include_path="D:/Junior Year/ECE422/Lab6_UsingAnOS" --include_path="C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --define=_MPU_ENABLE --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="PMOS.d"  "../PMOS.c"
+'Finished building: ../PMOS.c'
+' '
+'Building file: ../TASKS.c'
+'Invoking: MSP430 Compiler'
+"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --include_path="C:/ti/ccsv6/ccs_base/msp430/include" --include_path="D:/Junior Year/ECE422/Lab6_UsingAnOS" --include_path="C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --define=_MPU_ENABLE --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="TASKS.d"  "../TASKS.c"
+
+>> Compilation failure
+subdir_rules.mk:14: recipe for target 'TASKS.obj' failed
+"../TASKS.c", line 39: warning #515-D: a value of type "unsigned short *" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 40: warning #515-D: a value of type "unsigned short *" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 41: warning #515-D: a value of type "unsigned short *" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 42: warning #515-D: a value of type "unsigned short *" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 43: warning #515-D: a value of type "unsigned short *" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 46: warning #515-D: a value of type "int (*)(void)" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 50: warning #515-D: a value of type "int (*)(void)" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 54: error #20: identifier "Task2" is undefined
+"../TASKS.c", line 89: warning #112-D: statement is unreachable
+"../TASKS.c", line 121: warning #112-D: statement is unreachable
+"../TASKS.c", line 128: warning #994-D: missing return statement at end of non-void function "Task2"
+"D:/Junior Year/ECE422/Lab6_UsingAnOS/TASKS.h", line 26: remark #1535-D: (ULP 8.1) variable "NumTasks" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+1 error detected in the compilation of "../TASKS.c".
+gmake: *** [TASKS.obj] Error 1
+'Building file: ../main.c'
+'Invoking: MSP430 Compiler'
+"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --include_path="C:/ti/ccsv6/ccs_base/msp430/include" --include_path="D:/Junior Year/ECE422/Lab6_UsingAnOS" --include_path="C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --define=_MPU_ENABLE --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="main.d"  "../main.c"
+
+>> Compilation failure
+subdir_rules.mk:21: recipe for target 'main.obj' failed
+"../main.c", line 33: error #20: identifier "ENABLE_PINS" is undefined
+1 error detected in the compilation of "../main.c".
+gmake: *** [main.obj] Error 1
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project Lab6_UsingAnOS ****
+
+"C:\\ti\\ccsv6\\utils\\bin\\gmake" -k all 
+'Building file: ../TASKS.c'
+'Invoking: MSP430 Compiler'
+"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --include_path="C:/ti/ccsv6/ccs_base/msp430/include" --include_path="D:/Junior Year/ECE422/Lab6_UsingAnOS" --include_path="C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --define=_MPU_ENABLE --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="TASKS.d"  "../TASKS.c"
+"../TASKS.c", line 40: warning #515-D: a value of type "unsigned short *" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 41: warning #515-D: a value of type "unsigned short *" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 42: warning #515-D: a value of type "unsigned short *" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 43: warning #515-D: a value of type "unsigned short *" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 44: warning #515-D: a value of type "unsigned short *" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 47: warning #515-D: a value of type "int (*)(void)" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 51: warning #515-D: a value of type "int (*)(void)" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 55: warning #515-D: a value of type "int (*)()" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 90: warning #112-D: statement is unreachable
+"../TASKS.c", line 122: warning #112-D: statement is unreachable
+"../TASKS.c", line 129: warning #994-D: missing return statement at end of non-void function "Task2"
+"D:/Junior Year/ECE422/Lab6_UsingAnOS/TASKS.h", line 26: remark #1535-D: (ULP 8.1) variable "NumTasks" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+'Finished building: ../TASKS.c'
+' '
+'Building file: ../main.c'
+'Invoking: MSP430 Compiler'
+"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --include_path="C:/ti/ccsv6/ccs_base/msp430/include" --include_path="D:/Junior Year/ECE422/Lab6_UsingAnOS" --include_path="C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --define=_MPU_ENABLE --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="main.d"  "../main.c"
+'Finished building: ../main.c'
+' '
+'Building target: Lab6_UsingAnOS.out'
+'Invoking: MSP430 Linker'
+"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --define=_MPU_ENABLE --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal -z -m"Lab6_UsingAnOS.map" --heap_size=160 --stack_size=160 --cinit_hold_wdt=on -i"C:/ti/ccsv6/ccs_base/msp430/include" -i"C:/ti/ccsv6/ccs_base/msp430/lib/5xx_6xx_FRxx" -i"C:/ti/ccsv6/ccs_base/msp430/lib/FR59xx" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/lib" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --reread_libs --priority --define=_MPU_ENABLE --display_error_number --warn_sections --diag_wrap=off --xml_link_info="Lab6_UsingAnOS_linkInfo.xml" --use_hw_mpy=F5 --rom_model -o "Lab6_UsingAnOS.out" "./PMOS.obj" "./TASKS.obj" "./main.obj" "../lnk_msp430fr6989.cmd"  -llibmpu_init.a -llibmath.a -llibc.a 
+<Linking>
+remark #10372-D: (ULP 4.1) Detected uninitialized Port A in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port B in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port C in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port D in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port E in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+'Finished building target: Lab6_UsingAnOS.out'
+' '
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project Lab6_UsingAnOS ****
+
+"C:\\ti\\ccsv6\\utils\\bin\\gmake" -k all 
+'Building file: ../TASKS.c'
+'Invoking: MSP430 Compiler'
+"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --include_path="C:/ti/ccsv6/ccs_base/msp430/include" --include_path="D:/Junior Year/ECE422/Lab6_UsingAnOS" --include_path="C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --define=_MPU_ENABLE --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="TASKS.d"  "../TASKS.c"
+"../TASKS.c", line 40: warning #515-D: a value of type "unsigned short *" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 41: warning #515-D: a value of type "unsigned short *" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 42: warning #515-D: a value of type "unsigned short *" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 43: warning #515-D: a value of type "unsigned short *" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 44: warning #515-D: a value of type "unsigned short *" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 47: warning #515-D: a value of type "int (*)(void)" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 51: warning #515-D: a value of type "int (*)(void)" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 55: warning #515-D: a value of type "int (*)()" cannot be assigned to an entity of type "unsigned short"
+"../TASKS.c", line 90: warning #112-D: statement is unreachable
+"../TASKS.c", line 122: warning #112-D: statement is unreachable
+"../TASKS.c", line 129: warning #994-D: missing return statement at end of non-void function "Task2"
+"D:/Junior Year/ECE422/Lab6_UsingAnOS/TASKS.h", line 26: remark #1535-D: (ULP 8.1) variable "NumTasks" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+'Finished building: ../TASKS.c'
+' '
+'Building file: ../main.c'
+'Invoking: MSP430 Compiler'
+"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --include_path="C:/ti/ccsv6/ccs_base/msp430/include" --include_path="D:/Junior Year/ECE422/Lab6_UsingAnOS" --include_path="C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --define=_MPU_ENABLE --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="main.d"  "../main.c"
+'Finished building: ../main.c'
+' '
+'Building target: Lab6_UsingAnOS.out'
+'Invoking: MSP430 Linker'
+"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --define=_MPU_ENABLE --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal -z -m"Lab6_UsingAnOS.map" --heap_size=160 --stack_size=160 --cinit_hold_wdt=on -i"C:/ti/ccsv6/ccs_base/msp430/include" -i"C:/ti/ccsv6/ccs_base/msp430/lib/5xx_6xx_FRxx" -i"C:/ti/ccsv6/ccs_base/msp430/lib/FR59xx" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/lib" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --reread_libs --priority --define=_MPU_ENABLE --display_error_number --warn_sections --diag_wrap=off --xml_link_info="Lab6_UsingAnOS_linkInfo.xml" --use_hw_mpy=F5 --rom_model -o "Lab6_UsingAnOS.out" "./PMOS.obj" "./TASKS.obj" "./main.obj" "../lnk_msp430fr6989.cmd"  -llibmpu_init.a -llibmath.a -llibc.a 
+<Linking>
+remark #10372-D: (ULP 4.1) Detected uninitialized Port A in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port B in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port C in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port D in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port E in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+'Finished building target: Lab6_UsingAnOS.out'
+' '
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project Lab6_UsingAnOS ****
+
+"C:\\ti\\ccsv6\\utils\\bin\\gmake" -k all 
+'Building file: ../main.c'
+'Invoking: MSP430 Compiler'
+"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --include_path="C:/ti/ccsv6/ccs_base/msp430/include" --include_path="D:/Junior Year/ECE422/Lab6_UsingAnOS" --include_path="C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --define=_MPU_ENABLE --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="main.d"  "../main.c"
+'Finished building: ../main.c'
+' '
+'Building target: Lab6_UsingAnOS.out'
+'Invoking: MSP430 Linker'
+"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --define=_MPU_ENABLE --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal -z -m"Lab6_UsingAnOS.map" --heap_size=160 --stack_size=160 --cinit_hold_wdt=on -i"C:/ti/ccsv6/ccs_base/msp430/include" -i"C:/ti/ccsv6/ccs_base/msp430/lib/5xx_6xx_FRxx" -i"C:/ti/ccsv6/ccs_base/msp430/lib/FR59xx" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/lib" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --reread_libs --priority --define=_MPU_ENABLE --display_error_number --warn_sections --diag_wrap=off --xml_link_info="Lab6_UsingAnOS_linkInfo.xml" --use_hw_mpy=F5 --rom_model -o "Lab6_UsingAnOS.out" "./PMOS.obj" "./TASKS.obj" "./main.obj" "../lnk_msp430fr6989.cmd"  -llibmpu_init.a -llibmath.a -llibc.a 
+<Linking>
+remark #10372-D: (ULP 4.1) Detected uninitialized Port A in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port B in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port C in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port D in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port E in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+'Finished building target: Lab6_UsingAnOS.out'
+' '
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project Lab5_PMOS ****
+
+"C:\\ti\\ccsv6\\utils\\bin\\gmake" -k all 
+gmake: Nothing to be done for 'all'.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project Lab5_PMOS ****
+
+"C:\\ti\\ccsv6\\utils\\bin\\gmake" -k all 
+'Building file: ../main.c'
+'Invoking: MSP430 Compiler'
+"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --include_path="C:/ti/ccsv6/ccs_base/msp430/include" --include_path="D:/Junior Year/ECE422/Lab5_PMOS/driverlib/MSP430FR5xx_6xx" --include_path="C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal --preproc_with_compile --preproc_dependency="main.d"  "../main.c"
+"../main.c", line 39: warning #145-D: a value of type "long *" cannot be used to initialize an entity of type "jmp_buf *"
+"../main.c", line 40: warning #145-D: a value of type "long *" cannot be used to initialize an entity of type "jmp_buf *"
+"../main.c", line 41: warning #145-D: a value of type "long *" cannot be used to initialize an entity of type "jmp_buf *"
+"../main.c", line 47: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 48: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 49: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 49: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../main.c", line 75: warning #169-D: argument of type "jmp_buf *" is incompatible with parameter of type "long *"
+"../main.c", line 85: warning #169-D: argument of type "jmp_buf *" is incompatible with parameter of type "long *"
+"../main.c", line 88: warning #169-D: argument of type "unsigned int *" is incompatible with parameter of type "unsigned short"
+"../main.c", line 75: remark #1538-D: (ULP 10.1) ISR OStimer calls function _setjmp. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 76: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 85: remark #1538-D: (ULP 10.1) ISR OStimer calls function longjmp. Recommend moving function call away from ISR, or inlining the function, or using pragmas
+"../main.c", line 171: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 200: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 216: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../main.c", line 195: remark #1535-D: (ULP 8.1) variable "cancel_prompt" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../main.c", line 21: remark #1535-D: (ULP 8.1) variable "priority" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../main.c", line 38: remark #1535-D: (ULP 8.1) variable "taskBlocks" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+'Finished building: ../main.c'
+' '
+'Building target: Lab5_PMOS.out'
+'Invoking: MSP430 Linker'
+"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/bin/cl430" -vmspx --data_model=restricted --use_hw_mpy=F5 --advice:power=all --advice:hw_config=all -g --define=__MSP430FR6989__ --diag_warning=225 --display_error_number --diag_wrap=off --silicon_errata=CPU21 --silicon_errata=CPU22 --silicon_errata=CPU40 --printf_support=minimal -z -m"Lab5_PMOS.map" --heap_size=160 --stack_size=160 --cinit_hold_wdt=on -i"C:/ti/ccsv6/ccs_base/msp430/include" -i"C:/ti/ccsv6/ccs_base/msp430/lib/5xx_6xx_FRxx" -i"C:/ti/ccsv6/ccs_base/msp430/lib/FR59xx" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/lib" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-msp430_15.12.1.LTS/include" --reread_libs --priority --display_error_number --warn_sections --diag_wrap=off --xml_link_info="Lab5_PMOS_linkInfo.xml" --use_hw_mpy=F5 --rom_model -o "Lab5_PMOS.out" "./Task2.obj" "./main.obj" "./myClocksWithCrystals.obj" "./myGpio.obj" "./myLcd.obj" "./driverlib/MSP430FR5xx_6xx/adc12_b.obj" "./driverlib/MSP430FR5xx_6xx/aes256.obj" "./driverlib/MSP430FR5xx_6xx/comp_e.obj" "./driverlib/MSP430FR5xx_6xx/crc.obj" "./driverlib/MSP430FR5xx_6xx/crc32.obj" "./driverlib/MSP430FR5xx_6xx/cs.obj" "./driverlib/MSP430FR5xx_6xx/dma.obj" "./driverlib/MSP430FR5xx_6xx/esi.obj" "./driverlib/MSP430FR5xx_6xx/eusci_a_spi.obj" "./driverlib/MSP430FR5xx_6xx/eusci_a_uart.obj" "./driverlib/MSP430FR5xx_6xx/eusci_b_i2c.obj" "./driverlib/MSP430FR5xx_6xx/eusci_b_spi.obj" "./driverlib/MSP430FR5xx_6xx/framctl.obj" "./driverlib/MSP430FR5xx_6xx/gpio.obj" "./driverlib/MSP430FR5xx_6xx/lcd_c.obj" "./driverlib/MSP430FR5xx_6xx/mpu.obj" "./driverlib/MSP430FR5xx_6xx/mpy32.obj" "./driverlib/MSP430FR5xx_6xx/pmm.obj" "./driverlib/MSP430FR5xx_6xx/ram.obj" "./driverlib/MSP430FR5xx_6xx/ref_a.obj" "./driverlib/MSP430FR5xx_6xx/rtc_b.obj" "./driverlib/MSP430FR5xx_6xx/rtc_c.obj" "./driverlib/MSP430FR5xx_6xx/sfr.obj" "./driverlib/MSP430FR5xx_6xx/sysctl.obj" "./driverlib/MSP430FR5xx_6xx/timer_a.obj" "./driverlib/MSP430FR5xx_6xx/timer_b.obj" "./driverlib/MSP430FR5xx_6xx/tlv.obj" "./driverlib/MSP430FR5xx_6xx/wdt_a.obj" "../lnk_msp430fr6989.cmd"  -llibmath.a -llibc.a 
+<Linking>
+remark #10372-D: (ULP 4.1) Detected uninitialized Port A in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port B in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port C in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port D in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port E in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+'Finished building target: Lab5_PMOS.out'
+' '
+
+**** Build Finished ****

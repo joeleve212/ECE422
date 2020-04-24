@@ -31,8 +31,7 @@
 // Function Defintions
 //************************************************************************
 
-int RunPMOS(void)
-{
+int RunPMOS(void){
      // Start the Scheduler Clock and Enable Maskable Interrupts
      TA0CTL = 0x0214;    // start TA0 from 0 using SMCLK in UP mode
      _BIS_SR(GIE);       // Enable Maskable Interrupts
@@ -44,8 +43,7 @@ int RunPMOS(void)
     return 0;
 }//end RunPMOS()
 
-int SetupPMOS(void)
-{
+int SetupPMOS(void){
     WDTCTL = 0x5A80;    // stop watchdog timer
 
     // Set up Scheduler Interrupt on TA0 Timer
@@ -70,8 +68,7 @@ int SetupPMOS(void)
 // within the Tasks
 
 #pragma vector=TIMER0_A0_VECTOR
-__interrupt void Timer0_ISR (void)
-{
+__interrupt void Timer0_ISR (void){
     // Full-Context Switcher - Save Current Task States (CPU Registers)
 
     //__asm("  PUSH.W R15");  // push current task R15 onto system stack

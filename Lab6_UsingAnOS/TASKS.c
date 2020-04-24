@@ -25,12 +25,12 @@
 int InitTasks(void);
 int Task0(void);
 int Task1(void);
+int Task2();
 
 //************************************************************************
 // Function Definitions
 
-int InitTasks(void)
-{
+int InitTasks(void){
     WDTCTL = 0x5A80;    // stop watchdog timer
     PM5CTL0 = 0xFFFE;           // enable I/O
 
@@ -44,12 +44,16 @@ int InitTasks(void)
     TaskPointers[4] = &Task4Stack[15];
 
     // Initialize Task0Stack
-    Task0Stack[1] = Task0;      // Task0 PC (initial starting address of Task1)
+    Task0Stack[1] = Task0;      // Task0 PC (initial starting address of Task0)
     Task0Stack[2] = 0x0008;     // Task0 SR (initial Status Register - only GIE bit set)
 
     // Initialize Task1Stack
     Task1Stack[1] = Task1;      // Task1 PC (initial starting address of Task1)
     Task1Stack[2] = 0x0008;     // Task1 SR (initial Status Register - only GIE bit set)
+
+    // Initialize Task2Stack
+	Task2Stack[1] = Task2;      // Task2 PC (initial starting address of Task2)
+	Task2Stack[2] = 0x0008;     // Task2 SR (initial Status Register - only GIE bit set)
 
     return 0;
 }//end InitTasks()
@@ -60,8 +64,7 @@ int InitTasks(void)
 //         Note there is an initialization section and then an
 //          infinite loop with the Tasks main logic
 //************************************************************************
-int Task0(void)
-{
+int Task0(void){
     // initialization Section
     unsigned char count = 0;
 
@@ -72,17 +75,14 @@ int Task0(void)
     TA1CTL = 0x0114;    // start TA1 from 0 using ACLK in UP mode
 
     // Infinite Loop with main Task logic
-    while(1)
-    {
-        if (TA1CTL & BIT0)
-        {
+    while(1){
+        if (TA1CTL & BIT0){
             TA1CTL &= ~BIT0;
             P1OUT ^= BIT0;
             count++;
         }//end if
 
-        if (count >= 6)
-        {
+        if (count >= 6){
             count = 0;
         }
     }//end while(1)
@@ -96,8 +96,7 @@ int Task0(void)
 //         Note there is an initialization section and then an
 //          infinite loop with the Tasks main logic
 //************************************************************************
-int Task1(void)
-{
+int Task1(void){
     // initialization Section
     unsigned char count = 0;
 
@@ -108,17 +107,14 @@ int Task1(void)
     TA2CTL = 0x0114;    // start TA2 from 0 using ACLK in UP mode
 
     // Infinite Loop with main Task logic
-    while(1)
-    {
-        if (TA2CTL & BIT0)
-        {
+    while(1){
+        if (TA2CTL & BIT0){
             TA2CTL &= ~BIT0;
             P9OUT ^= BIT7;
             count++;
         }//end if
 
-        if (count >= 6)
-        {
+        if (count >= 6){
             count = 0;
         }
     }//end while(1)
@@ -126,3 +122,8 @@ int Task1(void)
     return 0;
 }//end Task1()
 
+
+int Task2(){
+	//TODO: write task2
+
+}

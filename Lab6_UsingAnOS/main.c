@@ -19,7 +19,7 @@ int RunPMOS(void);
 // Includes
 //************************************************************************
 #include <msp430fr6989.h>   // Register Definitions
-
+#define ENABLE_PINS 0xFFFE // Required to use inputs and outputs
 //************************************************************************
 // Function Prototypes
 //************************************************************************
@@ -28,8 +28,7 @@ int main(void);
 //************************************************************************
 // Main Function
 //************************************************************************
-int main(void)
-{
+int main(void){
     WDTCTL = 0x5A80;    // stop watchdog timer
 
     SetupPMOS();
