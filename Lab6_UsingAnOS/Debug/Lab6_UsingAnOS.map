@@ -1,7 +1,7 @@
 ******************************************************************************
                   MSP430 Linker PC v15.12.1                    
 ******************************************************************************
->> Linked Fri Apr 24 16:05:16 2020
+>> Linked Fri Apr 24 18:26:44 2020
 
 OUTPUT FILE NAME:   <Lab6_UsingAnOS.out>
 ENTRY POINT SYMBOL: "_c_int00_noargs_noexit_mpu"  address: 00005cc4
@@ -18,8 +18,8 @@ MEMORY CONFIGURATION
   INFOC                 00001880   00000080  00000000  00000080  RWIX
   INFOB                 00001900   00000080  00000000  00000080  RWIX
   INFOA                 00001980   00000080  00000000  00000080  RWIX
-  RAM                   00001c00   00000800  00000134  000006cc  RWIX
-  FRAM                  00004400   0000bb80  00001940  0000a240  RWIX
+  RAM                   00001c00   00000800  0000013d  000006c3  RWIX
+  FRAM                  00004400   0000bb80  000019a6  0000a1da  RWIX
   JTAGSIGNATURE         0000ff80   00000004  00000004  00000000  RWIX  ffff 
   BSLSIGNATURE          0000ff84   00000004  00000004  00000000  RWIX  ffff 
   IPESIGNATURE          0000ff88   00000008  00000008  00000000  RWIX  ffff 
@@ -79,7 +79,7 @@ MEMORY CONFIGURATION
   INT53                 0000fffa   00000002  00000002  00000000  RWIX
   INT54                 0000fffc   00000002  00000002  00000000  RWIX
   RESET                 0000fffe   00000002  00000002  00000000  RWIX
-  FRAM2                 00010000   00014000  00000b02  000134fe  RWIX
+  FRAM2                 00010000   00014000  00000dde  00013222  RWIX
 
 
 SECTION ALLOCATION MAP
@@ -91,12 +91,12 @@ section   page    origin      length       input sections
                   00001c00    0000006c     (.common:taskRegs)
                   00001c6c    00000002     (.common:HoldGreenLED)
 
-.data      0    00001c6e    00000026     UNINITIALIZED
+.data      0    00001c6e    0000002f     UNINITIALIZED
                   00001c6e    0000000e     myClocksWithCrystals.obj (.data)
                   00001c7c    0000000c     myLcd.obj (.data:initParams)
-                  00001c88    00000008     cs.obj (.data)
-                  00001c90    00000003     main.obj (.data:priority)
-                  00001c93    00000001     main.obj (.data)
+                  00001c88    0000000a     main.obj (.data)
+                  00001c92    00000008     cs.obj (.data)
+                  00001c9a    00000003     main.obj (.data:priority)
 
 .stack     0    00002360    000000a0     UNINITIALIZED
                   00002360    00000004     rts430x_lc_rd_eabi.lib : boot.obj (.stack)
@@ -124,12 +124,13 @@ section   page    origin      length       input sections
 .ipe_vars 
 *          0    00005c00    00000000     UNINITIALIZED
 
-.cinit     0    00005d0a    00000036     
-                  00005d0a    00000014     (.cinit..data.load) [load image, compression = rle]
-                  00005d1e    00000009     (.cinit..bss.load) [load image, compression = rle]
-                  00005d27    00000001     --HOLE-- [fill = 0]
-                  00005d28    00000008     (__TI_handler_table)
-                  00005d30    00000010     (__TI_cinit_table)
+.cinit     0    00005d6a    0000003c     
+                  00005d6a    00000019     (.cinit..data.load) [load image, compression = rle]
+                  00005d83    00000001     --HOLE-- [fill = 0]
+                  00005d84    00000009     (.cinit..bss.load) [load image, compression = rle]
+                  00005d8d    00000001     --HOLE-- [fill = 0]
+                  00005d8e    00000008     (__TI_handler_table)
+                  00005d96    00000010     (__TI_cinit_table)
 
 .init_array 
 *          0    00004400    00000000     UNINITIALIZED
@@ -140,9 +141,12 @@ section   page    origin      length       input sections
                   00005cc4    0000001e     rts430x_lc_rd_eabi.lib : boot_special.obj (.text:_isr:_c_int00_noargs_noexit_mpu)
                   00005ce2    00000008                            : isr_trap.obj (.text:_isr:__TI_ISR_TRAP)
 
-.const     0    00005cea    00000020     
-                  00005cea    0000001c     gpio.obj (.const:GPIO_PORT_TO_BASE)
-                  00005d06    00000004     main.obj (.const)
+.const     0    00005cea    00000080     
+                  00005cea    00000034     myLcd.obj (.const:alphabetBig)
+                  00005d1e    0000001c     gpio.obj (.const:GPIO_PORT_TO_BASE)
+                  00005d3a    00000018     myLcd.obj (.const:SegmentLoc)
+                  00005d52    00000014     myLcd.obj (.const:digit)
+                  00005d66    00000004     main.obj (.const)
 
 $fill000   0    0000ff80    00000004     
                   0000ff80    00000004     --HOLE-- [fill = ffff]
@@ -250,75 +254,77 @@ SYSNMI     0    0000fffc    00000002
 .reset     0    0000fffe    00000002     
                   0000fffe    00000002     rts430x_lc_rd_eabi.lib : boot.obj (.reset)
 
-.text      0    00010000    00000b02     
-                  00010000    0000017c     cs.obj (.text:privateCSASourceClockFromDCO)
-                  0001017c    000000e0     cs.obj (.text:privateCSAComputeCLKFrequency)
-                  0001025c    000000a0     myLcd.obj (.text:myLCD_init)
-                  000102fc    0000009e     myClocksWithCrystals.obj (.text:initClocks)
-                  0001039a    0000008a     lcd_c.obj (.text:LCD_C_setPinAsLCDFunctionEx)
-                  00010424    00000082     rts430x_lc_rd_eabi.lib : autoinit_wdt.obj (.text:_auto_init_hold_wdt)
-                  000104a6    00000072     gpio.obj (.text:GPIO_setAsPeripheralModuleFunctionInputPin)
-                  00010518    00000068     rts430x_lc_rd_eabi.lib : copy_decompress_rle.obj (.text:__TI_decompress_rle_core)
-                  00010580    00000066     cs.obj (.text:CS_initClockSignal)
-                  000105e6    00000066     rts430x_lc_rd_eabi.lib : cpy_tbl.obj (.text:copy_in)
-                  0001064c    0000005e                            : setjmp.obj (.text)
-                  000106aa    00000058     cs.obj (.text:CS_turnOnLFXTWithTimeout)
-                  00010702    00000058     rts430x_lc_rd_eabi.lib : div32u.obj (.text)
-                  0001075a    00000052     lcd_c.obj (.text:LCD_C_setVLCDSource)
-                  000107ac    00000042     lcd_c.obj (.text:setLCDFunction)
-                  000107ee    00000040     rts430x_lc_rd_eabi.lib : div32s.obj (.text)
-                  0001082e    0000003a     myGpio.obj (.text:initGPIO)
-                  00010868    0000002e     lcd_c.obj (.text:LCD_C_init)
-                  00010896    0000002e     main.obj (.text:main)
-                  000108c4    0000002c     lcd_c.obj (.text:LCD_C_configChargePump)
-                  000108f0    0000002c     rts430x_lc_rd_eabi.lib : div16s.obj (.text)
-                  0001091c    00000028     MSPMPU_INIT_LIB_CCS_msp430_large_code_restricted_data.lib : mpu_init.o (.text:__mpu_init)
-                  00010944    00000026     main.obj (.text:task1)
-                  0001096a    0000001e     cs.obj (.text:CS_getACLK)
-                  00010988    0000001c     lcd_c.obj (.text:LCD_C_setBlinkingControl)
-                  000109a4    0000001a     cs.obj (.text:CS_getSMCLK)
-                  000109be    0000001a     lcd_c.obj (.text:LCD_C_selectChargePumpReference)
-                  000109d8    0000001a     lcd_c.obj (.text:LCD_C_setVLCDVoltage)
-                  000109f2    00000018     lcd_c.obj (.text:LCD_C_selectDisplayMemory)
-                  00010a0a    00000018     rts430x_lc_rd_eabi.lib : mult16_f5hw.obj (.text)
-                  00010a22    00000016     cs.obj (.text:CS_getMCLK)
-                  00010a38    00000016     rts430x_lc_rd_eabi.lib : div16u.obj (.text)
-                  00010a4e    00000014                            : memcpy.obj (.text:memcpy)
-                  00010a62    00000012     cs.obj (.text:CS_setDCOFreq)
-                  00010a74    00000012     cs.obj (.text:CS_setExternalClockSource)
-                  00010a86    00000012     rts430x_lc_rd_eabi.lib : copy_decompress_none.obj (.text:decompress:none:__TI_decompress_none)
-                  00010a98    0000000e     lcd_c.obj (.text:LCD_C_enableChargePump)
-                  00010aa6    0000000e     main.obj (.text:task3)
-                  00010ab4    0000000c     lcd_c.obj (.text:LCD_C_clearBlinkingMemory)
-                  00010ac0    0000000c     lcd_c.obj (.text:LCD_C_clearMemory)
-                  00010acc    0000000a     rts430x_lc_rd_eabi.lib : lsl16.obj (.text)
-                  00010ad6    0000000a                            : lsr16.obj (.text)
-                  00010ae0    00000006     lcd_c.obj (.text:LCD_C_off)
-                  00010ae6    00000006     lcd_c.obj (.text:LCD_C_on)
-                  00010aec    00000006     rts430x_lc_rd_eabi.lib : exit.obj (.text:abort)
-                  00010af2    00000006                            : copy_decompress_rle.obj (.text:decompress:rle24:__TI_decompress_rle24)
-                  00010af8    00000004                            : pre_init.obj (.text:_system_pre_init)
-                  00010afc    00000004     main.obj (.text:task2)
-                  00010b00    00000002     rts430x_lc_rd_eabi.lib : startup.obj (.text:_system_post_cinit)
+.text      0    00010000    00000dde     
+                  00010000    000001e2     myLcd.obj (.text:myLCD_showChar)
+                  000101e2    0000017c     cs.obj (.text:privateCSASourceClockFromDCO)
+                  0001035e    000000e0     cs.obj (.text:privateCSAComputeCLKFrequency)
+                  0001043e    000000a0     myLcd.obj (.text:myLCD_init)
+                  000104de    0000009e     myClocksWithCrystals.obj (.text:initClocks)
+                  0001057c    0000008a     lcd_c.obj (.text:LCD_C_setPinAsLCDFunctionEx)
+                  00010606    00000082     rts430x_lc_rd_eabi.lib : autoinit_wdt.obj (.text:_auto_init_hold_wdt)
+                  00010688    0000007a     main.obj (.text:task3)
+                  00010702    00000072     gpio.obj (.text:GPIO_setAsPeripheralModuleFunctionInputPin)
+                  00010774    00000072     lcd_c.obj (.text:LCD_C_setMemory)
+                  000107e6    00000068     rts430x_lc_rd_eabi.lib : copy_decompress_rle.obj (.text:__TI_decompress_rle_core)
+                  0001084e    00000066     cs.obj (.text:CS_initClockSignal)
+                  000108b4    00000066     rts430x_lc_rd_eabi.lib : cpy_tbl.obj (.text:copy_in)
+                  0001091a    0000005e                            : setjmp.obj (.text)
+                  00010978    00000058     cs.obj (.text:CS_turnOnLFXTWithTimeout)
+                  000109d0    00000058     rts430x_lc_rd_eabi.lib : div32u.obj (.text)
+                  00010a28    00000052     lcd_c.obj (.text:LCD_C_setVLCDSource)
+                  00010a7a    00000042     lcd_c.obj (.text:setLCDFunction)
+                  00010abc    00000040     rts430x_lc_rd_eabi.lib : div32s.obj (.text)
+                  00010afc    0000003a     myGpio.obj (.text:initGPIO)
+                  00010b36    0000002e     lcd_c.obj (.text:LCD_C_init)
+                  00010b64    0000002e     main.obj (.text:main)
+                  00010b92    0000002c     lcd_c.obj (.text:LCD_C_configChargePump)
+                  00010bbe    0000002c     rts430x_lc_rd_eabi.lib : div16s.obj (.text)
+                  00010bea    0000002c     main.obj (.text:task1)
+                  00010c16    00000028     MSPMPU_INIT_LIB_CCS_msp430_large_code_restricted_data.lib : mpu_init.o (.text:__mpu_init)
+                  00010c3e    0000001e     cs.obj (.text:CS_getACLK)
+                  00010c5c    0000001c     lcd_c.obj (.text:LCD_C_setBlinkingControl)
+                  00010c78    0000001a     cs.obj (.text:CS_getSMCLK)
+                  00010c92    0000001a     lcd_c.obj (.text:LCD_C_selectChargePumpReference)
+                  00010cac    0000001a     lcd_c.obj (.text:LCD_C_setVLCDVoltage)
+                  00010cc6    0000001a     main.obj (.text:task2)
+                  00010ce0    00000018     lcd_c.obj (.text:LCD_C_selectDisplayMemory)
+                  00010cf8    00000018     rts430x_lc_rd_eabi.lib : mult16_f5hw.obj (.text)
+                  00010d10    00000016     cs.obj (.text:CS_getMCLK)
+                  00010d26    00000016     rts430x_lc_rd_eabi.lib : div16u.obj (.text)
+                  00010d3c    00000014                            : memcpy.obj (.text:memcpy)
+                  00010d50    00000012     cs.obj (.text:CS_setDCOFreq)
+                  00010d62    00000012     cs.obj (.text:CS_setExternalClockSource)
+                  00010d74    00000012     rts430x_lc_rd_eabi.lib : copy_decompress_none.obj (.text:decompress:none:__TI_decompress_none)
+                  00010d86    0000000e     lcd_c.obj (.text:LCD_C_enableChargePump)
+                  00010d94    0000000c     lcd_c.obj (.text:LCD_C_clearBlinkingMemory)
+                  00010da0    0000000c     lcd_c.obj (.text:LCD_C_clearMemory)
+                  00010dac    0000000a     rts430x_lc_rd_eabi.lib : lsl16.obj (.text)
+                  00010db6    0000000a                            : lsr16.obj (.text)
+                  00010dc0    00000006     lcd_c.obj (.text:LCD_C_off)
+                  00010dc6    00000006     lcd_c.obj (.text:LCD_C_on)
+                  00010dcc    00000006     rts430x_lc_rd_eabi.lib : exit.obj (.text:abort)
+                  00010dd2    00000006                            : copy_decompress_rle.obj (.text:decompress:rle24:__TI_decompress_rle24)
+                  00010dd8    00000004                            : pre_init.obj (.text:_system_pre_init)
+                  00010ddc    00000002                            : startup.obj (.text:_system_post_cinit)
 
 MODULE SUMMARY
 
        Module                     code   ro data   rw data
        ------                     ----   -------   -------
     .\
-       main.obj                   298    6         6144   
+       main.obj                   434    6         6153   
+       myLcd.obj                  642    96        12     
        myClocksWithCrystals.obj   158    0         14     
-       myLcd.obj                  160    0         12     
        myGpio.obj                 58     0         0      
     +--+--------------------------+------+---------+---------+
-       Total:                     674    6         6170   
+       Total:                     1292   102       6179   
                                                           
     .\driverlib\MSP430FR5xx_6xx\
        cs.obj                     908    0         8      
-       lcd_c.obj                  530    0         0      
+       lcd_c.obj                  644    0         0      
        gpio.obj                   114    28        0      
     +--+--------------------------+------+---------+---------+
-       Total:                     1552   28        8      
+       Total:                     1666   28        8      
                                                           
     C:\ti\ccsv6\ccs_base\msp430\lib\FR59xx\MSPMPU_INIT_LIB_CCS_msp430_large_code_restricted_data.lib
        mpu_init.o                 40     0         0      
@@ -376,21 +382,21 @@ MODULE SUMMARY
        Total:                     786    56        0      
                                                           
        Stack:                     0      0         160    
-       Linker Generated:          0      53        0      
+       Linker Generated:          0      58        0      
     +--+--------------------------+------+---------+---------+
-       Grand Total:               3052   143       6338   
+       Grand Total:               3784   244       6347   
 
 
 LINKER GENERATED COPY TABLES
 
-__TI_cinit_table @ 00005d30 records: 2, size/record: 8, table size: 16
-	.data: load addr=00005d0a, load size=00000014 bytes, run addr=00001c6e, run size=00000026 bytes, compression=rle
-	.bss: load addr=00005d1e, load size=00000009 bytes, run addr=00001c00, run size=0000006e bytes, compression=rle
+__TI_cinit_table @ 00005d96 records: 2, size/record: 8, table size: 16
+	.data: load addr=00005d6a, load size=00000019 bytes, run addr=00001c6e, run size=0000002f bytes, compression=rle
+	.bss: load addr=00005d84, load size=00000009 bytes, run addr=00001c00, run size=0000006e bytes, compression=rle
 
 
 LINKER GENERATED HANDLER TABLE
 
-__TI_handler_table @ 00005d28 records: 2, size/record: 4, table size: 8
+__TI_handler_table @ 00005d8e records: 2, size/record: 4, table size: 8
 	index: 0, handler: __TI_decompress_rle24
 	index: 1, handler: __TI_decompress_none
 
@@ -656,7 +662,7 @@ address   name
 000009ce  AESAXIN_L                                 
 000004be  BCD2BIN                                   
 000004bc  BIN2BCD                                   
-00010aec  C$$EXIT                                   
+00010dcc  C$$EXIT                                   
 0000043e  CAPTIO0CTL                                
 0000043f  CAPTIO0CTL_H                              
 0000043e  CAPTIO0CTL_L                              
@@ -759,13 +765,13 @@ address   name
 0000016c  CSCTL6                                    
 0000016d  CSCTL6_H                                  
 0000016c  CSCTL6_L                                  
-0001096a  CS_getACLK                                
-00010a22  CS_getMCLK                                
-000109a4  CS_getSMCLK                               
-00010580  CS_initClockSignal                        
-00010a62  CS_setDCOFreq                             
-00010a74  CS_setExternalClockSource                 
-000106aa  CS_turnOnLFXTWithTimeout                  
+00010c3e  CS_getACLK                                
+00010d10  CS_getMCLK                                
+00010c78  CS_getSMCLK                               
+0001084e  CS_initClockSignal                        
+00010d50  CS_setDCOFreq                             
+00010d62  CS_setExternalClockSource                 
+00010978  CS_turnOnLFXTWithTimeout                  
 00000510  DMA0CTL                                   
 00000511  DMA0CTL_H                                 
 00000510  DMA0CTL_L                                 
@@ -1155,7 +1161,7 @@ address   name
 00000146  GCCTL1                                    
 00000147  GCCTL1_H                                  
 00000146  GCCTL1_L                                  
-000104a6  GPIO_setAsPeripheralModuleFunctionInputPin
+00010702  GPIO_setAsPeripheralModuleFunctionInputPin
 00001c6c  HoldGreenLED                              
 00000a40  LCDBM1                                    
 00000a49  LCDBM10                                   
@@ -1250,19 +1256,20 @@ address   name
 00000a26  LCDM7                                     
 00000a27  LCDM8                                     
 00000a28  LCDM9                                     
-00010ab4  LCD_C_clearBlinkingMemory                 
-00010ac0  LCD_C_clearMemory                         
-000108c4  LCD_C_configChargePump                    
-00010a98  LCD_C_enableChargePump                    
-00010868  LCD_C_init                                
-00010ae0  LCD_C_off                                 
-00010ae6  LCD_C_on                                  
-000109be  LCD_C_selectChargePumpReference           
-000109f2  LCD_C_selectDisplayMemory                 
-00010988  LCD_C_setBlinkingControl                  
-0001039a  LCD_C_setPinAsLCDFunctionEx               
-0001075a  LCD_C_setVLCDSource                       
-000109d8  LCD_C_setVLCDVoltage                      
+00010d94  LCD_C_clearBlinkingMemory                 
+00010da0  LCD_C_clearMemory                         
+00010b92  LCD_C_configChargePump                    
+00010d86  LCD_C_enableChargePump                    
+00010b36  LCD_C_init                                
+00010dc0  LCD_C_off                                 
+00010dc6  LCD_C_on                                  
+00010c92  LCD_C_selectChargePumpReference           
+00010ce0  LCD_C_selectDisplayMemory                 
+00010c5c  LCD_C_setBlinkingControl                  
+00010774  LCD_C_setMemory                           
+0001057c  LCD_C_setPinAsLCDFunctionEx               
+00010a28  LCD_C_setVLCDSource                       
+00010cac  LCD_C_setVLCDVoltage                      
 000004c4  MAC                                       
 000004da  MAC32H                                    
 000004db  MAC32H_H                                  
@@ -1596,6 +1603,7 @@ address   name
 0000019a  SYSUNIV                                   
 0000019b  SYSUNIV_H                                 
 0000019a  SYSUNIV_L                                 
+00005d3a  SegmentLoc                                
 00000352  TA0CCR0                                   
 00000354  TA0CCR1                                   
 00000356  TA0CCR2                                   
@@ -1821,15 +1829,15 @@ address   name
 000000a0  __STACK_SIZE                              
 UNDEFED   __TI_BINIT_Base                           
 UNDEFED   __TI_BINIT_Limit                          
-00005d30  __TI_CINIT_Base                           
-00005d40  __TI_CINIT_Limit                          
-00005d28  __TI_Handler_Table_Base                   
-00005d30  __TI_Handler_Table_Limit                  
+00005d96  __TI_CINIT_Base                           
+00005da6  __TI_CINIT_Limit                          
+00005d8e  __TI_Handler_Table_Base                   
+00005d96  __TI_Handler_Table_Limit                  
 UNDEFED   __TI_INITARRAY_Base                       
 UNDEFED   __TI_INITARRAY_Limit                      
 00005ce2  __TI_ISR_TRAP                             
-00010a86  __TI_decompress_none                      
-00010af2  __TI_decompress_rle24                     
+00010d74  __TI_decompress_none                      
+00010dd2  __TI_decompress_rle24                     
 0000ffc6  __TI_int27                                
 0000ffc8  __TI_int28                                
 0000ffca  __TI_int29                                
@@ -1863,53 +1871,62 @@ ffffffff  __TI_prof_data_size
 ffffffff  __TI_prof_data_start                      
 ffffffff  __c_args__                                
 00000001  __mpu_enable                              
-0001091c  __mpu_init                                
-000108f0  __mspabi_divi                             
-000107ee  __mspabi_divli                            
-00010a38  __mspabi_divu                             
-00010702  __mspabi_divul                            
-00010a0a  __mspabi_mpyi_f5hw                        
-000108f0  __mspabi_remi                             
-000107ee  __mspabi_remli                            
-00010a38  __mspabi_remu                             
-00010702  __mspabi_remul                            
-00010acc  __mspabi_slli                             
-00010ad6  __mspabi_srli                             
-00010424  _auto_init_hold_wdt                       
+00010c16  __mpu_init                                
+00010bbe  __mspabi_divi                             
+00010abc  __mspabi_divli                            
+00010d26  __mspabi_divu                             
+000109d0  __mspabi_divul                            
+00010cf8  __mspabi_mpyi_f5hw                        
+00010bbe  __mspabi_remi                             
+00010abc  __mspabi_remli                            
+00010d26  __mspabi_remu                             
+000109d0  __mspabi_remul                            
+00010dac  __mspabi_slli                             
+00010db6  __mspabi_srli                             
+00010606  _auto_init_hold_wdt                       
 00005cc4  _c_int00_noargs_noexit_mpu                
 0000fffe  _reset_vector                             
-0001064c  _setjmp                                   
+0001091a  _setjmp                                   
 00002360  _stack                                    
-00010b00  _system_post_cinit                        
-00010af8  _system_pre_init                          
-00010aec  abort                                     
+00010ddc  _system_post_cinit                        
+00010dd8  _system_pre_init                          
+00010dcc  abort                                     
+00005cea  alphabetBig                               
 00001c7b  bReturn                                   
-000105e6  copy_in                                   
-00001c93  currTask                                  
+000108b4  copy_in                                   
+00001c88  currTask                                  
+00005d52  digit                                     
+00001c8e  drawFlag                                  
 00005c00  fram_ipe_end                              
 00005c00  fram_ipe_start                            
 00004400  fram_rw_start                             
 00005c00  fram_rx_start                             
-000102fc  initClocks                                
-0001082e  initGPIO                                  
+000104de  initClocks                                
+00010afc  initGPIO                                  
 00001c7c  initParams                                
-0001067c  longjmp                                   
-00010896  main                                      
-00010a4e  memcpy                                    
+0001094a  longjmp                                   
+00010b64  main                                      
+00010d3c  memcpy                                    
 0000a501  mpu_ctl0_value                            
 00001513  mpu_sam_value                             
 000005c0  mpu_segment_border1                       
 000005c0  mpu_segment_border2                       
 00001c6e  myACLK                                    
-0001025c  myLCD_init                                
+0001043e  myLCD_init                                
+00010000  myLCD_showChar                            
 00001c76  myMCLK                                    
 00001c72  mySMCLK                                   
-00001c90  priority                                  
+00001c89  p1Card                                    
+00001c8b  p1Suit                                    
+00001c8a  p2Card                                    
+00001c8c  p2Suit                                    
+00001c90  printNow                                  
+00001c9a  priority                                  
 00001c7a  returnValue                               
-0001064c  setjmp                                    
-00010944  task1                                     
-00010afc  task2                                     
-00010aa6  task3                                     
+0001091a  setjmp                                    
+00010bea  task1                                     
+00010cc6  task2                                     
+00010688  task3                                     
 00004400  taskBlocks                                
 00001c00  taskRegs                                  
 
@@ -3325,8 +3342,14 @@ address   name
 00001c7a  returnValue                               
 00001c7b  bReturn                                   
 00001c7c  initParams                                
-00001c90  priority                                  
-00001c93  currTask                                  
+00001c88  currTask                                  
+00001c89  p1Card                                    
+00001c8a  p2Card                                    
+00001c8b  p1Suit                                    
+00001c8c  p2Suit                                    
+00001c8e  drawFlag                                  
+00001c90  printNow                                  
+00001c9a  priority                                  
 00002360  _stack                                    
 00002400  __STACK_END                               
 00004400  fram_rw_start                             
@@ -3337,10 +3360,13 @@ address   name
 00005c00  fram_rx_start                             
 00005cc4  _c_int00_noargs_noexit_mpu                
 00005ce2  __TI_ISR_TRAP                             
-00005d28  __TI_Handler_Table_Base                   
-00005d30  __TI_CINIT_Base                           
-00005d30  __TI_Handler_Table_Limit                  
-00005d40  __TI_CINIT_Limit                          
+00005cea  alphabetBig                               
+00005d3a  SegmentLoc                                
+00005d52  digit                                     
+00005d8e  __TI_Handler_Table_Base                   
+00005d96  __TI_CINIT_Base                           
+00005d96  __TI_Handler_Table_Limit                  
+00005da6  __TI_CINIT_Limit                          
 0000a501  mpu_ctl0_value                            
 0000ffc6  __TI_int27                                
 0000ffc8  __TI_int28                                
@@ -3371,58 +3397,60 @@ address   name
 0000fffa  __TI_int53                                
 0000fffc  __TI_int54                                
 0000fffe  _reset_vector                             
-0001025c  myLCD_init                                
-000102fc  initClocks                                
-0001039a  LCD_C_setPinAsLCDFunctionEx               
-00010424  _auto_init_hold_wdt                       
-000104a6  GPIO_setAsPeripheralModuleFunctionInputPin
-00010580  CS_initClockSignal                        
-000105e6  copy_in                                   
-0001064c  _setjmp                                   
-0001064c  setjmp                                    
-0001067c  longjmp                                   
-000106aa  CS_turnOnLFXTWithTimeout                  
-00010702  __mspabi_divul                            
-00010702  __mspabi_remul                            
-0001075a  LCD_C_setVLCDSource                       
-000107ee  __mspabi_divli                            
-000107ee  __mspabi_remli                            
-0001082e  initGPIO                                  
-00010868  LCD_C_init                                
-00010896  main                                      
-000108c4  LCD_C_configChargePump                    
-000108f0  __mspabi_divi                             
-000108f0  __mspabi_remi                             
-0001091c  __mpu_init                                
-00010944  task1                                     
-0001096a  CS_getACLK                                
-00010988  LCD_C_setBlinkingControl                  
-000109a4  CS_getSMCLK                               
-000109be  LCD_C_selectChargePumpReference           
-000109d8  LCD_C_setVLCDVoltage                      
-000109f2  LCD_C_selectDisplayMemory                 
-00010a0a  __mspabi_mpyi_f5hw                        
-00010a22  CS_getMCLK                                
-00010a38  __mspabi_divu                             
-00010a38  __mspabi_remu                             
-00010a4e  memcpy                                    
-00010a62  CS_setDCOFreq                             
-00010a74  CS_setExternalClockSource                 
-00010a86  __TI_decompress_none                      
-00010a98  LCD_C_enableChargePump                    
-00010aa6  task3                                     
-00010ab4  LCD_C_clearBlinkingMemory                 
-00010ac0  LCD_C_clearMemory                         
-00010acc  __mspabi_slli                             
-00010ad6  __mspabi_srli                             
-00010ae0  LCD_C_off                                 
-00010ae6  LCD_C_on                                  
-00010aec  C$$EXIT                                   
-00010aec  abort                                     
-00010af2  __TI_decompress_rle24                     
-00010af8  _system_pre_init                          
-00010afc  task2                                     
-00010b00  _system_post_cinit                        
+00010000  myLCD_showChar                            
+0001043e  myLCD_init                                
+000104de  initClocks                                
+0001057c  LCD_C_setPinAsLCDFunctionEx               
+00010606  _auto_init_hold_wdt                       
+00010688  task3                                     
+00010702  GPIO_setAsPeripheralModuleFunctionInputPin
+00010774  LCD_C_setMemory                           
+0001084e  CS_initClockSignal                        
+000108b4  copy_in                                   
+0001091a  _setjmp                                   
+0001091a  setjmp                                    
+0001094a  longjmp                                   
+00010978  CS_turnOnLFXTWithTimeout                  
+000109d0  __mspabi_divul                            
+000109d0  __mspabi_remul                            
+00010a28  LCD_C_setVLCDSource                       
+00010abc  __mspabi_divli                            
+00010abc  __mspabi_remli                            
+00010afc  initGPIO                                  
+00010b36  LCD_C_init                                
+00010b64  main                                      
+00010b92  LCD_C_configChargePump                    
+00010bbe  __mspabi_divi                             
+00010bbe  __mspabi_remi                             
+00010bea  task1                                     
+00010c16  __mpu_init                                
+00010c3e  CS_getACLK                                
+00010c5c  LCD_C_setBlinkingControl                  
+00010c78  CS_getSMCLK                               
+00010c92  LCD_C_selectChargePumpReference           
+00010cac  LCD_C_setVLCDVoltage                      
+00010cc6  task2                                     
+00010ce0  LCD_C_selectDisplayMemory                 
+00010cf8  __mspabi_mpyi_f5hw                        
+00010d10  CS_getMCLK                                
+00010d26  __mspabi_divu                             
+00010d26  __mspabi_remu                             
+00010d3c  memcpy                                    
+00010d50  CS_setDCOFreq                             
+00010d62  CS_setExternalClockSource                 
+00010d74  __TI_decompress_none                      
+00010d86  LCD_C_enableChargePump                    
+00010d94  LCD_C_clearBlinkingMemory                 
+00010da0  LCD_C_clearMemory                         
+00010dac  __mspabi_slli                             
+00010db6  __mspabi_srli                             
+00010dc0  LCD_C_off                                 
+00010dc6  LCD_C_on                                  
+00010dcc  C$$EXIT                                   
+00010dcc  abort                                     
+00010dd2  __TI_decompress_rle24                     
+00010dd8  _system_pre_init                          
+00010ddc  _system_post_cinit                        
 ffffffff  __TI_pprof_out_hndl                       
 ffffffff  __TI_prof_data_size                       
 ffffffff  __TI_prof_data_start                      
@@ -3432,4 +3460,4 @@ UNDEFED   __TI_BINIT_Limit
 UNDEFED   __TI_INITARRAY_Base                       
 UNDEFED   __TI_INITARRAY_Limit                      
 
-[1513 symbols]
+[1524 symbols]

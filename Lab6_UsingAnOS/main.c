@@ -13,7 +13,8 @@
 int HoldGreenLED;
 char currTask = 1;
 char priority[3] = {0, 0, 1};     //set the priority of each task (only task 3 is priority)
-char p1Card,p2Card,p1Suit,p2Suit;
+char p1Card='K',p2Card='4',p1Suit='C',p2Suit='D';
+short drawFlag = 0, printNow = 0;
 
 void ScrollWords(char words[300]);
 void task1();
@@ -39,6 +40,10 @@ int main(void) {
     WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
     PM5CTL0 = ENABLE_PINS; 				// Enable inputs and outputs
     HoldGreenLED = 3; // place some default value for the LED
+
+    //TODO: use ScrollWords to show directions
+    //TODO: explain order of suits: H, D, C, S
+
     TA0CCR0 = 10000;     // setup TA0 timer to count for default length of time
     TA0CTL = 0x0114;     // start TA0 timer from zero in UP mode with ACLK
     TA0CCTL0 = CCIE; // Enable interrupt for Timer0
@@ -71,20 +76,19 @@ __interrupt void OStimer(void){ //handle task incrementing
 }
 
 void task1(){
-	//TODO: set up button
 	P1DIR = P1DIR & ~BIT1;     // P1.1 (Button S1) will be an input
 	P1REN = P1REN | BIT1;      // P1.1 will have a pull-up
 	P1OUT = P1OUT | BIT1;      // resistor.
 
 	while(1){
 		//TODO: add debounce?
-		if(!(P1IN & 0x02)){ //check if button P1.1 is pressed
-			taskBlocks[0].taskData[800] = 1; //Set draw flag = 1, store that in taskData[800]
+		if(P1IN & 0x02){ //check if button P1.1 is pressed
+			drawFlag = 1; //Set draw flag = 1, store that in taskData[800]
 
-			while(taskBlocks[0].taskData[800] == 1){ //spin here until task switch
+			while(drawFlag == 1){ //spin here until task switch
 			}
 		} else{
-			taskBlocks[0].taskData[800] = 0; //clear draw flag
+			drawFlag = 0; //clear draw flag
 		}
 	}
 }
@@ -97,27 +101,40 @@ void task2(){
 	//TODO: setup vars & randomization
 
 	while(1){
-		if(taskBlocks[0].taskData[800]==1){ //check if draw is needed
+		if(drawFlag==1){ //check if draw is needed
 			//TODO: trigger drawing suit and card, prevent double
 
-			taskBlocks[1].taskData[801] = 1; //set ready to print flag
+			printNow = 1; //set ready to print flag
 		} else{
 			//TODO: if not, return? or go to next? or keep checking?
-			taskBlocks[1].taskData[801] = 0; //clear ready to print flag
-			while(taskBlocks[1].taskData[801] == 0){ //spin here until task switch
+			printNow = 0; //clear ready to print flag
+			while(printNow == 0){ //spin here until task switch
 			}
 		}
 	}
 }
 
 void task3(){
-	//TODO: fill in
 	initGPIO();                // Initializes Inputs and Outputs for LCD
 	initClocks();              // Initialize clocks for LCD
 	myLCD_init();              // Prepares LCD to receive commands
 
+	myLCD_showChar(p1Card,1);
+	myLCD_showChar(p1Suit,2);
+	myLCD_showChar(p2Card,5);
+	myLCD_showChar(p2Suit,6);
 	while(1){
-		//
+		if(printNow == 1){ //if ready to print
+			//TODO: print cards
+			myLCD_showChar(p1Card,1);
+			myLCD_showChar(p1Suit,2);
+			myLCD_showChar(p2Card,5);
+			myLCD_showChar(p2Suit,6);
+			printNow = 0; //clear flag
+		} else {
+			while(printNow == 0){ //spin here until task switch
+			}
+		}
 	}
 
 }
