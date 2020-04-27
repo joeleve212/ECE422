@@ -123,7 +123,7 @@ __interrupt void OStimer(void){ //handle task incrementing
 	}
 }
 
-void task1(){
+void task1(){ //Handle button checking
 	P1DIR = P1DIR & ~BIT1;     // P1.1 (Button S1) will be an input
 	P1REN = P1REN | BIT1;      // P1.1 will have a pull-up
 	P1OUT = P1OUT | BIT1;      // resistor.
@@ -183,7 +183,7 @@ void interpPull(int pull, int playerNum){ //populate suit and card array vars
 	}
 }
 
-void drawCards(){
+void drawCards(){ //pull two random, unique cards from 52 card deck
 	int p1Pull = rand() % 52; //randomly pick 0-51 (since 52 card deck)
 	int p2Pull = rand() % 52; //randomly pick 0-51 (since 52 card deck)
 	while(p1Pull==p2Pull){	  //pick new card for p2 until it's different from p1
@@ -193,25 +193,22 @@ void drawCards(){
 	interpPull(p2Pull,2);
 }
 
-void task2(){
-	//TODO: setup vars & randomization
-	srand(time(NULL));
+void task2(){ //Handle card pulling when triggered by button
+	srand(time(NULL));//setup randomization
 	while(1){
 		if(drawFlag==1){ //check if draw is needed
-			//TODO: trigger drawing suit and card, prevent double
-			drawCards();
+			drawCards(); // trigger drawing suit and card, prevent double
 			printNow = 1; //set ready to print flag
 			drawFlag = 0;
 			TA0CCTL0 = TA0CCTL0 | TAIFG; //Throw timer flag
 		} else{
-			//TODO: if not, return? or go to next? or keep checking?
 			printNow = 0; //clear ready to print flag
 			TA0CCTL0 = TA0CCTL0 | TAIFG; //Throw timer flag
 		}
 	}
 }
 
-int cardVal(char card, char pNum){
+int cardVal(char card, char pNum){ //calculates the integer value of any card
 	int val;
 	if(pCard[pNum-1]>'9'){ //If represented by a letter
 			switch(card){
@@ -256,7 +253,7 @@ char findWinner(){ //calculate who won - order of suits: S, H, D, C & Ace is Hig
 	}
 }
 
-void task3(){
+void task3(){ //handle all prints to the LCD when needed
 	while(1){
 		if(printNow == 1){ //if ready to print
 			//print cards
